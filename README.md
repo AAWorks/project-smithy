@@ -9,14 +9,14 @@
 4.1. If it is your account or you are an admin account, view all uploads
 
 # Database
-Login Table
-Username | Passwords (Hash) + Salt | Class_Ranking
+__Login Table__  
+Username | Passwords (Hash) + Salt | Class_Ranking |
 
-Projects Table
+__Projects Table__  
 Project_ID | Project_Title | Authors | Avg_Rating | 
 
-Comments Table
+__Comments Table__  
 Comment | Project_ID | Username | Upvotes | Downvotes | Anonymous | 
 
-Ratings Table
-Username | Project_ID | Rating
+__Ratings Table__  
+Username | Project_ID | Rating |
