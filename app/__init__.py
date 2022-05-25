@@ -7,10 +7,17 @@ exec(code)
 app = Flask(__name__)
 app.secret_key = 'physiscmakesmesad'
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
     try:
         return render_template("login.html")
+    except:
+        return render_template("error.html")
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    try:
+        return render_template("register.html")
     except:
         return render_template("error.html")
 
