@@ -222,3 +222,5 @@ dmypy.json
 
 discobandit.db
 project_reviewal.db
+app/discobandit.db
+app/project_reviewal.db
