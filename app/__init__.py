@@ -46,7 +46,7 @@ def authenticate():
 
     # Variables
     method = request.method
-    stuy_username = request.form.get('stuy_username')
+    stuy_username = request.form.get('stuy_username').lower()
     password = request.form.get('password')
 
     # Get vs Post
@@ -68,9 +68,9 @@ def rAuthenticate():
     ''' Authentication of username and passwords given in register page from user '''
 
     method = request.method
-    firstname = request.form.get('firstname')
-    lastname = request.form.get('lastname')
-    stuy_username = request.form.get('stuy_username')
+    firstname = request.form.get('firstname').lower()
+    lastname = request.form.get('lastname').lower()
+    stuy_username = request.form.get('stuy_username').lower()
     password0 = request.form.get('password0')
     password1 = request.form.get('password1')
 
@@ -100,18 +100,18 @@ def rAuthenticate():
                 else:
                     return render_template('register.html', taken=True)
 
-
 @app.route("/logout")
 def logout():
     ''' Logout user by deleting user from session dict. Redirects to loginpage '''
     # Delete user. This try... except... block prevent an error from ocurring when the logout page is accessed from the login page
     try:
-        session.pop('username')
+        session.pop('user_id')
     except KeyError:
         return redirect(url_for('disp_home'))
     # Redirect to login page
     return redirect(url_for('disp_home'))
 
+@app.route("/home", methods=['GET', 'POST'])
 @app.route("/", methods=['GET', 'POST'])
 def disp_home():
     ''' Loads the landing page '''
