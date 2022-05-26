@@ -1,4 +1,4 @@
-# Project Reviewal
+# Smithy: Project Reviewal System
 ### Team Jimin - Alejandro Alonso, Noakai Aronesty, Justin Zou, Ivan Lam
 
 # Specifications
