@@ -1,22 +1,30 @@
-# Smithy: Project Reviewal System
-### Team Jimin - Alejandro Alonso, Noakai Aronesty, Justin Zou, Ivan Lam
+# Smithy: Project Reviewal System by Team Jimin
+### Team Jimin: 
+Alejandro Alonso(PM + Backend Developer)
 
-# Specifications
-1. Must be logged in to comment or upload, but can toggle anonymous for comments
-2. Users with admin access (i.e. Mykolyk) can view comment and ratings sources
-3. Ratings are anonymous, unless chosen not to be alongside a comment
-4. Account page, view all public uploads that account has made
-4.1. If it is your account or you are an admin account, view all uploads
+Noakai Aronesty(Frontend Developer)
 
-# Database
-__Login Table__  
-UserID | Passwords (Hash) + Salt | first | last | favorites | average_rating_given
+Justin Zou(Frontend Developer)
 
-__Projects Table__  
-Project_ID | Project_Title | Authors | Avg_Rating | 
+Ivan Lam(Backend Developer)
 
-__Comments Table__  
-Comment | Project_ID | UserID | Upvotes | Downvotes | Anonymous | 
 
-__Ratings Table__  
-UserID | Project_ID | Rating |
+# Summary
+This is going to be a Software Development Review Site, designed with Mr.Mykolyk's Softdev class in mind. The site will allow teams to upload their projects to the server, rate and comment on these projects. We will have upvoting and downvoting comments and a star system to review the overall project. We hope to add features such as awards, badges and leaderboards to help incentive certain actions and is being built with longevity in mind.
+
+# API Cards
+None were used in the making of this project
+# Launch Codes
+- Install and activate virtual environment <br>
+$ ```python3 -m venv ~/venv``` <br>
+Linux: $ ```source ~/venv/bin/activate``` <br>
+Windows: $ ```source ~/venv/Scripts/activate``` <br><br>
+- Clone the Repository <br>
+(venv)$ ```git clone https://github.com/AAWorks/project-reviewal-system.git ``` <br><br>
+- Install Dependencies <br>
+(venv)$ ```cd project-reviewal-system ``` <br>
+(venv)$ ```pip install -r requirements.txt``` <br><br> 
+- Run the app <br>
+(venv)$ ```cd app``` <br>
+(venv)$ ```python3 __init__.py``` <br><br>
+- Open the website at http://127.0.0.1:5000/
