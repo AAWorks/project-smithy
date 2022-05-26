@@ -21,6 +21,13 @@ def register():
     except:
         return render_template("error.html")
 
+@app.routhe('/terms', methods=['GET', 'POST'])
+def terms():
+    try:
+        return render_template("terms.html")
+    except:
+        return render_template("error.html")
+
 if __name__ == "__main__": #false if this file imported as module
     #enable debugging, auto-restarting of server when this file is modified
     app.debug = True
