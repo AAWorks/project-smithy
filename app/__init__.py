@@ -42,12 +42,6 @@ def terms():
     except:
         return render_template("error.html")
 
-<<<<<<< HEAD
-
-
-
-
-
 # authetication of login
 @app.route("/auth", methods=['GET', 'POST'])
 def authenticate():
@@ -119,14 +113,13 @@ def logout():
         return redirect(url_for('disp_home'))
     # Redirect to login page
     return redirect(url_for('disp_home'))
-=======
+
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     try:
         return render_template("home.html")
     except:
         return render_template("error.html")
->>>>>>> e3fee8f6965e3097b0ebc28c5f1c0d1b14c3deab
 
 if __name__ == "__main__": #false if this file imported as module
     #enable debugging, auto-restarting of server when this file is modified
