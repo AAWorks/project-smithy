@@ -13,11 +13,6 @@ app = Flask(__name__)
 app.secret_key = 'stuffins'
 
 
-@app.route("/", methods=['GET', 'POST'])
-def disp_home():
-    ''' Loads the landing page '''
-    return render_template('home.html')
-
 @app.route('/login', methods=['GET','POST'])
 def login():
     try:
@@ -85,7 +80,7 @@ def rAuthenticate():
     if method == 'POST':
         # error when no username is inputted
         if len(stuy_username) == 0:
-            return render_template('register.html', given="stuy_username")
+            return render_template('register.html', given="stuyvesant username")
         # error when no password is inputted
         elif len(password0) == 0:
             return render_template('register.html', given="password")
@@ -114,8 +109,9 @@ def logout():
     # Redirect to login page
     return redirect(url_for('disp_home'))
 
-@app.route('/home', methods=['GET', 'POST'])
-def home():
+@app.route("/", methods=['GET', 'POST'])
+def disp_home():
+    ''' Loads the landing page '''
     try:
         return render_template("home.html")
     except:
