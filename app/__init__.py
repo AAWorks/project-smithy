@@ -1,12 +1,16 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from auth import *
 
-with open("db_builder.py", "rb") as source_file:
-    code = compile(source_file.read(), "db_builder.py", "exec")
+with open("app/db_builder.py", "rb") as source_file:
+    code = compile(source_file.read(), "app/db_builder.py", "exec")
 exec(code)
 
+with open("app/auth.py", "rb") as source_file:
+    code2 = compile(source_file.read(), "app/auth.py", "exec")
+exec(code2)
+
 app = Flask(__name__)
-app.secret_key = 'physiscmakesmesad'
+app.secret_key = 'stuffins'
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -38,6 +42,7 @@ def terms():
     except:
         return render_template("error.html")
 
+<<<<<<< HEAD
 
 
 
@@ -114,6 +119,14 @@ def logout():
         return redirect(url_for('disp_home'))
     # Redirect to login page
     return redirect(url_for('disp_home'))
+=======
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    try:
+        return render_template("home.html")
+    except:
+        return render_template("error.html")
+>>>>>>> e3fee8f6965e3097b0ebc28c5f1c0d1b14c3deab
 
 if __name__ == "__main__": #false if this file imported as module
     #enable debugging, auto-restarting of server when this file is modified
