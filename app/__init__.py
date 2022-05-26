@@ -23,8 +23,10 @@ def register():
 
 @app.routhe('/terms', methods=['GET', 'POST'])
 def terms():
+    terms = open('static/terms.txt', 'r')
+    terms_lines = terms.readlines()
     try:
-        return render_template("terms.html")
+        return render_template("terms.html", terms=terms_lines)
     except:
         return render_template("error.html")
 
