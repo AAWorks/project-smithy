@@ -28,27 +28,66 @@
                            width=50 height=50>
                      </div>
                   </div>
-                  <form action="/home" name="registration">
+
+
+
+                  <form action="/rAuth" name="registration">
                      <div class="form-group">
                         <label for="exampleInputEmail1">First Name</label>
                         <input type="text" name="firstname" class="form-control" id="firstname"
-                           aria-describedby="emailHelp" placeholder="Enter Firstname">
+                           aria-describedby="emailHelp" placeholder="Enter first name">
                      </div>
                      <div class="form-group">
                         <label for="exampleInputEmail1">Last Name</label>
                         <input type="text" name="lastname" class="form-control" id="lastname"
-                           aria-describedby="emailHelp" placeholder="Enter Lastname">
+                           aria-describedby="emailHelp" placeholder="Enter last name">
                      </div>
                      <div class="form-group">
                         <label for="exampleInputEmail1">stuy.edu username</label>
-                        <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp"
-                           placeholder="Enter stuy.edu username">
+                        <input type="text" name="stuy_username" class="form-control" id="stuy_username"
+                           aria-describedby="emailHelp" placeholder="Enter stuy.edu username">
                      </div>
                      <div class="form-group">
                         <label for="exampleInputEmail1">Password</label>
-                        <input type="password" name="password" id="password" class="form-control"
+                        <input type="password" name="password0" id="password0" class="form-control"
                            aria-describedby="emailHelp" placeholder="Enter Password">
                      </div>
+                     <div class="form-group">
+                        <label for="exampleInputEmail1">Confirm Password</label>
+                        <input type="password" name="password1" id="password1" class="form-control"
+                           aria-describedby="emailHelp" placeholder="Enter Password">
+                     </div>
+
+
+
+                     <!-- error for when user does not put a username or password (must be at least 1 character) and presses register -->
+                     {% if given|length >= 1 %}
+                     <div class="container-fluid px-5">
+                        <div class="alert-danger alert text-center marginy py-2" role="alert">
+                           Please input a {{given}}!
+                        </div>
+                     </div>
+                     {% endif %}
+
+                     {% if mismatch %}
+                     <div class="container-fluid px-5">
+                        <div class="alert-danger alert text-center marginy py-2" role="alert">
+                           Passwords don't match!
+                        </div>
+                     </div>
+                     {% endif %}
+
+                     {% if taken %}
+                     <div class="container-fluid px-5">
+                        <div class="alert-danger alert text-center marginy py-2" role="alert">
+                           Username is taken! Please use a different one!
+                        </div>
+                     </div>
+                     {% endif %}
+
+
+
+
                      <div class="form-group">
                         <p class="text-center">By signing up you accept our <a href="/terms">Terms Of Service</a></p>
                      </div>
@@ -58,11 +97,17 @@
                      </div>
                      <div class="col-md-12 ">
                         <div class="form-group">
-                           <p class="text-center"><a href="/login" id="signin">Already have an account?</a></p>
+                           <p class="text-center">Already have an account? <a href="/login" id="signup">Sign in here</a>
+                           </p>
                         </div>
                      </div>
                </div>
                </form>
+
+
+
+
+               
             </div>
          </div>
       </div>

@@ -14,8 +14,8 @@ def create_db():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY, stuy_username TEXT, password TEXT, fname TEXT, lname TEXT, rating INTEGER, favorites TEXT);")
-    c.execute("CREATE TABLE IF NOT EXISTS projects (project_id INTEGER PRIMARY KEY, project_title TEXT, author_ids TEXT, rating INTEGER);")
+    c.execute("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY AUTOINCREMENT, stuy_username TEXT, password TEXT, firstname TEXT, lastname TEXT);")
+    c.execute("CREATE TABLE IF NOT EXISTS projects (project_id INTEGER PRIMARY KEY AUTOINCREMENT, project_title TEXT, author_ids TEXT, rating INTEGER);")
     c.execute("CREATE TABLE IF NOT EXISTS comments (comment TEXT, project_id INTEGER, upvotes INTEGER, downvotes INTEGER, anonymous INTEGER);")
     c.execute("CREATE TABLE IF NOT EXISTS ratings (project_id INTEGER, user_id INTEGER, rating INTEGER);")
     c.execute("CREATE TABLE IF NOT EXISTS favorites (user_id INTEGER, project_id INTEGER);")
@@ -23,7 +23,7 @@ def create_db():
     db.close()
 
 
-def auth_user(username, password):
+def auth_user(stuy_username, password):
     ''' Validates a username + password when person logs in '''
 
     db = sqlite3.connect(DB_FILE)
@@ -35,8 +35,8 @@ def auth_user(username, password):
     for a_tuple in c.fetchall():
         users.append(a_tuple[0])
 
-    if username in users:
-        c.execute("SELECT passwords FROM users WHERE usernames = '" + username + "'")
+    if stuy_username in users:
+        c.execute("SELECT passwords FROM users WHERE usernames = '" + stuy_username + "'")
         if c.fetchall()[0][0] == password:
             return True
         else:
@@ -45,7 +45,7 @@ def auth_user(username, password):
         return "bad_user"
 
 
-def create_user(username, password):
+def create_user(stuy_username, password, firstname, lastname):
     ''' Adds user to database if right username and password are given when a
         person registers '''
 
@@ -59,12 +59,10 @@ def create_user(username, password):
         users.append(a_tuple[0])
 
     # username is not taken, creates account with given username and password
-    if username in users:
-        return False
-    else:
-        c.execute("INSERT INTO users VALUES (?, ?);", (username, password))
-        db.commit()
-        return True
+
+    c.execute("INSERT INTO users VALUES (?, ?, ?, ?);", (stuy_username, password, firstname, lastname))
+    db.commit()
+    return True
 
 create_db()
 
