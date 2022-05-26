@@ -8,3 +8,6 @@ Sample Entry: firstL -- TIMESTAMP\n ( e.g.: topherM -- 1999-12-31 23:59 )
 Begin Devlog:
 alejandroA -- 2022-23-05 10:41
   Initial repo setup
+  
+justinZ -- 2022-25-05 21:00
+  - finished up the design document
