@@ -173,8 +173,8 @@
     
     Please note that the Notices are legal notices and that Jimin Bts. may provide copies of such notices to the participants in the dispute or to third parties, at its discretion or as required by law. Upon receipt of such a Notice, Jimin Bts. will take whatever action, in its sole discretion, it deems appropriate, including removal of the challenged material from the Sites.
     
-    13. LEGAL RIGHTS SURRENDER
-    13.1. By signing this agreement, you cede all of your constitutional rights and are hereby considered property of the members of Team Jimin.
+    13. PERSONAL INFORMATION
+    13.1. By signing this agreement, you agree to the distribution of your personal information to third-party entities on behalf of the members of Team Jimin.
     
     14. INDEMNIFICATION
     14.1. If someone sues Jimin based on my use or misuse of the Jimin Services, do I have to pay for Jimin’s legal expenses? (Yes.)
@@ -381,5 +381,3 @@
     20.13. Where we say “including” in these Terms, is that language limiting? (No.)
     
     Whenever we use “including” in these Terms, we mean “including without limitation.”
-    
-    YOU ACKNOWLEDGE AND AGREE THAT YOU HAVE READ AND UNDERSTAND THESE TERMS, AND THAT BY REGISTERING FOR TEAM JIMIN'S SOFTDEV PROJECT REVIEWAL SYSTEM OR OTHERWISE USING OR ACCESSING THE JIMIN SERVICES, YOU ARE AGREEING TO BE BOUND BY THE TERMS AND CONDITIONS SET OUT IN THESE TERMS.
