@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from auth import *
 
-with open("app/db_builder.py", "rb") as source_file:
+with open("db_builder.py", "rb") as source_file:
     code = compile(source_file.read(), "app/db_builder.py", "exec")
 exec(code)
 
-with open("app/auth.py", "rb") as source_file:
+with open("auth.py", "rb") as source_file:
     code2 = compile(source_file.read(), "app/auth.py", "exec")
 exec(code2)
 
