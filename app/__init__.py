@@ -46,8 +46,11 @@ def authenticate():
 
     # Variables
     method = request.method
-    username = request.form.get('username')
-    password = request.form.get('password')
+    firstname = request.form.get('firstname')
+    lastname = request.form.get('lastname')
+    stuy_username = request.form.get('stuy_username')
+    password0 = request.form.get('password0')
+    password1 = request.form.get('password1')
 
     # Get vs Post
     if method == 'GET':
@@ -94,8 +97,11 @@ def rAuthenticate():
                 return render_template('register.html', mismatch=True)
             else:
                 # creates user account b/c no fails
-                create_user(stuy_username, password0, firstname, lastname)
-                return render_template('login.html', input='success')
+                if create_user(stuy_username, password0, firstname, lastname):
+                    return render_template('login.html', input='success')
+                # does not create account because create_user failed (username is taken)
+                else:
+                    return render_template('register.html', taken=True)
 
 
 @app.route("/logout")

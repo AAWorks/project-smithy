@@ -5,20 +5,19 @@
 """ Authentication / Creation of Users """
 
 import sqlite3
+from notanorm import SqliteDb
 
 DB_FILE = "project_reviewal.db"
 
 def create_db():
     ''' Creates / Connects to DB File '''
 
-    db = sqlite3.connect(DB_FILE)
-    c = db.cursor()
-
-    c.execute("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY AUTOINCREMENT, stuy_username TEXT, password TEXT, firstname TEXT, lastname TEXT);")
-    c.execute("CREATE TABLE IF NOT EXISTS projects (project_id INTEGER PRIMARY KEY AUTOINCREMENT, project_title TEXT, author_ids TEXT, rating INTEGER);")
-    c.execute("CREATE TABLE IF NOT EXISTS comments (comment TEXT, project_id INTEGER, upvotes INTEGER, downvotes INTEGER, anonymous INTEGER);")
-    c.execute("CREATE TABLE IF NOT EXISTS ratings (project_id INTEGER, user_id INTEGER, rating INTEGER);")
-    c.execute("CREATE TABLE IF NOT EXISTS favorites (user_id INTEGER, project_id INTEGER);")
+    db = SqliteDb(DB_FILE)
+    db.query("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY AUTOINCREMENT, stuy_username TEXT, password TEXT, firstname TEXT, lastname TEXT);")
+    db.query("CREATE TABLE IF NOT EXISTS projects (project_id INTEGER PRIMARY KEY AUTOINCREMENT, project_title TEXT, author_ids TEXT, rating INTEGER);")
+    db.query("CREATE TABLE IF NOT EXISTS comments (comment TEXT, project_id INTEGER, upvotes INTEGER, downvotes INTEGER, anonymous INTEGER);")
+    db.query("CREATE TABLE IF NOT EXISTS ratings (project_id INTEGER, user_id INTEGER, rating INTEGER);")
+    db.query("CREATE TABLE IF NOT EXISTS favorites (user_id INTEGER, project_id INTEGER);")
 
     db.close()
 
@@ -26,43 +25,40 @@ def create_db():
 def auth_user(stuy_username, password):
     ''' Validates a username + password when person logs in '''
 
-    db = sqlite3.connect(DB_FILE)
-    c = db.cursor()
+    db = SqliteDb(DB_FILE)
 
     # Create List of Users
-    c.execute("SELECT usernames FROM users")
-    users = []
-    for a_tuple in c.fetchall():
-        users.append(a_tuple[0])
-
-    if stuy_username in users:
-        c.execute("SELECT passwords FROM users WHERE usernames = '" + stuy_username + "'")
-        if c.fetchall()[0][0] == password:
-            return True
-        else:
-            return "bad_pass"
-    else:
+    stuy_usernames = [u.stuy_username for u in db.select("users")]
+    if stuy_username not in stuy_usernames:
         return "bad_user"
+
+    
+    possible_users = db.select("users", stuy_username=stuy_username)
+    for i in possible_users:
+        if i.password == password:
+            return i.user_id
+    return "bad_pass"
 
 
 def create_user(stuy_username, password, firstname, lastname):
     ''' Adds user to database if right username and password are given when a
         person registers '''
 
-    db = sqlite3.connect(DB_FILE)
-    c = db.cursor()
+    db = SqliteDb(DB_FILE)
 
     # Create List of Users
-    c.execute("SELECT usernames FROM users")
-    users = []
-    for a_tuple in c.fetchall():
-        users.append(a_tuple[0])
+    passwords = [u.password for u in db.select("users")]
+    print(passwords)
 
-    # username is not taken, creates account with given username and password
+    # password is not taken, creates account with given username and password
 
-    c.execute("INSERT INTO users VALUES (?, ?, ?, ?);", (stuy_username, password, firstname, lastname))
-    db.commit()
-    return True
+    if password in passwords:
+        return False
+    else:
+        db.insert(stuy_username=stuy_username, password=password, firstname=firstname, lastname=lastname)
+        db.commit()
+        return True
+
 
 create_db()
 
