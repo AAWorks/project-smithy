@@ -46,24 +46,21 @@ def authenticate():
 
     # Variables
     method = request.method
-    firstname = request.form.get('firstname')
-    lastname = request.form.get('lastname')
     stuy_username = request.form.get('stuy_username')
-    password0 = request.form.get('password0')
-    password1 = request.form.get('password1')
+    password = request.form.get('password')
 
     # Get vs Post
     if method == 'GET':
         return redirect(url_for('disp_home'))
 
-    auth_state = auth_user(username, password)
-    if auth_state == True:
-        session['username'] = username
-        return redirect(url_for('disp_home'))
-    elif auth_state == "bad_pass":
+    auth_state = auth_user(stuy_username, password)
+    if auth_state == "bad_pass":
         return render_template('login.html', input="bad_pass")
     elif auth_state == "bad_user":
         return render_template('login.html', input="bad_user")
+    else:
+        session['user_id'] = auth_state
+        return redirect(url_for('disp_home'))
 
 
 @app.route("/rAuth", methods=['GET', 'POST'])
