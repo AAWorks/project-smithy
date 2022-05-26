@@ -15,8 +15,11 @@ def create_db():
     c = db.cursor()
 
     c.execute("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY, stuy_username TEXT, password TEXT, fname TEXT, lname TEXT, rating INTEGER, favorites TEXT);")
-    c.execute("CREATE TABLE IF NOT EXISTS project (project_id INTEGER PRIMARY KEY, project_title TEXT, author_ids TEXT, rating INTEGER);")
-    c.execute("CREATE TABLE IF NOT EXISTS project (project_id INTEGER PRIMARY KEY, project_title TEXT, author_ids TEXT, rating INTEGER);")
+    c.execute("CREATE TABLE IF NOT EXISTS projects (project_id INTEGER PRIMARY KEY, project_title TEXT, author_ids TEXT, rating INTEGER);")
+    c.execute("CREATE TABLE IF NOT EXISTS comments (comment TEXT, project_id INTEGER, upvotes INTEGER, downvotes INTEGER, anonymous INTEGER);")
+    c.execute("CREATE TABLE IF NOT EXISTS ratings (project_id INTEGER, user_id INTEGER, rating INTEGER);")
+    c.execute("CREATE TABLE IF NOT EXISTS favorites (user_id INTEGER, project_id INTEGER);")
+
     db.close()
 
 
