@@ -1,13 +1,17 @@
 Team Something
 SoftDev
 PF
-2022-23-05
-
-Sample Entry: firstL -- TIMESTAMP\n ( e.g.: topherM -- 1999-12-31 23:59 )
+2022-05-23
 
 Begin Devlog:
-alejandroA -- 2022-23-05 10:41
-  Initial repo setup
+alejandroA -- 2022-05-23 10:41
+  initial repo setup
   
 justinZ -- 2022-25-05 21:00
-  - finished up the design document
+  finished up the design document
+
+noakaiA -- 2022-05-26 07:24
+  actually finished up design document
+
+noakaiA -- 2022-05-26 10:21
+  finished writing and formatting login, register and terms of service pages
