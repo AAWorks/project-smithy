@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 
-with open("app/db_builder.py", "rb") as source_file:
-    code = compile(source_file.read(), "app/db_builder.py", "exec")
+with open("db_builder.py", "rb") as source_file:
+    code = compile(source_file.read(), "db_builder.py", "exec")
 exec(code)
 
 app = Flask(__name__)
