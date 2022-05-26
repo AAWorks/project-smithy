@@ -21,7 +21,7 @@ def register():
     except:
         return render_template("error.html")
 
-@app.routhe('/terms', methods=['GET', 'POST'])
+@app.route('/terms', methods=['GET', 'POST'])
 def terms():
     terms = open('static/terms.txt', 'r')
     terms_lines = terms.readlines()
