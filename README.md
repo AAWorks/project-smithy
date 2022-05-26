@@ -10,13 +10,13 @@
 
 # Database
 __Login Table__  
-Username | Passwords (Hash) + Salt | Class_Ranking |
+UserID | Passwords (Hash) + Salt | first | last | favorites | average_rating_given
 
 __Projects Table__  
 Project_ID | Project_Title | Authors | Avg_Rating | 
 
 __Comments Table__  
-Comment | Project_ID | Username | Upvotes | Downvotes | Anonymous | 
+Comment | Project_ID | UserID | Upvotes | Downvotes | Anonymous | 
 
 __Ratings Table__  
-Username | Project_ID | Rating |
+UserID | Project_ID | Rating |
