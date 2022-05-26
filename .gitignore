@@ -219,3 +219,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+discobandit.db
+project_reviewal.db

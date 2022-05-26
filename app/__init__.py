@@ -1,11 +1,15 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 
-with open("db_builder.py", "rb") as source_file:
-    code = compile(source_file.read(), "db_builder.py", "exec")
+with open("app/db_builder.py", "rb") as source_file:
+    code = compile(source_file.read(), "app/db_builder.py", "exec")
 exec(code)
 
+with open("app/auth.py", "rb") as source_file:
+    code2 = compile(source_file.read(), "app/auth.py", "exec")
+exec(code2)
+
 app = Flask(__name__)
-app.secret_key = 'physiscmakesmesad'
+app.secret_key = 'stuffins'
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -28,6 +32,13 @@ def terms():
     terms.close()
     try:
         return render_template("terms.html", terms=terms_lines)
+    except:
+        return render_template("error.html")
+
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    try:
+        return render_template("home.html")
     except:
         return render_template("error.html")
 
