@@ -23,8 +23,9 @@ def register():
 
 @app.route('/terms', methods=['GET', 'POST'])
 def terms():
-    terms = open('static/terms.txt', 'r')
+    terms = open("static/terms.txt", encoding="utf8")
     terms_lines = terms.readlines()
+    terms.close()
     try:
         return render_template("terms.html", terms=terms_lines)
     except:
