@@ -31,9 +31,11 @@ P04 -- Smithy -->
         <li class="nav-item">
           <a class="nav-link" href="/edit">Edit</a>
         </li>
+        {% if session['user_id'] %}
         <li class="nav-item">
           <a class="nav-link" href="/logout">Logout</a>
         </li>
+        {% endif %}
         <!-- <li class="nav-item dropdown">
           <a href="/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Random dropdown</a>
           <div class="dropdown-menu">

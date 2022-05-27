@@ -131,7 +131,7 @@ def disp_home():
     ''' Loads the landing page '''
     try:
         if session:
-            return render_template("home.html", returning=", " + session['user_id'] + ",")
+            return render_template("home.html", returning="Current user: " + session['user_id'])
         else:
             return render_template("home.html")
     except:
