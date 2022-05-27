@@ -71,7 +71,11 @@ def authenticate():
     if method == 'GET':
         return redirect(url_for('disp_home'))
 
-    auth_state = auth_user(stuy_username, user_id, password)
+    try:
+        auth_state = auth_user(stuy_username, user_id, password)
+    except:
+        return render_template('login.html', input="bad_user")
+    
     if auth_state == "bad_pass":
         return render_template('login.html', input="bad_pass")
     elif auth_state == "bad_user":
