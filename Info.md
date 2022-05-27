@@ -26,3 +26,7 @@ rgba(90,74,227,255)<br><br>
 Greenish thing:<br>
 #49a18c<br>
 rgba(73,161,140,255)<br><br>
+
+Noakai is using this:<br>
+#387a7b<br>
+since the other green is too bright imo (we can test both)
