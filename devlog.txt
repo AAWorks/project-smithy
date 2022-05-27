@@ -18,3 +18,6 @@ noakaiA -- 2022-05-26 10:21
 
 noakaiA -- 2022-05-26 20:07
   finished all authentication and made some organizational/formatting changes
+
+justinZ -- 2022-05-26 20:25
+ Made README up to Specifications
