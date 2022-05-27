@@ -1,7 +1,7 @@
 body{
     padding-top:2.2rem;
     padding-bottom:2.2rem;
-    background: rgb(106,90,205);
+    background: rgba(73,161,140,255);
     }
     a{
      text-decoration:none !important;
@@ -31,7 +31,6 @@ body{
      .mybtn{
      border-radius:50px;
      }
-    
      .login-or {
      position: relative;
      color: #aaa;
