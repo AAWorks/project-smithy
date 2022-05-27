@@ -1,3 +1,9 @@
+# Jimin: Alejandro Alonso (PM), Noakai Aronesty, Justin Zou, Ivan Lam
+# SoftDev pd2
+# P04 -- Project Reviewal System
+
+""" Supplemental functions """
+
 def auth_user(stuy_username, password):
     ''' Validates a username + password when person logs in '''
 

@@ -1,8 +1,8 @@
-# PPP Mode: Ivan Mijacika, Qina Liu, Justin Morrill, Noakai Aronesty
+# Jimin: Alejandro Alonso (PM), Noakai Aronesty, Justin Zou, Ivan Lam
 # SoftDev pd2
-# P02 -- Snake++
+# P04 -- Project Reviewal System
 
-""" Authentication / Creation of Users """
+""" Creation of db """
 
 import sqlite3
 from notanorm import SqliteDb
