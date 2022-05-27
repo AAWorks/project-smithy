@@ -102,7 +102,7 @@ def rAuthenticate():
             else:
                 # creates user account b/c no fails
                 create_user(stuy_username, password0, firstname, lastname)
-                return render_template('login.html', input='success')
+                return render_template('login.html', input='success', user_id=get_latest_id(stuy_username))
 
 @app.route("/logout")
 def logout():
