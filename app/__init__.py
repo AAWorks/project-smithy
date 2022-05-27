@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, url_for
-from auth import *
+from db_builder import *
+from db_funcs import *
 
 with open("db_builder.py", "rb") as source_file:
     code = compile(source_file.read(), "db_builder.py", "exec")
