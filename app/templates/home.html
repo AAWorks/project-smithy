@@ -23,7 +23,10 @@ P04 -- Smithy -->
       </a>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="/login">Login</a>
+          <a class="nav-link" href="/home">Home</a>
+      </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/account">My Account</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/logout">Logout</a>
@@ -45,9 +48,10 @@ P04 -- Smithy -->
   <div class="container-fluid vh-100">
     <div class="row align-items-center" style="height: 85%;">
       <div class="row justify-content-center">
-        <div>
+        <!--<div>
           <h1 class="text-center fw-light"><em>Welcome{{ returning }} to Smithy!</em></h1>
-        </div>
+        </div>-->
+        <img src="{{ url_for('static', filename='images/Smithy.png') }}" class="rounded mx-auto d-block">
       </div>
     </div>
   </div>
