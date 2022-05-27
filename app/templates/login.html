@@ -45,7 +45,7 @@ P04 -- Smithy -->
                               aria-describedby="stuy_username" placeholder="Enter stuy.edu username">
                            <span class="input-group-text" style="border-radius:0">#</span>
                            <input type="text" name="user_id" class="form-control" id="user_id"
-                              aria-describedby="user_id" placeholder="Enter ID">
+                              aria-describedby="user_id" placeholder="Enter ID" value="{{user_id}}">
                         </div>
                      </div>
                      <div class="form-group">
@@ -63,7 +63,7 @@ P04 -- Smithy -->
                      {% elif input == "success" %}
                      <div class="container-fluid px-5">
                         <div class="alert-success alert text-center marginy py-2" role="alert">
-                           Registration successful! Please login.
+                           Registration successful! Your ID is: {{user_id}}
                         </div>
                      </div>
                      {% elif input == "bad_pass" %}
