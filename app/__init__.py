@@ -60,7 +60,7 @@ def authenticate():
     elif auth_state == "bad_user":
         return render_template('login.html', input="bad_user")
     else:
-        session['user_id'] = auth_state
+        session['user_id'] = stuy_username + "#" + str(auth_state)
         return redirect(url_for('disp_home'))
 
 
@@ -117,7 +117,10 @@ def logout():
 def disp_home():
     ''' Loads the landing page '''
     try:
-        return render_template("home.html")
+        if session:
+            return render_template("home.html", returning=session['user_id'])
+        else:
+            return render_template("home.html")
     except:
         return render_template("error.html")
 
