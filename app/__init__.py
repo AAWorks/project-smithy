@@ -56,6 +56,17 @@ def authenticate():
     user_id = request.form.get('user_id')
     password = request.form.get('password')
 
+    try:
+        stuy_username = request.form.get('stuy_username').lower()
+        user_id = request.form.get('user_id')
+    except:
+        return render_template('login.html', input="bad_user")
+    
+    try:
+        password = request.form.get('password')
+    except:
+        return render_template('login.html', input="bad_pass")
+
     # Get vs Post
     if method == 'GET':
         return redirect(url_for('disp_home'))
