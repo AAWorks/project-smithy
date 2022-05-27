@@ -130,6 +130,18 @@ def disp_home():
     except:
         return render_template("error.html")
 
+@app.route("/account", methods=['GET', 'POST'])
+def account():
+    try:
+        if session:
+            user = get_user(int(session['user_id'].split('#')[-1]))
+            name = user["firstname"] + " " + user["lastname"]
+            return render_template("account.html", first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"])
+        else:
+            return render_template("login.html")
+    except:
+        return render_template("error.html")
+
 if __name__ == "__main__": #false if this file imported as module
     #enable debugging, auto-restarting of server when this file is modified
     app.debug = True

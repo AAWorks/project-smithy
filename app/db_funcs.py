@@ -4,10 +4,16 @@
 
 """ Supplemental functions """
 
-import sqlite3
+import sqlite3, hashlib
 from notanorm import SqliteDb
 
 DB_FILE = "project_reviewal.db"
+
+def hash(password: str) -> str:
+    #  """
+    #  hash pwd with SHA512
+    #  """
+    return hashlib.sha512(password.encode()).hexdigest()
 
 def auth_user(stuy_username, user_id, password):
     ''' Validates a username + password when person logs in '''
@@ -47,3 +53,9 @@ def create_user(stuy_username, password, firstname, lastname):
     else:
         db.insert("users", stuy_username=stuy_username, password=password, firstname=firstname, lastname=lastname)
         return True
+
+def get_user(user_id):
+    '''returns user row based on user_id'''
+    db = SqliteDb(DB_FILE)
+
+    return db.select("users", user_id=user_id)[0]
