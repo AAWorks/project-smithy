@@ -9,19 +9,18 @@ from notanorm import SqliteDb
 
 DB_FILE = "project_reviewal.db"
 
-def create_db():
-    ''' Creates / Connects to DB File '''
+''' Creates / Connects to DB File '''
 
-    db = SqliteDb(DB_FILE)
-    db.query("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY AUTOINCREMENT, stuy_username TEXT, password TEXT, firstname TEXT, lastname TEXT);")
-    db.query("CREATE TABLE IF NOT EXISTS projects (project_id INTEGER PRIMARY KEY AUTOINCREMENT, project_title TEXT, author_ids TEXT, rating INTEGER);")
-    db.query("CREATE TABLE IF NOT EXISTS comments (comment TEXT, project_id INTEGER, upvotes INTEGER, downvotes INTEGER, anonymous INTEGER);")
-    db.query("CREATE TABLE IF NOT EXISTS ratings (project_id INTEGER, user_id INTEGER, rating INTEGER);")
-    db.query("CREATE TABLE IF NOT EXISTS favorites (user_id INTEGER, project_id INTEGER);")
+db = SqliteDb(DB_FILE)
+db.query("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY AUTOINCREMENT, stuy_username TEXT, password TEXT, firstname TEXT, lastname TEXT);")
+db.query("CREATE TABLE IF NOT EXISTS projects (project_id INTEGER PRIMARY KEY AUTOINCREMENT, project_title TEXT, author_ids TEXT, rating INTEGER);")
+db.query("CREATE TABLE IF NOT EXISTS comments (comment TEXT, project_id INTEGER, upvotes INTEGER, downvotes INTEGER, anonymous INTEGER);")
+db.query(
+    "CREATE TABLE IF NOT EXISTS ratings (project_id INTEGER, user_id INTEGER, rating INTEGER);")
+db.query(
+    "CREATE TABLE IF NOT EXISTS favorites (user_id INTEGER, project_id INTEGER);")
 
-    db.close()
-
-create_db()
+db.close()
 
 # For testing purposes #################
 
