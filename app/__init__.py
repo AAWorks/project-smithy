@@ -164,6 +164,13 @@ def account():
     except:
         return render_template("error.html")
 
+@app.route("/about", methods=['GET', 'POST'])
+def about():
+    try:
+        return render_template("about.html")
+    except:
+        return render_template("error.html")
+
 if __name__ == "__main__": #false if this file imported as module
     #enable debugging, auto-restarting of server when this file is modified
     app.debug = True
