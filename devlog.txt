@@ -6,18 +6,30 @@ PF
 Begin Devlog:
 alejandroA -- 2022-05-23 10:41
   initial repo setup
-  
-justinZ -- 2022-25-05 21:00
+
+alejandroA -- 2022-05-24
+  General flask app up and running
+
+justinZ -- 2022-05-25 21:00
   finished up the design document
 
+alejandroA -- 2022-05-25
+  login and register pages are up and running alongside thumbnails, css, and basic py
+
 noakaiA -- 2022-05-26 07:24
-  actually finished up design document
+  polished design document
 
 noakaiA -- 2022-05-26 10:21
   finished writing and formatting login, register and terms of service pages
+
+alejandroA -- 2022-05-26
+  terms of service edited, company name devised, logos created, tasks distributed, a bunch of bug fixes and progress points on the app
 
 noakaiA -- 2022-05-26 20:07
   finished all authentication and made some organizational/formatting changes
 
 justinZ -- 2022-05-26 20:25
  Made README up to Specifications
+ 
+alejandroA -- 2022-05-26 11:39
+  Formatting changes and added in account feature
