@@ -104,6 +104,16 @@ def rAuthenticate():
                 create_user(stuy_username, password0, firstname, lastname)
                 return render_template('login.html', input='success', user_id=get_latest_id(stuy_username))
 
+@app.route("/edit")
+def editProfile():
+    try:
+        if session:
+            return render_template("edit.html")
+        else:
+            return render_template("home.html")
+    except:
+        return render_template("error.html")
+
 @app.route("/logout")
 def logout():
     ''' Logout user by deleting user from session dict. Redirects to loginpage '''
