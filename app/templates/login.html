@@ -34,7 +34,10 @@ P04 -- Smithy -->
                            width=50 height=50>
                      </div>
                   </div>
-                  <form action="/home" method="post" name="login">
+
+
+
+                  <form action="/auth" method="post" name="login">
                      <div class="form-group">
                         <label for="exampleInputEmail1">stuy.edu username</label>
                         <input type="text" name="stuy_username" class="form-control" id="stuy_username" aria-describedby="emailHelp"
@@ -46,6 +49,26 @@ P04 -- Smithy -->
                            aria-describedby="emailHelp" placeholder="Enter Password">
                      </div>
                      
+                     {% if input == "bad_user" %}
+                     <div class="container-fluid px-5">
+                         <div class="alert-danger alert text-center marginy py-2" role="alert">
+                             Username not found.
+                         </div>
+                     </div>
+                     {% elif input == "success" %}
+                     <div class="container-fluid px-5">
+                         <div class="alert-success alert text-center marginy py-2" role="alert">
+                             Registration successful! Please login.
+                         </div>
+                     </div>
+                     {% elif input == "bad_pass" %}
+                     <div class="container-fluid px-5">
+                         <div class="alert-danger alert text-center marginy py-2" role="alert">
+                             Password incorrect.
+                         </div>
+                     </div>
+                     {% endif %}
+
                      <div class="col-md-12 text-center ">
                         <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
                      </div>
@@ -59,6 +82,9 @@ P04 -- Smithy -->
                         <p class="text-center">Don't have account? <a href="/register" id="signup">Sign up here</a></p>
                      </div>
                   </form>
+
+
+
 
                </div>
             </div>

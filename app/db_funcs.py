@@ -4,6 +4,11 @@
 
 """ Supplemental functions """
 
+import sqlite3
+from notanorm import SqliteDb
+
+DB_FILE = "project_reviewal.db"
+
 def auth_user(stuy_username, password):
     ''' Validates a username + password when person logs in '''
 
