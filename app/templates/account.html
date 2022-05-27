@@ -17,23 +17,24 @@
           <img src="{{url_for('static', filename='images/logo.png')}}" alt="..." height="36">
         </a>
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/home">Home</a>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/gallery">Browse Projects</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/devos">Explore Devos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About Smithy</a>
+        </li>
           <li class="nav-item">
             <a class="nav-link" href="/account">My Account</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/edit">Edit</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About Us</a>
-          </li>
-          {% if session['user_id'] %}
-                <li class="nav-item">
-                <a class="nav-link" href="/logout">Logout</a>
-                </li>
-          {% endif %}
           <!-- <li class="nav-item dropdown">
             <a href="/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Random dropdown</a>
             <div class="dropdown-menu">
@@ -129,6 +130,8 @@
                                 <p class="mb-1-9">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
                 
                             </div>
+                            <br>
+                            <a href="/logout" class="btn btn-secondary" tabindex="-1" role="button" aria-disabled="true" style="width: 100%;">Logout</a>
                         </div>
                     </div>
                 </div>

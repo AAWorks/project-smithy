@@ -171,6 +171,13 @@ def about():
     except:
         return render_template("error.html")
 
+@app.route("/devos", methods=['GET', 'POST'])
+def devos():
+    try:
+        return render_template("devos.html")
+    except:
+        return render_template("error.html")
+    
 if __name__ == "__main__": #false if this file imported as module
     #enable debugging, auto-restarting of server when this file is modified
     app.debug = True
