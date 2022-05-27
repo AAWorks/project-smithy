@@ -1,13 +1,14 @@
+# Jimin: Alejandro Alonso (PM), Noakai Aronesty, Justin Zou, Ivan Lam
+# SoftDev pd2
+# P04 -- Project Reviewal System
+
 from flask import Flask, render_template, request, session, redirect, url_for
-from auth import *
+from db_builder import *
+from db_funcs import *
 
 with open("db_builder.py", "rb") as source_file:
     code = compile(source_file.read(), "db_builder.py", "exec")
 exec(code)
-
-with open("auth.py", "rb") as source_file:
-    code2 = compile(source_file.read(), "auth.py", "exec")
-exec(code2)
 
 app = Flask(__name__)
 app.secret_key = 'stuffins'
@@ -46,21 +47,21 @@ def authenticate():
 
     # Variables
     method = request.method
-    username = request.form.get('username')
+    stuy_username = request.form.get('stuy_username').lower()
     password = request.form.get('password')
 
     # Get vs Post
     if method == 'GET':
         return redirect(url_for('disp_home'))
 
-    auth_state = auth_user(username, password)
-    if auth_state == True:
-        session['username'] = username
-        return redirect(url_for('disp_home'))
-    elif auth_state == "bad_pass":
+    auth_state = auth_user(stuy_username, password)
+    if auth_state == "bad_pass":
         return render_template('login.html', input="bad_pass")
     elif auth_state == "bad_user":
         return render_template('login.html', input="bad_user")
+    else:
+        session['user_id'] = auth_state
+        return redirect(url_for('disp_home'))
 
 
 @app.route("/rAuth", methods=['GET', 'POST'])
@@ -68,9 +69,9 @@ def rAuthenticate():
     ''' Authentication of username and passwords given in register page from user '''
 
     method = request.method
-    firstname = request.form.get('firstname')
-    lastname = request.form.get('lastname')
-    stuy_username = request.form.get('stuy_username')
+    firstname = request.form.get('firstname').lower()
+    lastname = request.form.get('lastname').lower()
+    stuy_username = request.form.get('stuy_username').lower()
     password0 = request.form.get('password0')
     password1 = request.form.get('password1')
 
@@ -94,21 +95,24 @@ def rAuthenticate():
                 return render_template('register.html', mismatch=True)
             else:
                 # creates user account b/c no fails
-                create_user(stuy_username, password0, firstname, lastname)
-                return render_template('login.html', input='success')
-
+                if create_user(stuy_username, password0, firstname, lastname):
+                    return render_template('login.html', input='success')
+                # does not create account because create_user failed (username is taken)
+                else:
+                    return render_template('register.html', taken=True)
 
 @app.route("/logout")
 def logout():
     ''' Logout user by deleting user from session dict. Redirects to loginpage '''
     # Delete user. This try... except... block prevent an error from ocurring when the logout page is accessed from the login page
     try:
-        session.pop('username')
+        session.pop('user_id')
     except KeyError:
         return redirect(url_for('disp_home'))
     # Redirect to login page
     return redirect(url_for('disp_home'))
 
+@app.route("/home", methods=['GET', 'POST'])
 @app.route("/", methods=['GET', 'POST'])
 def disp_home():
     ''' Loads the landing page '''

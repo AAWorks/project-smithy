@@ -1,18 +1,33 @@
+# Jimin: Alejandro Alonso (PM), Noakai Aronesty, Justin Zou, Ivan Lam
+# SoftDev pd2
+# P04 -- Project Reviewal System
+
+""" Creation of db """
+
 import sqlite3
-from flask import session
+from notanorm import SqliteDb
 
-DB_FILE = "discobandit.db"
-db = sqlite3.connect(DB_FILE, check_same_thread=False)
-c = db.cursor()
+DB_FILE = "project_reviewal.db"
 
-def create_db():
-    ''' Creates / Connects to DB File '''
+''' Creates / Connects to DB File '''
 
-    db = sqlite3.connect(DB_FILE)
-    c = db.cursor()
+db = SqliteDb(DB_FILE)
+db.query("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY AUTOINCREMENT, stuy_username TEXT, password TEXT, firstname TEXT, lastname TEXT);")
+db.query("CREATE TABLE IF NOT EXISTS projects (project_id INTEGER PRIMARY KEY AUTOINCREMENT, project_title TEXT, author_ids TEXT, rating INTEGER);")
+db.query("CREATE TABLE IF NOT EXISTS comments (comment TEXT, project_id INTEGER, upvotes INTEGER, downvotes INTEGER, anonymous INTEGER);")
+db.query(
+    "CREATE TABLE IF NOT EXISTS ratings (project_id INTEGER, user_id INTEGER, rating INTEGER);")
+db.query(
+    "CREATE TABLE IF NOT EXISTS favorites (user_id INTEGER, project_id INTEGER);")
 
-    c.execute("CREATE TABLE IF NOT EXISTS Login (usernames TEXT, passwords TEXT, classRanking INTEGER);")
-    c.execute("CREATE TABLE IF NOT EXISTS Projects (Project_ID INTEGER, Project_Title TEXT, Authors TEXT, Avg_Rating INTEGER);")
+db.close()
 
+# For testing purposes #################
 
-    db.close()
+# db = sqlite3.connect(DB_FILE)
+# c = db.cursor()
+# c.execute("SELECT usernames FROM users")
+# users = []
+# for a_tuple in c.fetchall():
+#     users.append(a_tuple[0])
+# print(users)
