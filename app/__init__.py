@@ -48,19 +48,20 @@ def authenticate():
     # Variables
     method = request.method
     stuy_username = request.form.get('stuy_username').lower()
+    user_id = request.form.get('user_id')
     password = request.form.get('password')
 
     # Get vs Post
     if method == 'GET':
         return redirect(url_for('disp_home'))
 
-    auth_state = auth_user(stuy_username, password)
+    auth_state = auth_user(stuy_username, user_id, password)
     if auth_state == "bad_pass":
         return render_template('login.html', input="bad_pass")
     elif auth_state == "bad_user":
         return render_template('login.html', input="bad_user")
-    else:
-        session['user_id'] = stuy_username + "#" + str(auth_state)
+    elif auth_state == True:
+        session['user_id'] = stuy_username + "#" + str(user_id)
         return redirect(url_for('disp_home'))
 
 
@@ -118,7 +119,7 @@ def disp_home():
     ''' Loads the landing page '''
     try:
         if session:
-            return render_template("home.html", returning=", "+session['user_id'] + ",")
+            return render_template("home.html", returning=", " + session['user_id'] + ",")
         else:
             return render_template("home.html")
     except:

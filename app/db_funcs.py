@@ -9,22 +9,25 @@ from notanorm import SqliteDb
 
 DB_FILE = "project_reviewal.db"
 
-def auth_user(stuy_username, password):
+def auth_user(stuy_username, user_id, password):
     ''' Validates a username + password when person logs in '''
 
     db = SqliteDb(DB_FILE)
 
     # Create List of Users
-    stuy_usernames = [u.stuy_username for u in db.select("users")]
-    if stuy_username not in stuy_usernames:
+    user_ids = [u.user_id for u in db.select("users", stuy_username=stuy_username)]
+    
+    # testing
+    # print("user id: " + user_id)
+    # print(user_ids)
+    # print(int(user_id) in user_ids)
+    if int(user_id) not in user_ids:
         return "bad_user"
 
-    
-    possible_users = db.select("users", stuy_username=stuy_username)
-    for i in possible_users:
-        if i.password == password:
-            return i.user_id
-    return "bad_pass"
+    if password != db.select("users", user_id=user_id)[0].password:
+        return "bad_pass"
+
+    return True
 
 
 def create_user(stuy_username, password, firstname, lastname):
