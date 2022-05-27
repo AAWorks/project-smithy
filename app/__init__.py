@@ -101,11 +101,8 @@ def rAuthenticate():
                 return render_template('register.html', mismatch=True)
             else:
                 # creates user account b/c no fails
-                if create_user(stuy_username, password0, firstname, lastname):
-                    return render_template('login.html', input='success')
-                # does not create account because create_user failed (username is taken)
-                else:
-                    return render_template('register.html', taken=True)
+                create_user(stuy_username, password0, firstname, lastname)
+                return render_template('login.html', input='success')
 
 @app.route("/logout")
 def logout():
