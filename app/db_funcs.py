@@ -1,6 +1,6 @@
 # Jimin: Alejandro Alonso (PM), Noakai Aronesty, Justin Zou, Ivan Lam
 # SoftDev pd2
-# P04 -- Project Reviewal System
+# P04 -- Smithy
 
 """ Supplemental functions """
 
