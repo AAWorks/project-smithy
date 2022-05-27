@@ -6,9 +6,14 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from db_builder import *
 from db_funcs import *
 
-with open("db_builder.py", "rb") as source_file:
-    code = compile(source_file.read(), "db_builder.py", "exec")
+"""
+with open("app/db_builder.py", "rb") as source_file:
+    code = compile(source_file.read(), "app/db_builder.py", "exec")
 exec(code)
+with open("app/db_funcs.py", "rb") as source_file:
+    code = compile(source_file.read(), "app/db_funcs.py", "exec")
+exec(code)
+"""
 
 app = Flask(__name__)
 app.secret_key = 'stuffins'
