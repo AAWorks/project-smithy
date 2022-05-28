@@ -59,17 +59,17 @@
                                         <span class="text-primary">SoftDev Devo</span>
                                     </div>
                                     <ul class="list-unstyled mb-1-9">
-                                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600 editable">ID:{{ user_id }}</span>
-                                                <img id= "icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24">
+                                        <li class="mb-2 mb-xl-3 display-28"><span class="size display-26 text-secondary me-2 font-weight-600">ID:</span> <div class ="child" contenteditable="true">{{ user_id }} </div>   
+                                            <input type="image" onclick ="edit()" id= "icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24">
                                         </li>
-                                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600 editable">Email:{{ stuyname }}@stuy.edu</span>
-                                                <img id= "icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24">
+                                        <li class="mb-2 mb-xl-3 display-28"><span class="size display-26 text-secondary me-2 font-weight-600 editable">Email:</span> <div class ="child" contenteditable="true">{{ stuyname }}@stuy.edu</div>
+                                            <input type="image" onclick ="edit()" id= "icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24">
                                         </li>
-                                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600 editable">Website:https://github.com/[github_username]</span>
-                                                <img id= "icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24">
+                                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600 editable">Website:</span> <div class ="child" contenteditable="true">https://github.com/[github_username]</div>
+                                                <input type="image" onclick ="edit()" id= "icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24">
                                         </li>
-                                        <li class="display-28"><span class="display-26 text-secondary me-2 font-weight-600 editable">Developer Rating:[stars]</span>
-                                                <img id= "icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24">
+                                        <li class="display-28"><span class="display-26 text-secondary me-2 font-weight-600 editable">Developer Rating:</span> <div class ="child" contenteditable="true">[stars]</div>
+                                                <input type="image" onclick ="edit()" id= "icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24">
                                         </li>
                                     </ul>
                                 </div>
@@ -79,9 +79,9 @@
                 </div>
                 <div class="col-lg-12 mb-4 mb-sm-5">
                     <div>
-                        <span class="section-title text-primary mb-3 mb-sm-4 editable">About {{ first }}</span><img id= "icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24">
-                        <p>Edith is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                        <p class="mb-0">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed.</p>
+                        <span class="section-title text-primary mb-3 mb-sm-4 editable">About {{ first }}</span><input type="image" id= "icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24">
+                        <p contenteditable="true">Edith is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                        <p class="mb-0" contenteditable="true">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed.</p>
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -127,9 +127,9 @@
                                 </div>
                             </div>
                             <div>
-                                <span class="section-title text-primary mb-3 mb-sm-4 editable">Education</span> <img id= "icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24">
-                                <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p>
-                                <p class="mb-1-9">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
+                                <span class="section-title text-primary mb-3 mb-sm-4 editable">Education</span> <input type="image" id= "icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24">
+                                <p contenteditable="true">Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p>
+                                <p class="mb-1-9" contenteditable="true">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
                 
                             </div>
                         </div>

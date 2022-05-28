@@ -17,12 +17,18 @@
 }
 
 #icon{
-    display: none;
+    /* display: none; */
 }
 
+.size{
+    white-space: nowrap;
+}
+.child{
+    display: inline-block;
+}
 
 .editable:hover + #icon{
-    display: inline;
+    display: inline-block;
     float: 10%;
 }
 

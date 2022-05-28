@@ -123,7 +123,9 @@ def rAuthenticate():
 def editProfile():
     try:
         if session:
-            return render_template("edit.html")
+            user = get_user(int(session['user_id'].split('#')[-1]))
+            name = user["firstname"] + " " + user["lastname"]
+            return render_template("edit.html", first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"])
         else:
             return render_template("home.html")
     except:
