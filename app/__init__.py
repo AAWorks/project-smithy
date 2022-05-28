@@ -158,7 +158,7 @@ def account():
         if session:
             user = get_user(int(session['user_id'].split('#')[-1]))
             name = user["firstname"] + " " + user["lastname"]
-            return render_template("account.html", first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"])
+            return render_template("account.html", first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
         else:
             return redirect("/login")
     except:

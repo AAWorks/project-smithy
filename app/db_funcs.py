@@ -53,7 +53,7 @@ def create_user(stuy_username, password, firstname, lastname, github):
 
     db = SqliteDb(DB_FILE)
     devo_status = "Devo-In-Training"
-    db.insert("users", stuy_username=stuy_username, password=hashsalt(password), firstname=firstname, lastname=lastname, github=github, devo_status=devo_status)
+    db.insert("users", stuy_username=stuy_username, password=hashsalt(password), firstname=firstname, lastname=lastname, github=github, devostatus=devo_status)
     return True
 
 def get_latest_id(stuy_username):
