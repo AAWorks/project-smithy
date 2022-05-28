@@ -82,7 +82,7 @@ def authenticate():
         return render_template('login.html', input="bad_user")
     elif auth_state == True:
         session['user_id'] = stuy_username + "#" + str(user_id)
-        return redirect(url_for('disp_home'))
+        return redirect('account')
 
 
 @app.route("/rAuth", methods=['GET', 'POST'])
@@ -176,14 +176,31 @@ def about():
 @app.route("/devos", methods=['GET', 'POST'])
 def devos():
     try:
-        return render_template("devos.html")
+        tester = {"name": "Thluffy Sinclair", "id": "tsinclair20", "bio": "A totally tubular devo to test the totally tubular devos page!", "pfp": url_for('static', filename="images/default_pfp.png")}
+        devos=[]
+        for i in range(10):
+            devo = {}
+            devo["name"] = tester['name']
+            devo["id"] = tester['id'] + "#" + str(i)
+            devo["bio"] = tester["bio"]
+            devo["pfp"] = tester["pfp"]
+            devos.append(devo)
+        return render_template("devos.html", devos=devos)
     except:
         return render_template("error.html")
 
 @app.route("/gallery", methods=['GET', 'POST'])
 def gallery():
     try:
-        return render_template("gallery.html")
+        tester = {"title": "Tester", "descrip": "A totally tubular project to test the totally tubular gallery!", "image": url_for('static', filename="images/Smithy.png")}
+        projects=[]
+        for i in range(10):
+            tmp = {}
+            tmp["title"] = tester['title'] + str(i)
+            tmp["descrip"] = tester['descrip']
+            tmp["image"] = tester["image"]
+            projects.append(tmp)
+        return render_template("gallery.html", projects=projects)
     except:
         return render_template("error.html")
     
