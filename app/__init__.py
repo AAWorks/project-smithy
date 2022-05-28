@@ -181,7 +181,7 @@ def devos():
         return render_template("error.html")
 
 @app.route("/gallery", methods=['GET', 'POST'])
-def devos():
+def gallery():
     try:
         return render_template("gallery.html")
     except:
