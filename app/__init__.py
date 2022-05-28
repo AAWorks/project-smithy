@@ -160,7 +160,7 @@ def account():
             name = user["firstname"] + " " + user["lastname"]
             return render_template("account.html", first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"])
         else:
-            return render_template("login.html")
+            return redirect("/login")
     except:
         return render_template("error.html")
 
@@ -175,6 +175,13 @@ def about():
 def devos():
     try:
         return render_template("devos.html")
+    except:
+        return render_template("error.html")
+
+@app.route("/gallery", methods=['GET', 'POST'])
+def devos():
+    try:
+        return render_template("gallery.html")
     except:
         return render_template("error.html")
     
