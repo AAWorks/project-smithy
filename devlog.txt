@@ -33,3 +33,6 @@ justinZ -- 2022-05-26 20:25
  
 alejandroA -- 2022-05-26 11:39
   Formatting changes and added in account feature
+
+justinZ -- 2022-05-27 22:23
+ Worked on the editing format and figured out the basic css and html and structure we want for it
