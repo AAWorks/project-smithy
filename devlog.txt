@@ -36,3 +36,7 @@ alejandroA -- 2022-05-26 11:39
 
 justinZ -- 2022-05-27 22:23
  Worked on the editing format and figured out the basic css and html and structure we want for it
+
+noakaiA -- 2022-05-27 22:37
+  login and register pages are more uniform, the register page no longer scrolls and the navbar is expanded
+  also fixed scrolling issues on home, about and browsing pages
