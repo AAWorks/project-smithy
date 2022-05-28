@@ -88,6 +88,7 @@ def rAuthenticate():
     firstname = request.form.get('firstname').lower()
     lastname = request.form.get('lastname').lower()
     stuy_username = request.form.get('stuy_username').lower()
+    github = request.form.get('github')
     password0 = request.form.get('password0')
     password1 = request.form.get('password1')
 
@@ -96,6 +97,8 @@ def rAuthenticate():
 
     if method == 'POST':
         # error when no username is inputted
+        if len(github) == 0:
+            return render_template('register.html', given="github username")
         if len(stuy_username) == 0:
             return render_template('register.html', given="stuyvesant username")
         # error when no password is inputted
@@ -111,7 +114,7 @@ def rAuthenticate():
                 return render_template('register.html', mismatch=True)
             else:
                 # creates user account b/c no fails
-                create_user(stuy_username, password0, firstname, lastname)
+                create_user(stuy_username, password0, firstname, lastname, github)
                 return render_template('login.html', input='success', user_id=get_latest_id(stuy_username))
 
 @app.route("/edit")
@@ -155,7 +158,7 @@ def account():
         if session:
             user = get_user(int(session['user_id'].split('#')[-1]))
             name = user["firstname"] + " " + user["lastname"]
-            return render_template("account.html", first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"])
+            return render_template("account.html", first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"])
         else:
             return redirect("/login")
     except:
