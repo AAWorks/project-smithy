@@ -4,16 +4,27 @@
 
 """ Supplemental functions """
 
-import sqlite3, hashlib
+import sqlite3, hashlib, bcrypt
 from notanorm import SqliteDb
 
 DB_FILE = "project_reviewal.db"
 
-def hash(password: str) -> str:
-    #  """
-    #  hash pwd with SHA512
-    #  """
-    return hashlib.sha512(password.encode()).hexdigest()
+def hashsalt(password: str):
+    pwd = bytes(password, 'utf-8')
+
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(pwd, salt)
+
+    return hashed
+
+def check_pw(password: str, stored_pw):
+    pwd = bytes(password, 'utf-8')
+    
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(pwd, salt)
+
+    match = bcrypt.checkpw(stored_pw, hashed)
+    return match
 
 def auth_user(stuy_username, user_id, password):
     ''' Validates a username + password when person logs in '''
@@ -30,7 +41,7 @@ def auth_user(stuy_username, user_id, password):
     if int(user_id) not in user_ids:
         return "bad_user"
 
-    if password != db.select("users", user_id=user_id)[0].password:
+    if check_pw(password, db.select("users", user_id=user_id)[0].password):
         return "bad_pass"
 
     return True
@@ -41,7 +52,7 @@ def create_user(stuy_username, password, firstname, lastname):
         person registers '''
 
     db = SqliteDb(DB_FILE)
-    db.insert("users", stuy_username=stuy_username, password=password, firstname=firstname, lastname=lastname)
+    db.insert("users", stuy_username=stuy_username, password=hashsalt(password), firstname=firstname, lastname=lastname)
     return True
 
 def get_latest_id(stuy_username):

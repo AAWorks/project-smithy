@@ -16,3 +16,4 @@ six==1.16.0
 urllib3==1.26.7
 Werkzeug==2.0.2
 notanorm==2.1.0
+bcrypt==3.2.2
