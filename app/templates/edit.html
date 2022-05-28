@@ -16,7 +16,7 @@
       <link rel="stylesheet" href="{{ url_for('static', filename='css/edit.css') }}">
       <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center" style="background-color: #e3f2fd;">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center" style="background-color: white !important;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -36,25 +36,33 @@
             <li class="nav-item">
               <a class="nav-link" href="/account">My Account</a>
             </li>
+            {% if session['user_id'] %}
             <li class="nav-item">
               <a class="nav-link" href="/edit">Edit</a>
             </li>
-          <!-- <li class="nav-item dropdown">
-            <a href="/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Random dropdown</a>
-            <div class="dropdown-menu">
-                <a href="#" class="dropdown-item">Inbox</a>
-                <a href="#" class="dropdown-item">Drafts</a>
-                <a href="#" class="dropdown-item">Sent Items</a>
-                <div class="dropdown-divider"></div>
-                <a href="#"class="dropdown-item">Trash</a>
-            </div>
-        </li> -->
-        </ul>
-      </nav>
+            {% endif %}
+            <!-- <li class="nav-item dropdown">
+              <a href="/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Random dropdown</a>
+              <div class="dropdown-menu">
+                  <a href="#" class="dropdown-item">Inbox</a>
+                  <a href="#" class="dropdown-item">Drafts</a>
+                  <a href="#" class="dropdown-item">Sent Items</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="#"class="dropdown-item">Trash</a>
+              </div>
+          </li> -->
+          </ul>
+        </nav>
+        {% if session['user_id'] %}
+        <a href="/logout" class="btn btn-danger navlink" tabindex="-1" role="button" aria-disabled="true" style="color: #d9534f; background-color: white; text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
+        {% else %}
+        <a href="/login" class="btn btn-info navlink" tabindex="-1" role="button" aria-disabled="true" style="color: #5bc0de; background-color: white; text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
+        {% endif %}
 </head>
 
 <body>
       <section class="bg-light">
+          <br>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 mb-4 mb-sm-5">

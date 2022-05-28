@@ -30,9 +30,11 @@
           <li class="nav-item">
             <a class="nav-link" href="/account">My Account</a>
           </li>
+          {% if session['user_id'] %}
           <li class="nav-item">
             <a class="nav-link" href="/edit">Edit</a>
           </li>
+          {% endif %}
           <!-- <li class="nav-item dropdown">
             <a href="/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Random dropdown</a>
             <div class="dropdown-menu">
@@ -45,6 +47,11 @@
         </li> -->
         </ul>
       </nav>
+      {% if session['user_id'] %}
+      <a href="/logout" class="btn btn-danger navlink" tabindex="-1" role="button" aria-disabled="true" style="color: #d9534f; background-color: white; text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
+      {% else %}
+      <a href="/login" class="btn btn-info navlink" tabindex="-1" role="button" aria-disabled="true" style="color: #5bc0de; background-color: white; text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
+      {% endif %}
 </head>
 <body>
       <section class="bg-light">
@@ -130,7 +137,6 @@
                 
                             </div>
                             <br>
-                            <a href="/logout" class="btn btn-secondary" tabindex="-1" role="button" aria-disabled="true" style="width: 100%;">Logout</a>
                         </div>
                     </div>
                 </div>

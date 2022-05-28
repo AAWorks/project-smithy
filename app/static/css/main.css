@@ -1,20 +1,27 @@
 a:link {
-    color: #5a4ae3;
-    background-color: transparent;
-    text-decoration: none;
-  }
-  a:visited {
-    color: #5a4ae3;
-    background-color: transparent;
-    text-decoration: none;
-  }
-  a:hover {
-    color: #7b6ee9;
-    background-color: transparent;
-    text-decoration: underline;
-  }
-  a:active {
-    color: #483bb6;
-    background-color: transparent;
-    text-decoration: underline;
-  }
+  color: #5a4ae3;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #5a4ae3;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #7b6ee9;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.navlink:hover {
+  text-decoration: none;
+}
+
+a:active {
+  color: #483bb6;
+  background-color: transparent;
+  text-decoration: underline;
+}

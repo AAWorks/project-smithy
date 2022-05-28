@@ -15,12 +15,13 @@ app = Flask(__name__)
 app.secret_key = 'stuffins'
 
 
-@app.route('/login', methods=['GET','POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     try:
         return render_template("login.html")
     except:
         return render_template("error.html")
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -28,6 +29,7 @@ def register():
         return render_template("register.html")
     except:
         return render_template("error.html")
+
 
 @app.route('/terms', methods=['GET', 'POST'])
 def terms():
@@ -39,6 +41,8 @@ def terms():
         return render_template("error.html")
 
 # authetication of login
+
+
 @app.route("/auth", methods=['GET', 'POST'])
 def authenticate():
     ''' Checks whether method is get, post. If get method, then redirect to
@@ -56,7 +60,7 @@ def authenticate():
         user_id = request.form.get('user_id')
     except:
         return render_template('login.html', input="bad_user")
-    
+
     try:
         password = request.form.get('password')
     except:
@@ -70,7 +74,7 @@ def authenticate():
         auth_state = auth_user(stuy_username, user_id, password)
     except:
         return render_template('login.html', input="bad_user")
-    
+
     if auth_state == "bad_pass":
         return render_template('login.html', input="bad_pass")
     elif auth_state == "bad_user":
@@ -114,20 +118,20 @@ def rAuthenticate():
                 return render_template('register.html', mismatch=True)
             else:
                 # creates user account b/c no fails
-                create_user(stuy_username, password0, firstname, lastname, github)
+                create_user(stuy_username, password0,
+                            firstname, lastname, github)
                 return render_template('login.html', input='success', user_id=get_latest_id(stuy_username))
+
 
 @app.route("/edit")
 def editProfile():
     try:
-        if session:
-            user = get_user(int(session['user_id'].split('#')[-1]))
-            name = user["firstname"] + " " + user["lastname"]
-            return render_template("edit.html", first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"])
-        else:
-            return render_template("home.html")
+        user = get_user(int(session['user_id'].split('#')[-1]))
+        name = user["firstname"] + " " + user["lastname"]
+        return render_template("edit.html", first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"])
     except:
         return render_template("error.html")
+
 
 @app.route("/logout")
 def logout():
@@ -139,6 +143,7 @@ def logout():
         return redirect(url_for('disp_home'))
     # Redirect to login page
     return redirect(url_for('disp_home'))
+
 
 @app.route("/home", methods=['GET', 'POST'])
 @app.route("/", methods=['GET', 'POST'])
@@ -152,6 +157,7 @@ def disp_home():
     except:
         return render_template("error.html")
 
+
 @app.route("/account", methods=['GET', 'POST'])
 def account():
     try:
@@ -164,11 +170,13 @@ def account():
     except:
         return render_template("error.html")
 
+
 @app.route("/devos", methods=['GET', 'POST'])
 def devos():
     try:
-        tester = {"name": "Thluffy Sinclair", "id": "tsinclair20", "bio": "A totally tubular devo to test the totally tubular devos page!", "pfp": url_for('static', filename="images/default_pfp.png")}
-        devos=[]
+        tester = {"name": "Thluffy Sinclair", "id": "tsinclair20", "bio": "A totally tubular devo to test the totally tubular devos page!",
+                  "pfp": url_for('static', filename="images/default_pfp.png")}
+        devos = []
         for i in range(10):
             devo = {}
             devo["name"] = tester['name']
@@ -180,11 +188,13 @@ def devos():
     except:
         return render_template("error.html")
 
+
 @app.route("/gallery", methods=['GET', 'POST'])
 def gallery():
     try:
-        tester = {"title": "Tester", "descrip": "A totally tubular project to test the totally tubular gallery!", "image": url_for('static', filename="images/Smithy.png")}
-        projects=[]
+        tester = {"title": "Tester", "descrip": "A totally tubular project to test the totally tubular gallery!",
+                  "image": url_for('static', filename="images/Smithy.png")}
+        projects = []
         for i in range(10):
             tmp = {}
             tmp["title"] = tester['title'] + str(i)
@@ -194,8 +204,9 @@ def gallery():
         return render_template("gallery.html", projects=projects)
     except:
         return render_template("error.html")
-    
-if __name__ == "__main__": #false if this file imported as module
-    #enable debugging, auto-restarting of server when this file is modified
+
+
+if __name__ == "__main__":  # false if this file imported as module
+    # enable debugging, auto-restarting of server when this file is modified
     app.debug = True
     app.run()
