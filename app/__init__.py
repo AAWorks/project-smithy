@@ -85,8 +85,8 @@ def rAuthenticate():
     ''' Authentication of username and passwords given in register page from user '''
 
     method = request.method
-    firstname = request.form.get('firstname').lower()
-    lastname = request.form.get('lastname').lower()
+    firstname = request.form.get('firstname').capitalize()
+    lastname = request.form.get('lastname').capitalize()
     stuy_username = request.form.get('stuy_username').lower()
     github = request.form.get('github')
     password0 = request.form.get('password0')
