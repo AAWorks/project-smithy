@@ -40,3 +40,6 @@ justinZ -- 2022-05-27 22:23
 noakaiA -- 2022-05-27 22:37
   login and register pages are more uniform, the register page no longer scrolls and the navbar is expanded
   also fixed scrolling issues on home, about and browsing pages
+
+justinZ -- 2022-05-29 00:32
+ Worked more on edit making it a singular button and making it visible that it is edible. Trying to work on saving the work with localstorage.

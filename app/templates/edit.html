@@ -101,8 +101,8 @@
                 <div class="col-lg-12 mb-4 mb-sm-5">
                     <div>
                         <span class="section-title text-primary mb-3 mb-sm-4 editable">About {{ first }}</span>
-                        <p contenteditable>Edith is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                        <p class="mb-0" contenteditable>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed.</p>
+                        <p class = "contentEdit" contenteditable = "false">Edith is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                        <p class="mb-0 contentEdit" contenteditable = "false">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed.</p>
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -149,14 +149,15 @@
                             </div>
                             <div>
                                 <span class="section-title text-primary mb-3 mb-sm-4 editable">Education</span> 
-                                <p contenteditable="false">Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p>
-                                <p class="mb-1-9" contenteditable="false">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
+                                <p class = "contentEdit" contenteditable="false">Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p>
+                                <p class="mb-1-9 contentEdit" contenteditable="false">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
                 
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <input type="image" onclick ="save()" id= "icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24">
         </div>
     </section>
 </body>
