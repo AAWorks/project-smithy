@@ -13,7 +13,7 @@ DB_FILE = "project_reviewal.db"
 
 db = SqliteDb(DB_FILE)
 db.query("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY AUTOINCREMENT, stuy_username TEXT, password TEXT, firstname TEXT, lastname TEXT, github TEXT, devostatus TEXT);")
-db.query("CREATE TABLE IF NOT EXISTS projects (project_id INTEGER PRIMARY KEY AUTOINCREMENT, project_title TEXT, author_ids TEXT, rating INTEGER);")
+db.query("CREATE TABLE IF NOT EXISTS projects (project_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, team_name TEXT, pmID TEXT, devoIDs TEXT, tags TEXT, repo TEXT, descrip1 TEXT, descrip2 TEXT, rating INTEGER, hosted_loc TEXT);")
 db.query("CREATE TABLE IF NOT EXISTS comments (comment TEXT, project_id INTEGER, upvotes INTEGER, downvotes INTEGER, anonymous INTEGER);")
 db.query(
     "CREATE TABLE IF NOT EXISTS ratings (project_id INTEGER, user_id INTEGER, rating INTEGER);")
