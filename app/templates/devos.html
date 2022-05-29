@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 
-  <!-- Jimin: Alejandro Alonso (PM), Noakai Aronesty, Justin Zou, Ivan Lam
+<!-- Jimin: Alejandro Alonso (PM), Noakai Aronesty, Justin Zou, Ivan Lam
 SoftDev pd2
 P04 -- Smithy -->
 
 <head>
   <title>Smithy</title>
   <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='images/logo.png')}}">
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link 
-  href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
-  rel="stylesheet"  type='text/css'>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"
+    type='text/css'>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center" style="background-color: #e3f2fd;">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand" href="/">
-        <img src="{{url_for('static', filename='images/logo.png')}}" alt="..." height="36">
-      </a>
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/home">Home</a>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center" style="background-color: #e3f2fd;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="{{url_for('static', filename='images/logo.png')}}" alt="..." height="36">
+    </a>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/home">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/gallery">Browse Projects</a>
@@ -36,15 +39,15 @@ P04 -- Smithy -->
       <li class="nav-item">
         <a class="nav-link" href="/devos">Explore Devos</a>
       </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/account">My Account</a>
-        </li>
-        {% if session['user_id'] %}
-        <li class="nav-item">
-          <a class="nav-link" href="/edit">Edit</a>
-        </li>
-        {% endif %}
-        <!-- <li class="nav-item dropdown">
+      <li class="nav-item">
+        <a class="nav-link" href="/account">My Account</a>
+      </li>
+      {% if session['user_id'] %}
+      <li class="nav-item">
+        <a class="nav-link" href="/edit">Edit</a>
+      </li>
+      {% endif %}
+      <!-- <li class="nav-item dropdown">
           <a href="/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Random dropdown</a>
           <div class="dropdown-menu">
               <a href="#" class="dropdown-item">Inbox</a>
@@ -54,136 +57,143 @@ P04 -- Smithy -->
               <a href="#"class="dropdown-item">Trash</a>
           </div>
       </li> -->
-      </ul>
-    </nav>
-    {% if session['user_id'] %}
-    <a href="/logout" class="btn btn-outline-danger navlink" tabindex="-1" role="button" aria-disabled="true" style="text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
-    {% else %}
-    <a href="/login" class="btn btn-outline-info navlink" tabindex="-1" role="button" aria-disabled="true" style="text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
-    {% endif %}
-    <style>
-        
-.banner {
-  background: #a770ef;
-  background: -webkit-linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
-  background: linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
-}
-.btn-primary {
-    color: #212529;
-    background-color: #7cc;
-    border-color: #5bc2c2
-}
+    </ul>
+  </nav>
+  {% if session['user_id'] %}
+  <a href="/logout" class="btn btn-outline-danger navlink" tabindex="-1" role="button" aria-disabled="true"
+    style="text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
+  {% else %}
+  <a href="/login" class="btn btn-outline-info navlink" tabindex="-1" role="button" aria-disabled="true"
+    style="text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
+  {% endif %}
+  <style>
+    .banner {
+      background: #a770ef;
+      background: -webkit-linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
+      background: linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
+    }
 
-.btn-primary:hover {
-    color: #212529;
-    background-color: #52bebe;
-    border-color: #8ad3d3
-}
+    .btn-primary {
+      color: #212529;
+      background-color: #7cc;
+      border-color: #5bc2c2
+    }
 
-.btn-primary:focus,
-.btn-primary.focus {
-    box-shadow: 0 0 0 .2rem rgba(91, 194, 194, 0.5)
-}
+    .btn-primary:hover {
+      color: #212529;
+      background-color: #52bebe;
+      border-color: #8ad3d3
+    }
 
-.btn-primary.disabled,
-.btn-primary:disabled {
-    color: #212529;
-    background-color: #7cc;
-    border-color: #5bc2c2
-}
+    .btn-primary:focus,
+    .btn-primary.focus {
+      box-shadow: 0 0 0 .2rem rgba(91, 194, 194, 0.5)
+    }
 
-.btn-primary:not(:disabled):not(.disabled):active,
-.btn-primary:not(:disabled):not(.disabled).active,
-.show>.btn-primary.dropdown-toggle {
-    color: #212529;
-    background-color: #9cdada;
-    border-color: #2e7c7c
-}
+    .btn-primary.disabled,
+    .btn-primary:disabled {
+      color: #212529;
+      background-color: #7cc;
+      border-color: #5bc2c2
+    }
 
-.btn-primary:not(:disabled):not(.disabled):active:focus,
-.btn-primary:not(:disabled):not(.disabled).active:focus,
-.show>.btn-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(91, 194, 194, 0.5)
-}
+    .btn-primary:not(:disabled):not(.disabled):active,
+    .btn-primary:not(:disabled):not(.disabled).active,
+    .show>.btn-primary.dropdown-toggle {
+      color: #212529;
+      background-color: #9cdada;
+      border-color: #2e7c7c
+    }
 
-.btn-outline-primary {
-    color: #7cc;
-    background-color: transparent;
-    background-image: none;
-    border-color: #7cc
-}
+    .btn-primary:not(:disabled):not(.disabled):active:focus,
+    .btn-primary:not(:disabled):not(.disabled).active:focus,
+    .show>.btn-primary.dropdown-toggle:focus {
+      box-shadow: 0 0 0 .2rem rgba(91, 194, 194, 0.5)
+    }
 
-.btn-outline-primary:hover {
-    color: #222;
-    background-color: #8ad3d3;
-    border-color: #7cc
-}
+    .btn-outline-primary {
+      color: #7cc;
+      background-color: transparent;
+      background-image: none;
+      border-color: #7cc
+    }
 
-.btn-outline-primary:focus,
-.btn-outline-primary.focus {
-    box-shadow: 0 0 0 .2rem rgba(119, 204, 204, 0.5)
-}
+    .btn-outline-primary:hover {
+      color: #222;
+      background-color: #8ad3d3;
+      border-color: #7cc
+    }
 
-.btn-outline-primary.disabled,
-.btn-outline-primary:disabled {
-    color: #7cc;
-    background-color: transparent
-}
+    .btn-outline-primary:focus,
+    .btn-outline-primary.focus {
+      box-shadow: 0 0 0 .2rem rgba(119, 204, 204, 0.5)
+    }
 
-.btn-outline-primary:not(:disabled):not(.disabled):active,
-.btn-outline-primary:not(:disabled):not(.disabled).active,
-.show>.btn-outline-primary.dropdown-toggle {
-    color: #212529;
-    background-color: #8ad3d3;
-    border-color: #7cc
-}
+    .btn-outline-primary.disabled,
+    .btn-outline-primary:disabled {
+      color: #7cc;
+      background-color: transparent
+    }
 
-.btn-outline-primary:not(:disabled):not(.disabled):active:focus,
-.btn-outline-primary:not(:disabled):not(.disabled).active:focus,
-.show>.btn-outline-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(119, 204, 204, 0.5)
-}
-    </style>
+    .btn-outline-primary:not(:disabled):not(.disabled):active,
+    .btn-outline-primary:not(:disabled):not(.disabled).active,
+    .show>.btn-outline-primary.dropdown-toggle {
+      color: #212529;
+      background-color: #8ad3d3;
+      border-color: #7cc
+    }
+
+    .btn-outline-primary:not(:disabled):not(.disabled):active:focus,
+    .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
+    .show>.btn-outline-primary.dropdown-toggle:focus {
+      box-shadow: 0 0 0 .2rem rgba(119, 204, 204, 0.5)
+    }
+  </style>
 </head>
+
 <body style="background-color: whitesmoke;">
-    <div class="container-fluid">
-        <div class="px-lg-5">
-      
-          <!-- For demo purpose -->
-          <div class="row py-5">
-            <div class="col-lg-12 mx-auto">
-              <div class="text-white p-5 shadow-sm rounded banner">
-                <h1 class="display-4">Here Be Devos!</h1>
-                <p class="lead">Stuyvesant's Best and Brightest From Every Part of Town!</p>
-                <div class="input-group">
-                    <div class="form-outline">
-                      <input type="search" id="form1" class="form-control" value="Thluffy Sinclair"/>
-                    </div>
-                    <button type="button" class="btn btn-outline-warning">FIND
-                      </button>
-                  </div>
+  <div class="container-fluid">
+    <div class="px-lg-5">
+
+      <!-- For demo purpose -->
+      <div class="row py-5">
+        <div class="col-lg-12 mx-auto">
+          <div class="text-white p-5 shadow-sm rounded banner">
+            <h1 class="display-4">Here Be Devos!</h1>
+            <p class="lead">Stuyvesant's Best and Brightest From Every Part of Town!</p>
+            <div class="input-group">
+              <div class="form-outline">
+                <input type="search" id="form1" class="form-control" value="Thluffy Sinclair" />
               </div>
+              <button type="button" class="btn btn-outline-warning">FIND
+              </button>
             </div>
           </div>
-          <!-- End -->
-      
-          <div class="row">
-            <!-- Gallery item -->
-            {% for devo in devos %}
-            <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-              <div class="bg-white rounded shadow-sm"><img src="{{ devo['pfp'] }}" alt="" class="img-fluid card-img-top" style="padding: 10px; padding-bottom: 0px;">
-                <div class="p-4">
-                  <h5 class="text-dark">{{ devo['name'] }}</h5>
-                  <h6 class="text-dark">{{ devo['id'] }}</h6>
-                  <p class="small text-muted mb-0">{{ devo['bio'] }}</p><br>
-                  <a href="/gallery" class="btn btn-primary" style="width: 100%;">Explore!</a>                  
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-            <!-- End -->
-          </div>
-          <div class="py-5 text-right"><a href="#top" class="btn btn-outline-dark btn-block px-5 py-3 text-uppercase" style="width:100%;">Return to Top</a></div>
         </div>
       </div>
+      <!-- End -->
+
+      <div class="row">
+        <!-- Gallery item -->
+        {% for devo in devos %}
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+          <div class="bg-white rounded shadow-sm"><img src="{{ devo['pfp'] }}" alt="" class="img-fluid card-img-top"
+              style="padding: 10px; padding-bottom: 0px;">
+            <div class="p-4">
+              <h5 class="text-dark"><a href="{{ url_for('user_account', user_id=devo['user_id']) }}" style="text-decoration:none">{{ devo['name']
+                    }}</a></h5>
+              <h6 class="text-dark">{{ devo['id'] }}</h6>
+              <p class="small text-muted mb-1">{{ devo['bio'] }}</p>
+              <p class="small mb-2">Projects: {{ devo['num_projs'] }}</p>
+              <a href="/gallery" class="btn btn-primary" style="width: 100%;">Explore!</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- End -->
+      </div>
+      <div class="py-5 text-right"><a href="#top" class="btn btn-outline-dark btn-block px-5 py-3 text-uppercase"
+          style="width:100%;">Return to Top</a></div>
+    </div>
+  </div>
 </body>

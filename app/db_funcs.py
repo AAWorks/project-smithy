@@ -87,3 +87,7 @@ def get_project_ids(user_id):
         if str(user_id) in i.devoIDs.split("|"):
             project_ids.append(i.project_id)
     return project_ids
+
+def get_details(user_id):
+    db = SqliteDb(DB_FILE)
+    return db.select("user_details", user_id=user_id)[0]

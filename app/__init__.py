@@ -158,7 +158,7 @@ def disp_home():
         return render_template("error.html")
 
 
-@app.route("/account", methods=['GET', 'POST'])
+@app.route("/account/", methods=['GET', 'POST'])
 def account():
     try:
         if session:
@@ -170,23 +170,43 @@ def account():
     except:
         return render_template("error.html")
 
+@app.route("/account/<user_id>", methods=['GET', 'POST'])
+def user_account(user_id):
+    try:
+        user = get_user(user_id)
+        name = user["firstname"] + " " + user["lastname"]
+        return render_template("account.html", pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
+    except:
+        return render_template("error.html")
 
 @app.route("/devos", methods=['GET', 'POST'])
 def devos():
-    try:
-        tester = {"name": "Thluffy Sinclair", "id": "tsinclair20", "bio": "A totally tubular devo to test the totally tubular devos page!",
-                  "pfp": url_for('static', filename="images/users/default.png")}
-        devos = []
-        for i in range(10):
-            devo = {}
-            devo["name"] = tester['name']
-            devo["id"] = tester['id'] + "#" + str(i)
-            devo["bio"] = tester["bio"]
-            devo["pfp"] = tester["pfp"]
-            devos.append(devo)
+    # try:
+        # tester = {"name": "Thluffy Sinclair", "id": "tsinclair20", "bio": "A totally tubular devo to test the totally tubular devos page!",
+        #           "pfp": url_for('static', filename="images/users/default.png")}
+        # devos = []
+        # for i in range(10):
+        #     devo = {}
+        #     devo["name"] = tester['name']
+        #     devo["id"] = tester['id'] + "#" + str(i)
+        #     devo["bio"] = tester["bio"]
+        #     devo["pfp"] = tester["pfp"]
+        #     devos.append(devo)
+
+        devos = [
+            {
+                "name": u.firstname + " " + u.lastname,
+                "id": str(u.stuy_username + "#" + str(u.user_id)),
+                "user_id": u.user_id,
+                "num_projs": len(get_project_ids(u.user_id)),
+                # "bio": get_details(u.user_id)["about"],
+                "bio": "A totally tubular devo to test the totally tubular devos page!",
+                "pfp": u.pfp
+            } for u in get_users()
+        ]
         return render_template("devos.html", devos=devos)
-    except:
-        return render_template("error.html")
+    # except:
+    #     return render_template("error.html")
 
 
 @app.route("/gallery", methods=['GET', 'POST'])
@@ -205,6 +225,7 @@ def gallery():
     except:
         return render_template("error.html")
 
+
 @app.route("/project/<string:project_id>", methods=['GET', 'POST'])
 def view_project(project_id):
     try:
@@ -220,7 +241,7 @@ def createPost():
         return render_template("createPost.html")
     except:
         return render_template("error.html")
-    
+
 
 if __name__ == "__main__":  # false if this file imported as module
     # enable debugging, auto-restarting of server when this file is modified
