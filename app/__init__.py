@@ -213,6 +213,15 @@ def view_project(project_id):
     except:
         return render_template("error.html")
 
+
+@app.route("/createPost", methods=['GET', 'POST'])
+def createPost():
+    try:
+        return render_template("createPost.html")
+    except:
+        return render_template("error.html")
+    
+
 if __name__ == "__main__":  # false if this file imported as module
     # enable debugging, auto-restarting of server when this file is modified
     app.debug = True
