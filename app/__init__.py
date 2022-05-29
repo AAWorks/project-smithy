@@ -205,6 +205,13 @@ def gallery():
     except:
         return render_template("error.html")
 
+@app.route("/project/<string:project_id>", methods=['GET', 'POST'])
+def view_project(project_id):
+    try:
+        #project = get_project(project_id)
+        return render_template("project.html")
+    except:
+        return render_template("error.html")
 
 if __name__ == "__main__":  # false if this file imported as module
     # enable debugging, auto-restarting of server when this file is modified
