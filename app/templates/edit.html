@@ -80,16 +80,16 @@
                                     </div>
                                     <input type="image" onclick ="edit()" id= "icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24">
                                     <ul class="list-unstyled mb-1-9">
-                                        <li class="mb-2 mb-xl-3 display-28"><span class="size display-26 text-secondary me-2 font-weight-600">ID:</span> <span class ="child contentEdit" contenteditable="false">{{ user_id }} </span>   
+                                        <li class="mb-2 mb-xl-3 display-28"><span class="size display-26 text-secondary me-2 font-weight-600">ID:</span> {{ user_id }}   
                                            
                                         </li>
-                                        <li class="mb-2 mb-xl-3 display-28"><span class="size display-26 text-secondary me-2 font-weight-600 editable">Email:</span> <div class ="child contentEdit" contenteditable="false">{{ stuyname }}@stuy.edu</div>
+                                        <li class="mb-2 mb-xl-3 display-28"><span class="size display-26 text-secondary me-2 font-weight-600 editable">Email:</span> {{ stuyname }}@stuy.edu
                                        
                                         </li>
-                                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600 editable">Website:</span> <a href="https://github.com/{{ github }}" class="child contentEdit purple_a" contenteditable="false">https://github.com/{{ github }}</a>
+                                        <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600 editable">Website:</span> <a href="https://github.com/{{ github }}" class="child contentEdit purple_a" contenteditable="true">https://github.com/{{ github }}</a>
                                                 
                                         </li>
-                                        <li class="display-28"><span class="display-26 text-secondary me-2 font-weight-600 editable">Developer Rating:</span> <div class ="child contentEdit" contenteditable="false">[stars]</div>
+                                        <li class="display-28"><span class="display-26 text-secondary me-2 font-weight-600 editable">Developer Rating:</span> [stars]
                                                
                                         </li>
                                     </ul>
