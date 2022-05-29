@@ -242,12 +242,9 @@ def createPost():
     except:
         return render_template("error.html")
 
-<<<<<<< HEAD
-=======
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
     return render_template("upload_project.html")
->>>>>>> 226abe39a4ea114e888a85bcd164e59abcbe49b6
 
 if __name__ == "__main__":  # false if this file imported as module
     # enable debugging, auto-restarting of server when this file is modified
