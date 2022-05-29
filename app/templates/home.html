@@ -53,9 +53,9 @@ P04 -- Smithy -->
       </ul>
     </nav>
     {% if session['user_id'] %}
-    <a href="/logout" class="btn btn-danger navlink" tabindex="-1" role="button" aria-disabled="true" style="color: #d9534f; background-color: white; text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
+    <a href="/logout" class="btn btn-outline-danger navlink" tabindex="-1" role="button" aria-disabled="true" style="text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
     {% else %}
-    <a href="/login" class="btn btn-info navlink" tabindex="-1" role="button" aria-disabled="true" style="color: #5bc0de; background-color: white; text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
+    <a href="/login" class="btn btn-outline-info navlink" tabindex="-1" role="button" aria-disabled="true" style="text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
     {% endif %}
 </head>
 <body style="color: white;">
@@ -89,7 +89,7 @@ P04 -- Smithy -->
             Phasellus luctus, ligula quis feugiat aliquam, eros felis rhoncus orci, ac sollicitudin purus arcu eget ex. Donec sed nisl sit amet neque fringilla pretium ut non risus. Vivamus consequat ligula maximus nibh blandit, non placerat ligula dictum. Ut a elit id leo mollis pulvinar. Proin ornare elit sed bibendum lacinia. Vestibulum vitae ipsum quis ipsum suscipit lacinia eu non nulla. Nam eget blandit ex, in blandit tellus. Morbi et ex non sem bibendum efficitur. 
             </h4>
             <br>
-            <h3 class="text-center fw-light">View this project: <a href="https://projectsmithy.com/gallery/[smithy project id]" target="_blank">Smithy!</a></h3>
+            <h3 class="text-center fw-light">View this project: <a href="https://projectsmithy.com/gallery/[smithy project id]" target="_blank" class="purple_a">Smithy!</a></h3>
         </div>
       </div>
     </div>
