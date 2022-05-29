@@ -119,7 +119,7 @@ def rAuthenticate():
             else:
                 # creates user account b/c no fails
                 create_user(stuy_username, password0,
-                            firstname, lastname, github)
+                            firstname, lastname, github, url_for('static', filename='images/users/default.png'))
                 return render_template('login.html', input='success', user_id=get_latest_id(stuy_username))
 
 
@@ -164,7 +164,7 @@ def account():
         if session:
             user = get_user(int(session['user_id'].split('#')[-1]))
             name = user["firstname"] + " " + user["lastname"]
-            return render_template("account.html", first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
+            return render_template("account.html", pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
         else:
             return redirect("/login")
     except:
