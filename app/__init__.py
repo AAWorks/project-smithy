@@ -89,8 +89,8 @@ def rAuthenticate():
     ''' Authentication of username and passwords given in register page from user '''
 
     method = request.method
-    firstname = request.form.get('firstname').capitalize()
-    lastname = request.form.get('lastname').capitalize()
+    firstname = request.form.get('firstname').title()
+    lastname = request.form.get('lastname').title()
     stuy_username = request.form.get('stuy_username').lower()
     github = request.form.get('github')
     password0 = request.form.get('password0')
@@ -128,7 +128,7 @@ def editProfile():
     try:
         user = get_user(int(session['user_id'].split('#')[-1]))
         name = user["firstname"] + " " + user["lastname"]
-        return render_template("edit.html", first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"])
+        return render_template("edit.html", first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
     except:
         return render_template("error.html")
 
