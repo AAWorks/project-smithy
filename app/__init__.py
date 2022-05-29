@@ -128,7 +128,7 @@ def editProfile():
     try:
         user = get_user(int(session['user_id'].split('#')[-1]))
         name = user["firstname"] + " " + user["lastname"]
-        return render_template("edit.html", first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
+        return render_template("edit.html", pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
     except:
         return render_template("error.html")
 

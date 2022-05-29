@@ -43,3 +43,6 @@ noakaiA -- 2022-05-27 22:37
 
 justinZ -- 2022-05-29 00:32
  Worked more on edit making it a singular button and making it visible that it is edible. Trying to work on saving the work with localstorage.
+
+ justinZ -- 2022-05-29 13:08
+ Made the editing permenant.

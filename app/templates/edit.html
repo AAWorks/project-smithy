@@ -77,7 +77,7 @@
                         <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
                             <div class="row align-items-center">
                                 <div class="col-lg-6 mb-4 mb-lg-0">
-                                    <img src="{{ url_for('static', filename='images/default_pfp.png') }}" alt="..."
+                                    <img src="{{ pfp }}" alt="..."
                                         width=315 height=315 style="margin-left: 4.8rem">
                                 </div>
                                 <div class="col-lg-6 px-xl-10">
@@ -91,7 +91,7 @@
                                     <ul class="list-unstyled mb-1-9">
                                         <li class="mb-2 mb-xl-3 display-28"><span
                                                 class="size display-26 text-secondary me-2 font-weight-600">ID:</span>
-                                            {{ user_id }}
+                                            <div id ="identifier" class="child">{{ user_id }}</div>
 
                                         </li>
                                         <li class="mb-2 mb-xl-3 display-28"><span
@@ -193,8 +193,8 @@
                     </div>
                 </div>
             </div>
-            <input type="image" onclick="save()" id="icon" class="editable"
-                src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24">
+            <button class="save" onclick="save()"> Save</button>
+            <!-- <input type="image" onclick="save()" id="icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24"> -->
         </div>
     </section>
 </body>
