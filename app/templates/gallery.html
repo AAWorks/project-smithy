@@ -145,7 +145,7 @@ P04 -- Smithy -->
 }
     </style>
 </head>
-<body style="background: #237677; color: white;">
+<body style="background-color: whitesmoke;">
     <div class="container-fluid">
         <div class="px-lg-5">
       
@@ -175,14 +175,14 @@ P04 -- Smithy -->
                 <div class="p-4">
                   <h5 class="text-dark">{{ project['title'] }}</h5>
                   <p class="small text-muted mb-0">{{ project['descrip'] }}</p><br>
-                  <a href="/gallery" class="btn btn-primary" style="width: 100%;">Explore!</a>                  
+                  <a href="/project/{{ project['title'] }}" class="btn btn-primary" style="width: 100%;">Learn More</a>                  
                 </div>
               </div>
             </div>
             {% endfor %}
             <!-- End -->
           </div>
-          <div class="py-5 text-right"><a href="#top" class="btn btn-outline-light btn-block px-5 py-3 text-uppercase" style="width:100%;">Return to Top</a></div>
+          <div class="py-5 text-right"><a href="#top" class="btn btn-outline-dark btn-block px-5 py-3 text-uppercase" style="width:100%;">Return to Top</a></div>
         </div>
       </div>
 </body>
