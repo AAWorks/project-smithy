@@ -57,6 +57,7 @@ def create_user(stuy_username, password, firstname, lastname, github, pfp):
     return True
 
 def get_latest_id(stuy_username):
+    '''returns the latest user_id in the table for a stuy_username'''
     db = SqliteDb(DB_FILE)
     ret = db.select("users", stuy_username=stuy_username)[-1].user_id
     return ret
@@ -68,6 +69,21 @@ def get_user(user_id):
     return db.select("users", user_id=user_id)[0]
 
 def edit_user_data(user_id, column_toEdit, new_val):
+    '''updates a user's account details'''
     db = SqliteDb(DB_FILE)
 
     db.update("projects", where={"user_id": user_id}, upd={column_toEdit: new_val})
+
+def get_users():
+    '''fetches all users'''
+    db = SqliteDb(DB_FILE)
+    return db.select("users")
+
+def get_project_ids(user_id):
+    '''gets a user's project IDs'''
+    db = SqliteDb(DB_FILE)
+    project_ids = [u.project_id for u in db.select("projects", pmID=user_id)]
+    for i in db.select("projects"):
+        if str(user_id) in i.devoIDs.split("|"):
+            project_ids.append(i.project_id)
+    return project_ids
