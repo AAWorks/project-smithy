@@ -32,7 +32,3 @@ def edit_project_info(projectID, column_toEdit, new_val):
     db = SqliteDb(DB_FILE)
 
     db.update("projects", where={"project_id": projectID}, upd={column_toEdit: new_val})
-
-upload_project('tester', 'image', 'teamname', 'pmid', 'devo|dev', 'tag1|tag2', 'github', 'intro', 'a descrip', 'stars', 'somewhere')
-edit_project_info(1, 'title', 'tester_edited')
-print(get_project_snapshot(1))
