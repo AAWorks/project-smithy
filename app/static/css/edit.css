@@ -31,6 +31,10 @@
     display: inline-block;
    
 }
+[contenteditable="true"] {
+    font-family: "Rajdhani";
+    color: #C00;
+  }
 
 
 section {
