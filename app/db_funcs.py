@@ -47,13 +47,13 @@ def auth_user(stuy_username, user_id, password):
     return True
 
 
-def create_user(stuy_username, password, firstname, lastname, github):
+def create_user(stuy_username, password, firstname, lastname, github, pfp):
     ''' Adds user to database if right username and password are given when a
         person registers '''
 
     db = SqliteDb(DB_FILE)
     devo_status = "Devo-In-Training"
-    db.insert("users", stuy_username=stuy_username, password=hashsalt(password), firstname=firstname, lastname=lastname, github=github, devostatus=devo_status)
+    db.insert("users", pfp=pfp, stuy_username=stuy_username, password=hashsalt(password), firstname=firstname, lastname=lastname, github=github, devostatus=devo_status)
     return True
 
 def get_latest_id(stuy_username):
