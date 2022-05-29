@@ -175,7 +175,7 @@ def account():
 def devos():
     try:
         tester = {"name": "Thluffy Sinclair", "id": "tsinclair20", "bio": "A totally tubular devo to test the totally tubular devos page!",
-                  "pfp": url_for('static', filename="images/default_pfp.png")}
+                  "pfp": url_for('static', filename="images/users/default.png")}
         devos = []
         for i in range(10):
             devo = {}
