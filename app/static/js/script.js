@@ -1,6 +1,6 @@
 var content = document.getElementsByClassName("contentEdit")
-var idContent = document.getElementById("identifier")
-print(idContent.innerHTML)
+// var idContent = document.getElementById("identifier")
+
 let a = false;
 const contentArray = []
   for (let i = 0; i < content.length;i++){
@@ -10,7 +10,6 @@ const contentArray = []
 
 
 window.addEventListener('load', (event) =>{
-  console.log(id)
   content[0].innerHTML = localStorage.getItem("basic contentEdit")
   content[1].innerHTML = localStorage.getItem("mb-0 contentEdit")
   content[2].innerHTML = localStorage.getItem("contentEdit")
