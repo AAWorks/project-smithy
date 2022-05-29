@@ -31,3 +31,7 @@ Noakai is using this:<br>
 #237677<br>
 rgba(35,118,119, 150)<br>
 since the other green is too bright imo (we can test both)
+
+<br><br>
+project.html needs the following:
+title, date_uploaded, team_name, tags, team_name, pm_id, pm_name, devos (each is a dictionary of id and dict), hosted (boolean), repo_link, hosted_loc, comments (list of comments --> each comment is a dictionary of text, devo_pfp, devo_id, and devo_name), project_descrip_1, project_descrip_2
