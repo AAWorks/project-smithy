@@ -220,7 +220,10 @@ def createPost():
         return render_template("createPost.html")
     except:
         return render_template("error.html")
-    
+
+@app.route("/upload", methods=['GET', 'POST'])
+def upload():
+    return render_template("upload_project.html")
 
 if __name__ == "__main__":  # false if this file imported as module
     # enable debugging, auto-restarting of server when this file is modified
