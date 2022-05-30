@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 
-  <!-- Jimin: Alejandro Alonso (PM), Noakai Aronesty, Justin Zou, Ivan Lam
+<!-- Jimin: Alejandro Alonso (PM), Noakai Aronesty, Justin Zou, Ivan Lam
 SoftDev pd2
 P04 -- Smithy -->
 
 <head>
   <title>Smithy</title>
   <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='images/logo.png')}}">
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
-    <nav class="navbar navbar-expand-lg navbar-light justify-content-center" style="background-color: white; position:fixed; width:100%">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand" href="/">
-        <img src="{{url_for('static', filename='images/logo.png')}}" alt="..." height="36">
-      </a>
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/home">Home</a>
+  <nav class="navbar navbar-expand-lg navbar-light justify-content-center"
+    style="background-color: white; position:fixed; width:100%">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="{{url_for('static', filename='images/logo.png')}}" alt="..." height="36">
+    </a>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/home">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/gallery">Browse Projects</a>
@@ -32,32 +35,22 @@ P04 -- Smithy -->
       <li class="nav-item">
         <a class="nav-link" href="/devos">Explore Devos</a>
       </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/account">My Account</a>
-        </li>
-        {% if session['user_id'] %}
-        <li class="nav-item">
-          <a class="nav-link" href="/edit">Edit</a>
-        </li>
-        {% endif %}
-        <!-- <li class="nav-item dropdown">
-          <a href="/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Random dropdown</a>
-          <div class="dropdown-menu">
-              <a href="#" class="dropdown-item">Inbox</a>
-              <a href="#" class="dropdown-item">Drafts</a>
-              <a href="#" class="dropdown-item">Sent Items</a>
-              <div class="dropdown-divider"></div>
-              <a href="#"class="dropdown-item">Trash</a>
-          </div>
-      </li> -->
-      </ul>
-    </nav>
-    {% if session['user_id'] %}
-    <a href="/logout" class="btn btn-outline-danger navlink" tabindex="-1" role="button" aria-disabled="true" style="text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
-    {% else %}
-    <a href="/login" class="btn btn-outline-info navlink" tabindex="-1" role="button" aria-disabled="true" style="text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
-    {% endif %}
+      {% if session['user_id'] %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('user_account', user_id=session['user_id']) }}">My Account</a>
+      </li>
+      {% endif %}
+      {% if session['user_id'] %}
+      <a href="/logout" class="btn btn-outline-danger navlink" tabindex="-1" role="button" aria-disabled="true"
+        style="text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
+      {% else %}
+      <a href="/login" class="btn btn-outline-info navlink" tabindex="-1" role="button" aria-disabled="true"
+        style="text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
+      {% endif %}
+    </ul>
+  </nav>
 </head>
+
 <body style="color: white;">
 
 
@@ -84,12 +77,25 @@ P04 -- Smithy -->
           <h1 class="text-center fw-light"><em><strong>About Smithy</strong></em></h1>
           <h4 class="text-center fw-light"><em>Formerly known as Team Jimin</em></h4><br>
           <h4 class="text-center fw-light">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur diam sapien, ornare vitae neque eu, sodales placerat justo. Maecenas justo metus, ullamcorper ut sodales non, ornare eget justo. Nulla sollicitudin fringilla aliquet. In ac lorem sollicitudin, finibus nibh ullamcorper, venenatis mi. Aenean dignissim ornare augue, ac viverra nisl rutrum eu. Nulla id tempus enim. Vivamus ullamcorper nisi id velit malesuada vestibulum. Nulla facilisi. Donec sit amet egestas dui. Etiam pretium dolor vitae quam rutrum, ac varius lorem maximus. Proin nec volutpat purus, eget molestie tellus. Etiam et vulputate tellus. Nunc enim eros, tempus in euismod vitae, posuere at ante. Nullam libero nisi, consequat sit amet dolor eu, ultrices scelerisque purus. Quisque sit amet pellentesque ligula.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur diam sapien, ornare vitae neque eu,
+            sodales placerat justo. Maecenas justo metus, ullamcorper ut sodales non, ornare eget justo. Nulla
+            sollicitudin fringilla aliquet. In ac lorem sollicitudin, finibus nibh ullamcorper, venenatis mi. Aenean
+            dignissim ornare augue, ac viverra nisl rutrum eu. Nulla id tempus enim. Vivamus ullamcorper nisi id velit
+            malesuada vestibulum. Nulla facilisi. Donec sit amet egestas dui. Etiam pretium dolor vitae quam rutrum, ac
+            varius lorem maximus. Proin nec volutpat purus, eget molestie tellus. Etiam et vulputate tellus. Nunc enim
+            eros, tempus in euismod vitae, posuere at ante. Nullam libero nisi, consequat sit amet dolor eu, ultrices
+            scelerisque purus. Quisque sit amet pellentesque ligula.
             <br><br>
-            Phasellus luctus, ligula quis feugiat aliquam, eros felis rhoncus orci, ac sollicitudin purus arcu eget ex. Donec sed nisl sit amet neque fringilla pretium ut non risus. Vivamus consequat ligula maximus nibh blandit, non placerat ligula dictum. Ut a elit id leo mollis pulvinar. Proin ornare elit sed bibendum lacinia. Vestibulum vitae ipsum quis ipsum suscipit lacinia eu non nulla. Nam eget blandit ex, in blandit tellus. Morbi et ex non sem bibendum efficitur. 
-            </h4>
-            <br>
-            <h3 class="text-center fw-light">View this project: <a href="https://projectsmithy.com/gallery/[smithy project id]" target="_blank" class="purple_a">Smithy!</a></h3>
+            Phasellus luctus, ligula quis feugiat aliquam, eros felis rhoncus orci, ac sollicitudin purus arcu eget ex.
+            Donec sed nisl sit amet neque fringilla pretium ut non risus. Vivamus consequat ligula maximus nibh blandit,
+            non placerat ligula dictum. Ut a elit id leo mollis pulvinar. Proin ornare elit sed bibendum lacinia.
+            Vestibulum vitae ipsum quis ipsum suscipit lacinia eu non nulla. Nam eget blandit ex, in blandit tellus.
+            Morbi et ex non sem bibendum efficitur.
+          </h4>
+          <br>
+          <h3 class="text-center fw-light">View this project: <a
+              href="https://projectsmithy.com/gallery/[smithy project id]" target="_blank" class="purple_a">Smithy!</a>
+          </h3>
         </div>
       </div>
     </div>

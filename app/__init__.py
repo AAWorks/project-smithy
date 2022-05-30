@@ -3,6 +3,7 @@
 # P04 -- Smithy
 
 from flask import Flask, render_template, request, session, redirect, url_for
+from werkzeug import *
 
 with open("app/db_builder.py", "rb") as source_file:
     code = compile(source_file.read(), "app/db_builder.py", "exec")
@@ -10,10 +11,15 @@ exec(code)
 with open("app/db_funcs.py", "rb") as source_file:
     code = compile(source_file.read(), "app/db_funcs.py", "exec")
 exec(code)
+with open("app/project_db.py", "rb") as source_file:
+    code = compile(source_file.read(), "app/project_db.py", "exec")
+exec(code)
+
 
 app = Flask(__name__)
 app.secret_key = 'stuffins'
 
+#app.config['idk what to put here']
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -80,8 +86,8 @@ def authenticate():
     elif auth_state == "bad_user":
         return render_template('login.html', input="bad_user")
     elif auth_state == True:
-        session['user_id'] = stuy_username + "#" + str(user_id)
-        return redirect('account')
+        session['user_id'] = user_id
+        return redirect(url_for('user_account', user_id=user_id))
 
 
 @app.route("/rAuth", methods=['GET', 'POST'])
@@ -89,8 +95,8 @@ def rAuthenticate():
     ''' Authentication of username and passwords given in register page from user '''
 
     method = request.method
-    firstname = request.form.get('firstname').capitalize()
-    lastname = request.form.get('lastname').capitalize()
+    firstname = request.form.get('firstname').title()
+    lastname = request.form.get('lastname').title()
     stuy_username = request.form.get('stuy_username').lower()
     github = request.form.get('github')
     password0 = request.form.get('password0')
@@ -119,19 +125,34 @@ def rAuthenticate():
             else:
                 # creates user account b/c no fails
                 create_user(stuy_username, password0,
-                            firstname, lastname, github)
+                            firstname, lastname, github, url_for('static', filename='images/users/default.png'))
                 return render_template('login.html', input='success', user_id=get_latest_id(stuy_username))
 
 
 @app.route("/edit")
 def editProfile():
     try:
-        user = get_user(int(session['user_id'].split('#')[-1]))
+        user = get_user(session['user_id'])
+        details = get_details(session['user_id'])
         name = user["firstname"] + " " + user["lastname"]
-        return render_template("edit.html", first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"])
+        return render_template("edit.html", pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"], about_info=details['about'])
     except:
         return render_template("error.html")
 
+
+@app.route('/update_info', methods=['GET', 'POST'])
+def update_info():
+    method=request.method
+    about_info = request.form.get('about_section')
+    user_id = request.form.get('user_id')
+
+    if method == 'GET':
+        return redirect(url_for('disp_home'))
+
+    if method == 'POST':
+        print(about_info)
+        edit_user_data("user_details", user_id, "about", about_info)
+        return redirect(url_for('user_account', user_id=user_id))
 
 @app.route("/logout")
 def logout():
@@ -151,59 +172,65 @@ def disp_home():
     ''' Loads the landing page '''
     try:
         if session:
-            return render_template("home.html", returning="Current user: " + session['user_id'])
+            return render_template("home.html", returning="Current user: " + get_full_username(session['user_id']))
         else:
             return render_template("home.html")
     except:
         return render_template("error.html")
 
-
-@app.route("/account", methods=['GET', 'POST'])
-def account():
+@app.route("/account/<user_id>", methods=['GET', 'POST'])
+def user_account(user_id):
     try:
-        if session:
-            user = get_user(int(session['user_id'].split('#')[-1]))
-            name = user["firstname"] + " " + user["lastname"]
-            return render_template("account.html", first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
-        else:
-            return redirect("/login")
+        user = get_user(user_id)
+        details = get_details(user_id)
+        name = user["firstname"] + " " + user["lastname"]
+        return render_template("account.html", user_id=user['user_id'], pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"], about_info=details['about'])
     except:
         return render_template("error.html")
-
 
 @app.route("/devos", methods=['GET', 'POST'])
 def devos():
-    try:
-        tester = {"name": "Thluffy Sinclair", "id": "tsinclair20", "bio": "A totally tubular devo to test the totally tubular devos page!",
-                  "pfp": url_for('static', filename="images/default_pfp.png")}
-        devos = []
-        for i in range(10):
-            devo = {}
-            devo["name"] = tester['name']
-            devo["id"] = tester['id'] + "#" + str(i)
-            devo["bio"] = tester["bio"]
-            devo["pfp"] = tester["pfp"]
-            devos.append(devo)
+    # try:
+        # tester = {"name": "Thluffy Sinclair", "id": "tsinclair20", "bio": "A totally tubular devo to test the totally tubular devos page!",
+        #           "pfp": url_for('static', filename="images/users/default.png")}
+        # devos = []
+        # for i in range(10):
+        #     devo = {}
+        #     devo["name"] = tester['name']
+        #     devo["id"] = tester['id'] + "#" + str(i)
+        #     devo["bio"] = tester["bio"]
+        #     devo["pfp"] = tester["pfp"]
+        #     devos.append(devo)
+
+        devos = [
+            {
+                "name": u.firstname + " " + u.lastname,
+                "user_id": u.user_id,
+                "stuyname": u.stuy_username,
+                "num_projs": len(get_project_ids(u.user_id)),
+                # "bio": get_details(u.user_id)["about"],
+                "bio": "A totally tubular devo to test the totally tubular devos page!",
+                "pfp": u.pfp
+            } for u in get_users()
+        ]
         return render_template("devos.html", devos=devos)
-    except:
-        return render_template("error.html")
+    # except:
+    #     return render_template("error.html")
 
 
 @app.route("/gallery", methods=['GET', 'POST'])
 def gallery():
     try:
-        tester = {"title": "Tester", "descrip": "A totally tubular project to test the totally tubular gallery!",
-                  "image": url_for('static', filename="images/Smithy.png")}
-        projects = []
-        for i in range(10):
-            tmp = {}
-            tmp["title"] = tester['title'] + str(i)
-            tmp["descrip"] = tester['descrip']
-            tmp["image"] = tester["image"]
-            projects.append(tmp)
-        return render_template("gallery.html", projects=projects)
+        project_ids = get_all_project_ids()
+        project_snaps = []
+
+        for project_id in project_ids:
+            project_snaps.append(get_project_snapshot(project_id))
+
+        return render_template("gallery.html", projects=project_snaps)
     except:
         return render_template("error.html")
+
 
 @app.route("/project/<string:project_id>", methods=['GET', 'POST'])
 def view_project(project_id):
@@ -220,7 +247,21 @@ def createPost():
         return render_template("createPost.html")
     except:
         return render_template("error.html")
-    
+
+@app.route("/upload", methods=['GET', 'POST'])
+def upload():
+    user = get_user(session['user_id'])
+    if request.method == 'POST':
+        #f = request.files['project_image']
+        #f.save(secure_filename(f.filename))
+        #f2 = request.files['team_flag']
+        #f2.save(secure_filename(f2.filename))
+
+        devoIDs = [request.form.get('devo1'), request.form.get('devo2'), request.form.get('devo3')]
+        tags = ["_blank_"]
+
+        upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get('pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 5, request.form.get('hosted_loc'))
+    return render_template("upload_project.html", user_id=user)
 
 if __name__ == "__main__":  # false if this file imported as module
     # enable debugging, auto-restarting of server when this file is modified

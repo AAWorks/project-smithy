@@ -20,6 +20,10 @@
     /* display: none; */
 }
 
+.save{
+    float: right;
+}
+
 .size{
     white-space: nowrap;
 }
@@ -33,7 +37,7 @@
 }
 [contenteditable="true"] {
     font-family: "Rajdhani";
-    color: #5a4ae3;
+    border-style: groove;
   }
 
 

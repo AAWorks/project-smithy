@@ -10,7 +10,7 @@ Login Table<br>
 UserID | Passwords (Hash) + Salt | first | last | favorites | average_rating_given<br>
 
 Projects Table<br>
-Project_ID | Project_Title | Authors | Avg_Rating | <br>
+project_id | title | team_name | pmID | devoIDs | tags | repo | descrip1 | descrip2 | avg_rating | comments | hosted | hosted_loc <br>
 
 Comments Table<br>
 Comment | Project_ID | UserID | Upvotes | Downvotes | Anonymous | <br>
@@ -34,4 +34,4 @@ since the other green is too bright imo (we can test both)
 
 <br><br>
 project.html needs the following:
-title, date_uploaded, team_name, tags, team_name, pm_id, pm_name, devos (each is a dictionary of id and dict), hosted (boolean), repo_link, hosted_loc, comments (list of comments --> each comment is a dictionary of text, devo_pfp, devo_id, and devo_name), project_descrip_1, project_descrip_2
+title, date_uploaded, team_name, tags, team_name, pm_id, pm_name, devos (each is a dictionary of id and name), hosted (boolean), repo_link, hosted_loc, comments (list of comments --> each comment is a dictionary of text, devo_pfp, devo_id, and devo_name), project_descrip_1, project_descrip_2
