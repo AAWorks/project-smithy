@@ -40,7 +40,7 @@ P04 -- Smithy -->
         <a class="nav-link" href="/devos">Explore Devos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('user_account', user_id=user_id) }}">My Account</a>
+        <a class="nav-link" href="{{ url_for('user_account', user_id=session['user_id']) }}">My Account</a>
       </li>
       {% if session['user_id'] %}
       <li class="nav-item">

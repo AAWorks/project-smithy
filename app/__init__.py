@@ -163,19 +163,6 @@ def disp_home():
     except:
         return render_template("error.html")
 
-
-@app.route("/account/", methods=['GET', 'POST'])
-def account():
-    try:
-        if session:
-            user = get_user(session['user_id'])
-            name = user["firstname"] + " " + user["lastname"]
-            return render_template("account.html", pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
-        else:
-            return redirect("/login")
-    except:
-        return render_template("error.html")
-
 @app.route("/account/<user_id>", methods=['GET', 'POST'])
 def user_account(user_id):
     try:
