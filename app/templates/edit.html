@@ -77,26 +77,27 @@
                         <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
                             <div class="row align-items-center">
                                 <div class="col-lg-6 mb-4 mb-lg-0">
-                                    <img src="{{ pfp }}" alt="..."
-                                        width=315 height=315 style="margin-left: 4.8rem">
+                                    <img src="{{ pfp }}" alt="..." width=315 height=315 style="margin-left: 4.8rem">
                                 </div>
                                 <div class="col-lg-6 px-xl-10">
                                     <div class="bg-secondary d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded">
 
                                         <h3 class="h2 text-white mb-0">{{ name }}</h3>
-                                        <span class="text-primary">{{ devo_status }}</span>
+                                        <span class="text-info" style="">{{ devo_status }}</span>
                                     </div>
                                     <input type="image" onclick="edit()" id="icon" class="editable"
                                         src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24">
                                     <ul class="list-unstyled mb-1-9">
                                         <li class="mb-2 mb-xl-3 display-28"><span
                                                 class="size display-26 text-secondary me-2 font-weight-600">ID:</span>
-                                            <div id ="identifier" class="child">{{ user_id }}</div>
+                                            <div id="identifier" class="child">{{ user_id }}</div>
 
                                         </li>
                                         <li class="mb-2 mb-xl-3 display-28"><span
-                                                class="size display-26 text-secondary me-2 font-weight-600 editable">Email:</span>
-                                            {{ stuyname }}@stuy.edu
+                                                class="display-26 text-secondary me-2 font-weight-600">Email:</span> <a
+                                                href="https://mail.google.com/mail/u/0/?fs=1&to={{ stuyname }}@stuy.edu&tf=cm"
+                                                class="purple_a">{{ stuyname }}@stuy.edu</a></li>
+
 
                                         </li>
                                         <li class="mb-2 mb-xl-3 display-28"><span
@@ -193,7 +194,8 @@
                     </div>
                 </div>
             </div>
-            <button class="save" onclick="save()"> Save</button>
+            <div class="py-5 text-right"><button class="btn btn-outline-dark btn-block px-5 py-3 text-uppercase"
+                style="width:100%;" onclick="save()">Save</button></div>
             <!-- <input type="image" onclick="save()" id="icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24"> -->
         </div>
     </section>

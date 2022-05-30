@@ -159,7 +159,7 @@ def disp_home():
         return render_template("error.html")
 
 
-@app.route("/account/", methods=['GET', 'POST'])
+@app.route("/account", methods=['GET', 'POST'])
 def account():
     try:
         if session:
