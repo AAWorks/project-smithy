@@ -11,10 +11,15 @@ exec(code)
 with open("app/db_funcs.py", "rb") as source_file:
     code = compile(source_file.read(), "app/db_funcs.py", "exec")
 exec(code)
+with open("app/project_db.py", "rb") as source_file:
+    code = compile(source_file.read(), "app/project_db.py", "exec")
+exec(code)
+
 
 app = Flask(__name__)
 app.secret_key = 'stuffins'
 
+#app.config['idk what to put here']
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -213,16 +218,13 @@ def devos():
 @app.route("/gallery", methods=['GET', 'POST'])
 def gallery():
     try:
-        tester = {"title": "Tester", "descrip": "A totally tubular project to test the totally tubular gallery!",
-                  "image": url_for('static', filename="images/Smithy.png")}
-        projects = []
-        for i in range(10):
-            tmp = {}
-            tmp["title"] = tester['title'] + str(i)
-            tmp["descrip"] = tester['descrip']
-            tmp["image"] = tester["image"]
-            projects.append(tmp)
-        return render_template("gallery.html", projects=projects)
+        project_ids = get_all_project_ids()
+        project_snaps = []
+
+        for project_id in project_ids:
+            project_snaps.append(get_project_snapshot(project_id))
+
+        return render_template("gallery.html", projects=project_snaps)
     except:
         return render_template("error.html")
 
@@ -247,8 +249,15 @@ def createPost():
 def upload():
     user = get_user(int(session['user_id'].split('#')[-1]))
     if request.method == 'POST':
-      f = request.files['file']
-      f.save(secure_filename(f.filename))
+        #f = request.files['project_image']
+        #f.save(secure_filename(f.filename))
+        #f2 = request.files['team_flag']
+        #f2.save(secure_filename(f2.filename))
+
+        devoIDs = [request.form.get('devo1'), request.form.get('devo2'), request.form.get('devo3')]
+        tags = ["_blank_"]
+
+        upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get('pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 5, request.form.get('hosted_loc'))
     return render_template("upload_project.html", user_id=user)
 
 if __name__ == "__main__":  # false if this file imported as module
