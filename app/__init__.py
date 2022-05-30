@@ -245,11 +245,11 @@ def createPost():
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
-
+    user = get_user(int(session['user_id'].split('#')[-1]))
     if request.method == 'POST':
       f = request.files['file']
       f.save(secure_filename(f.filename))
-    return render_template("upload_project.html", user_id=user_id)
+    return render_template("upload_project.html", user_id=user)
 
 if __name__ == "__main__":  # false if this file imported as module
     # enable debugging, auto-restarting of server when this file is modified
