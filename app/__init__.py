@@ -301,23 +301,30 @@ def gallery():
     except:
         return render_template("error.html")
 
-
-@app.route("/project/<string:project_id>", methods=['GET', 'POST'])
+@app.route("/project/<project_id>", methods=['GET', 'POST'])
 def view_project(project_id):
-    try:
-        #project = get_project(project_id)
-        return render_template("project.html")
-    except:
-        return render_template("error.html")
+    #try:
+        project = get_project_details(project_id)
 
+        pm_id = project['pmID'].split("#")[-1]
+        pm = get_user(pm_id)
+        pm_name=(pm['firstname'] + " " + pm['lastname']).title()
 
-@app.route("/createPost", methods=['GET', 'POST'])
-def createPost():
-    try:
-        return render_template("createPost.html")
-    except:
-        return render_template("error.html")
+        devos=[]
+        for full_devo_id in project['devoIDs']:
+            devo_id = full_devo_id.split("#")[-1]
+            devo_info = get_user(devo_id)
+            devo = {'name': (devo_info['firstname'] + " " + devo_info['lastname']).title(), 'id': devo_id}
+            devos.append(devo)
 
+        if project['hosted_loc'].startswith("http://") or project['hosted_loc'].startswith("https://"):
+            hosted = True
+        else:
+            hosted = False
+
+        return render_template("project.html", title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'])
+    #except:
+     #   return render_template("error.html")
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
@@ -329,7 +336,7 @@ def upload():
         # f2.save(secure_filename(f2.filename))
         devoIDs = [request.form.get('devo1'), request.form.get(
             'devo2'), request.form.get('devo3')]
-        tags = ["_blank_"]
+        tags = ["P" + request.form.get('project_num')]
 
         new_project = upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get(
             'pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 5, request.form.get('hosted_loc'))
