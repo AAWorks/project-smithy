@@ -60,10 +60,3 @@ def clear_projects_table():
         return False
     db = SqliteDb(DB_FILE)
     db.delete_all("projects")
-
-def clear_users_table():
-    check = input("YOU ARE ABOUT TO DELETE EVERY ENTRY IN THE USERS TABLE OF THE DATABASE. CONTINUE (Y/N): ")
-    if check != "Y":
-        return False
-    db = SqliteDb(DB_FILE)
-    db.delete_all("users")
