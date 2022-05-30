@@ -53,8 +53,8 @@ def create_user(stuy_username, password, firstname, lastname, github, pfp):
 
     db = SqliteDb(DB_FILE)
     devo_status = "Devo-In-Training"
-    db.insert("users", pfp=pfp, stuy_username=stuy_username, password=hashsalt(password), firstname=firstname, lastname=lastname, github=github, devostatus=devo_status)
-    db.insert('user_details', about="", back_end=0, front_end=0, can_serve=0)
+    rowid = db.insert("users", pfp=pfp, stuy_username=stuy_username, password=hashsalt(password), firstname=firstname, lastname=lastname, github=github, devostatus=devo_status)
+    db.insert('user_details', rowid)
     return True
 
 def get_latest_id(stuy_username):
@@ -70,7 +70,7 @@ def get_user(user_id):
     return db.select("users", user_id=user_id)[0]
 
 def edit_user_data(table, user_id, column_toEdit, new_val):
-    '''updates a user's account details'''
+    '''updates a user's account data'''
     db = SqliteDb(DB_FILE)
 
     db.update(table, where={"user_id": user_id}, upd={column_toEdit: new_val})
@@ -96,3 +96,8 @@ def get_details(user_id):
 def get_full_username(user_id):
     db = SqliteDb(DB_FILE)
     return db.select("users", user_id=user_id)[0].stuy_username + "#" + str(user_id)
+
+def edit_user_details(user_id, about, back_end, front_end, git_foo, can_serve, discord_name, discord_id, facebook_name, twitter_name, reddit_name):
+    '''updates a user's account details'''
+    db = SqliteDb(DB_FILE)
+    db.update("user_details", where={"user_id": user_id}, about=about, back_end=back_end, front_end=front_end, git_foo=git_foo, can_serve=can_serve, discord_name=discord_name, discord_id=discord_id, facebook_name=facebook_name, twitter_name=twitter_name, reddit_name=reddit_name)

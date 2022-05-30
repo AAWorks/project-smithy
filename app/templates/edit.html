@@ -115,7 +115,8 @@
                         <div>
                             <span class="section-title text-primary">About {{ first }}</span>
                             <div class="mb-3">
-                                <textarea class="form-control" id="about_section" name="about_section" rows="3">{% for i in about_info %}{{i}}&#10;{% endfor %}</textarea>
+                                <textarea class="form-control" id="about_section" name="about_section"
+                                    rows="3">{% for i in about_info %}{{i}}&#10;{% endfor %}{{about_last}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -129,61 +130,69 @@
                                     <span class="section-title text-primary">Skill Set</span>
                                     <div class="progress-text">
                                         <div class="row">
-                                            <div class="col-6">Web Design</div>
-                                            <div class="col-6 text-end">80%</div>
+                                            <div class="col-6">Back end development</div>
+                                            <div class="col-6 text-end">{{back_end_info}}</div>
                                         </div>
                                     </div>
-                                    <div class="custom-progress progress progress-medium mb-3" style="height: 4px;">
-                                        <div class="animated custom-bar progress-bar slideInLeft bg-secondary"
-                                            style="width:80%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="10"
-                                            role="progressbar"></div>
-                                    </div>
+                                    <input type="range" class="form-range" min="0" max="100" value="{{back_end_info}}"
+                                        name="back_end_range" id="back_end_range">
                                     <div class="progress-text">
                                         <div class="row">
-                                            <div class="col-6">Back-End</div>
-                                            <div class="col-6 text-end">95%</div>
+                                            <div class="col-6">Front end development</div>
+                                            <div class="col-6 text-end">{{front_end_info}}</div>
                                         </div>
                                     </div>
-                                    <div class="custom-progress progress progress-medium mb-3" style="height: 4px;">
-                                        <div class="animated custom-bar progress-bar slideInLeft bg-secondary"
-                                            style="width:95%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="70"
-                                            role="progressbar"></div>
-                                    </div>
+                                    <input type="range" class="form-range" min="0" max="100" value="{{front_end_info}}"
+                                        name="front_end_range" id="front_end_range">
                                     <div class="progress-text">
                                         <div class="row">
-                                            <div class="col-6">Linux, Git, Google foo</div>
-                                            <div class="col-6 text-end">90%</div>
+                                            <div class="col-6">Git-foo</div>
+                                            <div class="col-6 text-end">{{git_foo_info}}</div>
                                         </div>
                                     </div>
-                                    <div class="custom-progress progress progress-medium mb-3" style="height: 4px;">
-                                        <div class="animated custom-bar progress-bar slideInLeft bg-secondary"
-                                            style="width:90%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="70"
-                                            role="progressbar"></div>
-                                    </div>
+                                    <input type="range" class="form-range" min="0" max="100" value="{{git_foo_info}}"
+                                        name="git_foo_range" id="git_foo_range">
+
                                     <div class="progress-text">
                                         <div class="row">
-                                            <div class="col-6">Experience</div>
-                                            <div class="col-6 text-end">75%</div>
+                                            <div class="col-6">Can serve on apache?</div>
                                         </div>
                                     </div>
-                                    <div class="custom-progress progress progress-medium" style="height: 4px;">
-                                        <div class="animated custom-bar progress-bar slideInLeft bg-secondary"
-                                            style="width:75%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="70"
-                                            role="progressbar"></div>
-                                    </div>
+                                    <select class="form-select mt-1 ms-0" name="can_serve_select">
+                                        {% if can_serve_info|int == 1 %}
+                                        <option selected value="1">Yes</option>
+                                        <option value="0">No</option>
+                                        {% else %}
+                                        <option value="1">Yes</option>
+                                        <option selected value="0">No</option>
+                                        {% endif %}
+                                    </select>
                                 </div>
                                 <div>
-                                    <span class="section-title text-primary editable">Education</span>
-                                    <p class="contentEdit" contenteditable="false">Many desktop publishing packages and
-                                        web
-                                        page editors now use Lorem Ipsum as their default model text, and a search for
-                                        'lorem ipsum' will uncover many web sites still in their infancy.</p>
-                                    <p class="mb-1-9 contentEdit" contenteditable="false">There are many variations of
-                                        passages of Lorem Ipsum available, but the majority have suffered alteration in
-                                        some
-                                        form, by injected humour.</p>
-
+                                    <span class="section-title text-primary">Social</span><br>
+                                    <div class="input-group w-50 mb-2">
+                                        <input type="text" class="form-control w-50" name="discord_name" value="{{discord_name}}"
+                                            placeholder="Discord username">
+                                        <span class="input-group-text">#</span>
+                                        <input type="text" class="form-control" name='discord_id' value="{{discord_id}}"
+                                            placeholder="Discord ID" aria-label="Server">
+                                    </div>
+                                    <div class="input-group w-50 mb-2">
+                                        <input type="text" class="form-control w-50" name="facebook_name" value="{{facebook_name}}"
+                                            placeholder="Facebook username">
+                                    </div>
+                                    <div class="input-group w-50 mb-2">
+                                        <span class="input-group-text" id="basic-addon1">@</span>
+                                        <input type="text" class="form-control w-50" name="twitter_name" value="{{twitter_name}}"
+                                            placeholder="Twitter handle">
+                                    </div>
+                                    <div class="input-group w-50 mb-2">
+                                        <span class="input-group-text" id="basic-addon1">u/</span>
+                                        <input type="text" class="form-control w-50" name="reddit_name" value="{{reddit_name}}"
+                                            placeholder="Reddit username">
+                                    </div>
                                 </div>
+                                <br>
                             </div>
                         </div>
                     </div>

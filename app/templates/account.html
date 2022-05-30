@@ -92,7 +92,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12 mb-4 mb-sm-5">
+                <div class="col-lg-12 mb-4">
                     <div>
                         <span class="section-title text-primary">About {{ first }}</span>
                         <p>
@@ -109,56 +109,67 @@
                                 <span class="section-title text-primary">Skill Set</span>
                                 <div class="progress-text">
                                     <div class="row">
-                                        <div class="col-6">Web Design</div>
-                                        <div class="col-6 text-end">80%</div>
+                                        <div class="col-6">Back end development</div>
+                                        <div class="col-6 text-end">{{ back_end_info }}%</div>
                                     </div>
                                 </div>
                                 <div class="custom-progress progress progress-medium mb-3" style="height: 4px;">
                                     <div class="animated custom-bar progress-bar slideInLeft bg-secondary"
-                                        style="width:80%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="10"
-                                        role="progressbar"></div>
+                                        style="width:{{back_end_info}}%" aria-valuemax="100" aria-valuemin="0"
+                                        aria-valuenow="10" role="progressbar"></div>
                                 </div>
                                 <div class="progress-text">
                                     <div class="row">
-                                        <div class="col-6">Back-End</div>
-                                        <div class="col-6 text-end">95%</div>
+                                        <div class="col-6">Front end development</div>
+                                        <div class="col-6 text-end">{{ front_end_info }}%</div>
                                     </div>
                                 </div>
                                 <div class="custom-progress progress progress-medium mb-3" style="height: 4px;">
                                     <div class="animated custom-bar progress-bar slideInLeft bg-secondary"
-                                        style="width:95%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="70"
-                                        role="progressbar"></div>
+                                        style="width:{{ front_end_info }}%" aria-valuemax="100" aria-valuemin="0"
+                                        aria-valuenow="70" role="progressbar"></div>
                                 </div>
                                 <div class="progress-text">
                                     <div class="row">
-                                        <div class="col-6">Linux, Git, Google foo</div>
-                                        <div class="col-6 text-end">90%</div>
+                                        <div class="col-6">Git-foo</div>
+                                        <div class="col-6 text-end">{{git_foo_info}}%</div>
                                     </div>
                                 </div>
                                 <div class="custom-progress progress progress-medium mb-3" style="height: 4px;">
                                     <div class="animated custom-bar progress-bar slideInLeft bg-secondary"
-                                        style="width:90%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="70"
-                                        role="progressbar"></div>
+                                        style="width:{{ git_foo_info }}%" aria-valuemax="100" aria-valuemin="0"
+                                        aria-valuenow="70" role="progressbar"></div>
                                 </div>
                                 <div class="progress-text">
                                     <div class="row">
-                                        <div class="col-6">Experience</div>
-                                        <div class="col-6 text-end">75%</div>
+                                        <div class="col-6">Can serve on apache?</div>
                                     </div>
                                 </div>
-                                <div class="custom-progress progress progress-medium" style="height: 4px;">
-                                    <div class="animated custom-bar progress-bar slideInLeft bg-secondary"
-                                        style="width:75%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="70"
-                                        role="progressbar"></div>
+                                {% if can_serve_info == 1 %}
+                                <div class="custom-progress progress progress-medium mb-3" style="height: 30px;">
+                                    <div class="animated custom-bar progress-bar slideInLeft"
+                                        style="width:100%; background-color:#3ea268" aria-valuemax="100"
+                                        role="progressbar">YES</div>
                                 </div>
+                                {% elif can_serve_info == 0 %}
+                                <div class="custom-progress progress progress-medium mb-3" style="height: 30px;">
+                                    <div class="animated custom-bar progress-bar slideInLeft"
+                                        style="width:100%; background-color:#ae3838" aria-valuemax="100"
+                                        role="progressbar">NO</div>
+                                </div>
+                                {% else %}
+                                {% endif %}
                             </div>
                             <div>
-                                <span class="section-title text-primary">Education</span>
-                                <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-                                    default model text, and a search for 'lorem ipsum' will uncover many web sites still
-                                    in their infancy.</p>
-                                <p class="">There are many variations of passages of Lorem Ipsum available, but
-                                    the majority have suffered alteration in some form, by injected humour.</p>
+                                <span class="section-title text-primary">Social</span><br>
+                                <a href="https://discord.com/channels/@me"><img
+                                        src="https://img.shields.io/static/v1?label=&message={{discord_name}}%23{{discord_id}}&color=5865F2&style=flat&logo=discord&logoColor=white"></a><br>
+                                <a href="https://www.facebook.com/{{facebook_name}}"><img
+                                        src="https://img.shields.io/static/v1?label=&message={{facebook_name}}&color=1877f2&style=flat&logo=facebook&logoColor=white"></a><br>
+                                <a href="https://twitter.com/{{twitter_name}}"><img
+                                        src="https://img.shields.io/static/v1?label=&message=@{{twitter_name}}&color=00acee&style=flat&logo=twitter&logoColor=white"></a><br>
+                                <a href="https://www.reddit.com/user/{{reddit_name}}"><img
+                                        src="https://img.shields.io/static/v1?label=&message=u/{{reddit_name}}&color=FF5700&style=flat&logo=reddit&logoColor=white"></a><br>
 
                             </div>
                             <br>
