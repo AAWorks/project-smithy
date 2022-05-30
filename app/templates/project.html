@@ -14,48 +14,39 @@
   rel="stylesheet"  type='text/css'>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
-    <nav class="navbar navbar-expand-lg navbar-light justify-content-center fixed-top" style="background-color: white; position:fixed; width:100%">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <nav class="navbar navbar-expand-lg navbar-light justify-content-center"
+    style="background-color: white;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="/">
-        <img src="{{url_for('static', filename='images/logo.png')}}" alt="..." height="36">
+      <img src="{{url_for('static', filename='images/logo.png')}}" alt="..." height="36">
     </a>
     <ul class="navbar-nav">
-        <li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link" href="/home">Home</a>
-    </li>
-    <li class="nav-item">
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="/gallery">Browse Projects</a>
-    </li>
-    <li class="nav-item">
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="/devos">Explore Devos</a>
-    </li>
-        <li class="nav-item">
+      </li>
+      {% if session['user_id'] %}
+      <li class="nav-item">
         <a class="nav-link" href="{{ url_for('user_account', user_id=session['user_id']) }}">My Account</a>
-        </li>
-        {% if session['user_id'] %}
-        <li class="nav-item">
-        <a class="nav-link" href="/edit">Edit</a>
-        </li>
-        {% endif %}
-        {% if session['user_id'] %}
-        <a href="/logout" class="btn btn-outline-danger navlink" tabindex="-1" role="button" aria-disabled="true" style="text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
-        {% else %}
-        <a href="/login" class="btn btn-outline-info navlink" tabindex="-1" role="button" aria-disabled="true" style="text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
-        {% endif %}
-        <!-- <li class="nav-item dropdown">
-        <a href="/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Random dropdown</a>
-        <div class="dropdown-menu">
-            <a href="#" class="dropdown-item">Inbox</a>
-            <a href="#" class="dropdown-item">Drafts</a>
-            <a href="#" class="dropdown-item">Sent Items</a>
-            <div class="dropdown-divider"></div>
-            <a href="#"class="dropdown-item">Trash</a>
-        </div>
-    </li> -->
+      </li>
+      {% endif %}
+      {% if session['user_id'] %}
+      <a href="/logout" class="btn btn-outline-danger navlink" tabindex="-1" role="button" aria-disabled="true"
+        style="text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
+      {% else %}
+      <a href="/login" class="btn btn-outline-info navlink" tabindex="-1" role="button" aria-disabled="true"
+        style="text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
+      {% endif %}
     </ul>
-    </nav>
+  </nav>
     <style>
         #intro {
         /* Margin to fix overlapping fixed navbar */

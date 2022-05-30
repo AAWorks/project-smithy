@@ -87,7 +87,7 @@ def authenticate():
         return render_template('login.html', input="bad_user")
     elif auth_state == True:
         session['user_id'] = user_id
-        return redirect('account')
+        return redirect(url_for('user_account', user_id=user_id))
 
 
 @app.route("/rAuth", methods=['GET', 'POST'])
