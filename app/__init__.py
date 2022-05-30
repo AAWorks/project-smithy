@@ -133,24 +133,26 @@ def rAuthenticate():
 def editProfile():
     try:
         user = get_user(session['user_id'])
+        details = get_details(session['user_id'])
         name = user["firstname"] + " " + user["lastname"]
-        return render_template("edit.html", pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
+        return render_template("edit.html", pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"], about_info=details['about'])
     except:
         return render_template("error.html")
 
 
-@app.route('/update_info')
+@app.route('/update_info', methods=['GET', 'POST'])
 def update_info():
     method=request.method
-    about_info = request.form.get('about_info')
+    about_info = request.form.get('about_section')
     user_id = request.form.get('user_id')
 
     if method == 'GET':
         return redirect(url_for('disp_home'))
 
     if method == 'POST':
+        print(about_info)
         edit_user_data("user_details", user_id, "about", about_info)
-
+        return redirect(url_for('user_account', user_id=user_id))
 
 @app.route("/logout")
 def logout():
@@ -180,8 +182,9 @@ def disp_home():
 def user_account(user_id):
     try:
         user = get_user(user_id)
+        details = get_details(user_id)
         name = user["firstname"] + " " + user["lastname"]
-        return render_template("account.html", user_id=user['user_id'], pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
+        return render_template("account.html", user_id=user['user_id'], pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"], about_info=details['about'])
     except:
         return render_template("error.html")
 

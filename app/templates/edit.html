@@ -116,7 +116,7 @@
                             <span class="section-title text-primary">About {{ first }}</span>
                             <div class="mb-3">
                                 <textarea class="form-control" id="about_section" name="about_section"
-                                    rows="3"></textarea>
+                                    rows="3">{{about_info}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -188,9 +188,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="mb-5 text-right"><button class="btn btn-outline-dark btn-block px-5 py-3 text-uppercase" type="submit" style="width:100%;">Save</button></div>
                 </form>
             </div>
-            <div class="mb-5 text-right"><button class="btn btn-outline-dark btn-block px-5 py-3 text-uppercase" type="submit" style="width:100%;">Save</button></div>
             <!-- <input type="image" onclick="save()" id="icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24"> -->
         </div>
     </section>
