@@ -67,6 +67,7 @@ P04 -- Smithy -->
     </nav>
 </head>
 <body>
+  <!--<form action="/upload" method="POST" name="upload_form" class="container card-0 justify-content-center" enctype="multipart/form-data">-->
   <form action="/upload" method="POST" name="upload_form" class="container card-0 justify-content-center">
     <div class="card-body px-sm-4 px-0">
         <div class="row justify-content-center mb-5">
@@ -79,19 +80,19 @@ P04 -- Smithy -->
                     <div class="card-body inner-card">
                         <div class="row justify-content-center">
                             <div class="col-lg-5 col-md-6 col-sm-12">
-                                <div class="form-group"><label for="title">Project Title</label><input type="text" class="form-control" id="title" placeholder=""> </div>
+                                <div class="form-group"><label for="title">Project Title</label><input type="text" class="form-control" id="title" placeholder="Smithy"> </div>
                                 <div class="form-group"> <label for="summary">Project Summary</label><textarea class="rounded-0" id="summary" name="paragraph_text" rows="9" form="upload_form"></textarea>
                                 </div>
-                                <div class="form-group"> <label for="repo">Github Repo</label><input type="text" class="form-control" id="repo" placeholder=""></div>
+                                <div class="form-group"> <label for="repo">Github Repo</label><input type="text" class="form-control" id="repo" placeholder="https://github.com/stuy-softdev"></div>
                                 <div class="form-group"> <label for="hosted_loc">Site Location (If Hosted)</label> <input type="text" class="form-control" id="hosted_loc" placeholder="http://164.92.149.123"></div>
                             </div>
                             <div class="col-lg-5 col-md-6 col-sm-12">
-                                <div class="form-group"> <label for="team_name">Team Name</label> <input type="text" class="form-control" id="team_name" placeholder=""> </div>
-                                <div class="form-group"> <label for="pm_id">PM: </label>  <input type="email" class="form-control" id="pm_id" placeholder="ID (ex. tsinclair20#12)"> </div>
+                                <div class="form-group"> <label for="team_name">Team Name</label> <input type="text" class="form-control" id="team_name" placeholder="Team Jimin"> </div>
+                                <div class="form-group"> <label for="pm_id">PM: </label>  <input type="text" class="form-control" id="pm_id" placeholder="ID (ex. tsinclair20#12)"> </div>
                                 <div class="form-group"> <label for="devo1">Devo #1: </label> <input type="text" class="form-control" id="devo1" placeholder="ID"> </div>
                                 <div class="form-group"> <label for="devo2">Devo #2: </label> <input type="text" class="form-control" id="devo2" placeholder="ID"> </div>
                                 <div class="form-group"> <label for="devo3">Devo #3: </label> <input type="text" class="form-control" id="devo3" placeholder="ID"></div>
-                                <div class="form-group"> <label for="project_num">Project #: </label> <select class="form-control"> <option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> </div>
+                                <div class="form-group"> <label for="project_num">Project #: </label> <select class="form-control" id="project_num"> <option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> </div>
                             </div>
                         </div><br>
                         <div class="file-upload col-lg-9 col-md-6 col-sm-12" style="margin-left: 100px">
