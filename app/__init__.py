@@ -86,7 +86,7 @@ def authenticate():
     elif auth_state == "bad_user":
         return render_template('login.html', input="bad_user")
     elif auth_state == True:
-        session['user_id'] = stuy_username + "#" + str(user_id)
+        session['user_id'] = user_id
         return redirect('account')
 
 
@@ -132,7 +132,7 @@ def rAuthenticate():
 @app.route("/edit")
 def editProfile():
     try:
-        user = get_user(int(session['user_id'].split('#')[-1]))
+        user = get_user(session['user_id'])
         name = user["firstname"] + " " + user["lastname"]
         return render_template("edit.html", pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
     except:
@@ -157,7 +157,7 @@ def disp_home():
     ''' Loads the landing page '''
     try:
         if session:
-            return render_template("home.html", returning="Current user: " + session['user_id'])
+            return render_template("home.html", returning="Current user: " + get_full_username(session['user_id']))
         else:
             return render_template("home.html")
     except:
@@ -168,7 +168,7 @@ def disp_home():
 def account():
     try:
         if session:
-            user = get_user(int(session['user_id'].split('#')[-1]))
+            user = get_user(session['user_id'])
             name = user["firstname"] + " " + user["lastname"]
             return render_template("account.html", pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
         else:
@@ -181,7 +181,7 @@ def user_account(user_id):
     try:
         user = get_user(user_id)
         name = user["firstname"] + " " + user["lastname"]
-        return render_template("account.html", user_id=(user['stuy_username'] + "#" + str(user['user_id'])), pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
+        return render_template("account.html", user_id=user['user_id'], pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
     except:
         return render_template("error.html")
 
@@ -202,8 +202,8 @@ def devos():
         devos = [
             {
                 "name": u.firstname + " " + u.lastname,
-                "id": str(u.stuy_username + "#" + str(u.user_id)),
-                "user_id": u.user_id,
+                "id": u.user_id,
+                "stuyname": u.stuy_username,
                 "num_projs": len(get_project_ids(u.user_id)),
                 # "bio": get_details(u.user_id)["about"],
                 "bio": "A totally tubular devo to test the totally tubular devos page!",
@@ -247,7 +247,7 @@ def createPost():
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
-    user = get_user(int(session['user_id'].split('#')[-1]))
+    user = get_user(session['user_id'])
     if request.method == 'POST':
         #f = request.files['project_image']
         #f.save(secure_filename(f.filename))

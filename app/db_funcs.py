@@ -91,3 +91,7 @@ def get_project_ids(user_id):
 def get_details(user_id):
     db = SqliteDb(DB_FILE)
     return db.select("user_details", user_id=user_id)[0]
+
+def get_full_username(user_id):
+    db = SqliteDb(DB_FILE)
+    return db.select("users", user_id=user_id)[0].stuy_username + "#" + str(user_id)
