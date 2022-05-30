@@ -68,11 +68,11 @@ def get_user(user_id):
 
     return db.select("users", user_id=user_id)[0]
 
-def edit_user_data(user_id, column_toEdit, new_val):
+def edit_user_data(table, user_id, column_toEdit, new_val):
     '''updates a user's account details'''
     db = SqliteDb(DB_FILE)
 
-    db.update("projects", where={"user_id": user_id}, upd={column_toEdit: new_val})
+    db.update(table, where={"user_id": user_id}, upd={column_toEdit: new_val})
 
 def get_users():
     '''fetches all users'''

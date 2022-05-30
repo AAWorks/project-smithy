@@ -139,6 +139,19 @@ def editProfile():
         return render_template("error.html")
 
 
+@app.route('/update_info')
+def update_info():
+    method=request.method
+    about_info = request.form.get('about_info')
+    user_id = request.form.get('user_id')
+
+    if method == 'GET':
+        return redirect(url_for('disp_home'))
+
+    if method == 'POST':
+        edit_user_data("user_details", user_id, "about", about_info)
+
+
 @app.route("/logout")
 def logout():
     ''' Logout user by deleting user from session dict. Redirects to loginpage '''
@@ -189,7 +202,7 @@ def devos():
         devos = [
             {
                 "name": u.firstname + " " + u.lastname,
-                "id": u.user_id,
+                "user_id": u.user_id,
                 "stuyname": u.stuy_username,
                 "num_projs": len(get_project_ids(u.user_id)),
                 # "bio": get_details(u.user_id)["about"],
