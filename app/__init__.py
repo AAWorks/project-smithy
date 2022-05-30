@@ -4,6 +4,7 @@
 
 from flask import Flask, render_template, request, session, redirect, url_for
 from werkzeug import *
+import os
 
 with open("app/db_builder.py", "rb") as source_file:
     code = compile(source_file.read(), "app/db_builder.py", "exec")
@@ -15,11 +16,16 @@ with open("app/project_db.py", "rb") as source_file:
     code = compile(source_file.read(), "app/project_db.py", "exec")
 exec(code)
 
+PROJECTS_UPLOAD_FOLDER = 'app/static/images/projects'
+USERS_UPLOAD_FOLDER = 'app/static/images/users'
+ALLOWED_EXTENSIONS = {'png'}
 
 app = Flask(__name__)
 app.secret_key = 'stuffins'
 
-#app.config['idk what to put here']
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -261,15 +267,21 @@ def createPost():
 def upload():
     user = get_user(session['user_id'])
     if request.method == 'POST':
-        #f = request.files['project_image']
-        #f.save(secure_filename(f.filename))
+        app.config['UPLOAD_FOLDER'] = PROJECTS_UPLOAD_FOLDER
+        cover_photo = request.files['project_image']
         #f2 = request.files['team_flag']
         #f2.save(secure_filename(f2.filename))
-
         devoIDs = [request.form.get('devo1'), request.form.get('devo2'), request.form.get('devo3')]
         tags = ["_blank_"]
 
-        upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get('pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 5, request.form.get('hosted_loc'))
+        new_project = upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get('pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 5, request.form.get('hosted_loc'))
+        pid = new_project['project_id']
+
+        if cover_photo.filename != "" and allowed_file(cover_photo.filename):
+            filename = str(pid) + "_cover" + ".png"
+            cover_photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            edit_project_info(pid, 'image', url_for('static', filename='images/projects/' + filename))
+    
     return render_template("upload_project.html", user_id=user)
 
 if __name__ == "__main__":  # false if this file imported as module

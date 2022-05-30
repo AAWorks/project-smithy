@@ -10,6 +10,9 @@ def upload_project(title, image, team_name, pmID, devoIDs, tags, repo, intro, de
     tags = "|".join(devoIDs)
     db.insert("projects", title=title, image=image, team_name=team_name, pmID=pmID, devoIDs=devos, tags=tags, repo=repo, intro=intro, descrip=descrip, rating=rating, hosted_loc=hosted_loc)
 
+    project = db.select("projects", title=title, team_name=team_name, intro=intro)[-1]
+    return project
+
 def get_project_details(project_id):
     db = SqliteDb(DB_FILE)
     
