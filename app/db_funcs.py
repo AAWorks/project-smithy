@@ -101,3 +101,10 @@ def edit_user_details(user_id, about, back_end, front_end, git_foo, can_serve, d
     '''updates a user's account details'''
     db = SqliteDb(DB_FILE)
     db.update("user_details", where={"user_id": user_id}, about=about, back_end=back_end, front_end=front_end, git_foo=git_foo, can_serve=can_serve, discord_name=discord_name, discord_id=discord_id, facebook_name=facebook_name, twitter_name=twitter_name, reddit_name=reddit_name)
+
+def clear_users_table():
+    check = input("YOU ARE ABOUT TO DELETE EVERY ENTRY IN THE USERS TABLE OF THE DATABASE. CONTINUE (Y/N): ")
+    if check != "Y":
+        return False
+    db = SqliteDb(DB_FILE)
+    db.delete_all("users")
