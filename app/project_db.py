@@ -46,3 +46,7 @@ def get_all_project_ids():
         ids.append(project['project_id'])
     
     return ids
+
+def delete_project(project_id):
+    db = SqliteDb(DB_FILE)
+    db.delete("projects", project_id=project_id)
