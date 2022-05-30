@@ -181,7 +181,7 @@ def update_info():
     back_end_info = int(request.form.get('back_end_range'))
     front_end_info = int(request.form.get('front_end_range'))
     git_foo_info = int(request.form.get('git_foo_range'))
-    can_serve_info = int(request.form.get('can_serve_select'))
+    can_serve_info = request.form.get('can_serve_select')
     discord_name = request.form.get('discord_name')
     discord_id = request.form.get('discord_id')
     facebook_name = request.form.get('facebook_name')
@@ -195,9 +195,12 @@ def update_info():
 
     if method == 'POST':
         print(about_info)
-        edit_user_details(user_id, about_info, back_end_info, front_end_info, git_foo_info, can_serve_info,
-                          discord_name, discord_id, facebook_name, twitter_name, reddit_name)
-        return redirect(url_for('user_account', user_id=user_id))
+        if (discord_name and not discord_id) or (not discord_name and discord_id):
+            return redirect(url_for('editProfile', discord_not_match='true'))
+        else:
+            edit_user_details(user_id, about_info, back_end_info, front_end_info, git_foo_info, can_serve_info,
+                            discord_name, discord_id, facebook_name, twitter_name, reddit_name)
+            return redirect(url_for('user_account', user_id=user_id))
 
 
 @app.route("/logout")

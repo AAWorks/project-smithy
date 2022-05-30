@@ -54,7 +54,7 @@
 </head>
 
 <body>
-    <section class="bg-light">
+    <section class="bg-light" style="min-height:100vh">
         <br>
         <div class="container">
             <div class="row">
@@ -92,6 +92,7 @@
                         </div>
                     </div>
                 </div>
+                {% if about_info %}
                 <div class="col-lg-12 mb-4">
                     <div>
                         <span class="section-title text-primary">About {{ first }}</span>
@@ -102,11 +103,16 @@
                         </p>
                     </div>
                 </div>
+                {% endif %}
                 <div class="col-lg-12">
                     <div class="row">
                         <div class="col-lg-12">
+
+                            {% if back_end_info or front_end_info or git_foo_info or (can_serve_info != 'select' ) %}
                             <div class="mb-4 mb-sm-5">
                                 <span class="section-title text-primary">Skill Set</span>
+
+                                {% if back_end_info %}
                                 <div class="progress-text">
                                     <div class="row">
                                         <div class="col-6">Back end development</div>
@@ -118,6 +124,9 @@
                                         style="width:{{back_end_info}}%" aria-valuemax="100" aria-valuemin="0"
                                         aria-valuenow="10" role="progressbar"></div>
                                 </div>
+                                {% endif %}
+
+                                {% if front_end_info %}
                                 <div class="progress-text">
                                     <div class="row">
                                         <div class="col-6">Front end development</div>
@@ -129,6 +138,9 @@
                                         style="width:{{ front_end_info }}%" aria-valuemax="100" aria-valuemin="0"
                                         aria-valuenow="70" role="progressbar"></div>
                                 </div>
+                                {% endif %}
+
+                                {% if git_foo_info %}
                                 <div class="progress-text">
                                     <div class="row">
                                         <div class="col-6">Git-foo</div>
@@ -140,18 +152,21 @@
                                         style="width:{{ git_foo_info }}%" aria-valuemax="100" aria-valuemin="0"
                                         aria-valuenow="70" role="progressbar"></div>
                                 </div>
+                                {% endif %}
+
+                                {% if can_serve_info != 'select' %}
                                 <div class="progress-text">
                                     <div class="row">
                                         <div class="col-6">Can serve on apache?</div>
                                     </div>
                                 </div>
-                                {% if can_serve_info == 1 %}
+                                {% if can_serve_info == 'yes' %}
                                 <div class="custom-progress progress progress-medium mb-3" style="height: 30px;">
                                     <div class="animated custom-bar progress-bar slideInLeft"
                                         style="width:100%; background-color:#3ea268" aria-valuemax="100"
                                         role="progressbar">YES</div>
                                 </div>
-                                {% elif can_serve_info == 0 %}
+                                {% elif can_serve_info == 'no' %}
                                 <div class="custom-progress progress progress-medium mb-3" style="height: 30px;">
                                     <div class="animated custom-bar progress-bar slideInLeft"
                                         style="width:100%; background-color:#ae3838" aria-valuemax="100"
@@ -159,20 +174,36 @@
                                 </div>
                                 {% else %}
                                 {% endif %}
+
+                                {% endif %}
                             </div>
+                            {% endif %}
+
+                            {% if discord_name or facebook_name or twitter_name or reddit_name %}
                             <div>
                                 <span class="section-title text-primary">Social</span><br>
+                                {% if discord_name %}
                                 <a href="https://discord.com/channels/@me"><img
                                         src="https://img.shields.io/static/v1?label=&message={{discord_name}}%23{{discord_id}}&color=5865F2&style=flat&logo=discord&logoColor=white"></a><br>
+                                {% endif %}
+
+                                {% if facebook_name %}
                                 <a href="https://www.facebook.com/{{facebook_name}}"><img
                                         src="https://img.shields.io/static/v1?label=&message={{facebook_name}}&color=1877f2&style=flat&logo=facebook&logoColor=white"></a><br>
+                                {% endif %}
+
+                                {% if twitter_name %}
                                 <a href="https://twitter.com/{{twitter_name}}"><img
                                         src="https://img.shields.io/static/v1?label=&message=@{{twitter_name}}&color=00acee&style=flat&logo=twitter&logoColor=white"></a><br>
+                                {% endif %}
+
+                                {% if reddit_name %}
                                 <a href="https://www.reddit.com/user/{{reddit_name}}"><img
                                         src="https://img.shields.io/static/v1?label=&message=u/{{reddit_name}}&color=FF5700&style=flat&logo=reddit&logoColor=white"></a><br>
-
+                                {% endif %}
                             </div>
                             <br>
+                            {% endif %}
                         </div>
                     </div>
                     {% if session['user_id']|int == user_id|int %}

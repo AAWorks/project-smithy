@@ -63,6 +63,15 @@
 <body>
     <section class="bg-light">
         <br>
+        <!-- The below jinja2 clause doesn't work for some reason, but isn't a priority -->
+        {% if discord_not_match == true %}
+        <div class="alert alert-danger text-center" role="alert">
+            You must imput both a discord name and id or neither
+        </div>
+        <br>
+        {% endif %}
+
+
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 mb-4 mb-sm-5">
@@ -131,27 +140,27 @@
                                     <div class="progress-text">
                                         <div class="row">
                                             <div class="col-6">Back end development</div>
-                                            <div class="col-6 text-end">{{back_end_info}}</div>
+                                            <div class="col-6 text-end">{{back_end_info|int}}</div>
                                         </div>
                                     </div>
-                                    <input type="range" class="form-range" min="0" max="100" value="{{back_end_info}}"
-                                        name="back_end_range" id="back_end_range">
+                                    <input type="range" class="form-range" min="0" max="100"
+                                        value="{{back_end_info|int}}" name="back_end_range" id="back_end_range">
                                     <div class="progress-text">
                                         <div class="row">
                                             <div class="col-6">Front end development</div>
-                                            <div class="col-6 text-end">{{front_end_info}}</div>
+                                            <div class="col-6 text-end">{{front_end_info|int}}</div>
                                         </div>
                                     </div>
-                                    <input type="range" class="form-range" min="0" max="100" value="{{front_end_info}}"
-                                        name="front_end_range" id="front_end_range">
+                                    <input type="range" class="form-range" min="0" max="100"
+                                        value="{{front_end_info|int}}" name="front_end_range" id="front_end_range">
                                     <div class="progress-text">
                                         <div class="row">
                                             <div class="col-6">Git-foo</div>
-                                            <div class="col-6 text-end">{{git_foo_info}}</div>
+                                            <div class="col-6 text-end">{{git_foo_info|int}}</div>
                                         </div>
                                     </div>
-                                    <input type="range" class="form-range" min="0" max="100" value="{{git_foo_info}}"
-                                        name="git_foo_range" id="git_foo_range">
+                                    <input type="range" class="form-range" min="0" max="100"
+                                        value="{{git_foo_info|int}}" name="git_foo_range" id="git_foo_range">
 
                                     <div class="progress-text">
                                         <div class="row">
@@ -159,36 +168,47 @@
                                         </div>
                                     </div>
                                     <select class="form-select mt-1 ms-0" name="can_serve_select">
-                                        {% if can_serve_info|int == 1 %}
-                                        <option selected value="1">Yes</option>
-                                        <option value="0">No</option>
+                                        {% if can_serve_info == 'yes' %}
+                                        <option value="select">Select</option>
+                                        <option selected value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                        {% elif can_serve_info == 'no' %}
+                                        <option value="select">Select</option>
+                                        <option value="yes">Yes</option>
+                                        <option selected value="no">No</option>
                                         {% else %}
-                                        <option value="1">Yes</option>
-                                        <option selected value="0">No</option>
+                                        <option selected value="select">Select</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
                                         {% endif %}
                                     </select>
                                 </div>
                                 <div>
                                     <span class="section-title text-primary">Social</span><br>
                                     <div class="input-group w-50 mb-2">
-                                        <input type="text" class="form-control w-50" name="discord_name" value="{{discord_name}}"
+                                        <input type="text" class="form-control w-50" name="discord_name" 
+                                        {% if discord_name %} value="{{discord_name}}" {% endif %}
                                             placeholder="Discord username">
                                         <span class="input-group-text">#</span>
-                                        <input type="text" class="form-control" name='discord_id' value="{{discord_id}}"
+                                        <input type="text" class="form-control" name='discord_id' 
+                                        {% if discord_id %} value="{{discord_id}}" {% endif %}
                                             placeholder="Discord ID" aria-label="Server">
                                     </div>
                                     <div class="input-group w-50 mb-2">
-                                        <input type="text" class="form-control w-50" name="facebook_name" value="{{facebook_name}}"
+                                        <input type="text" class="form-control w-50" name="facebook_name"
+                                        {% if facebook_name %} value="{{facebook_name}}" {% endif %}
                                             placeholder="Facebook username">
                                     </div>
                                     <div class="input-group w-50 mb-2">
                                         <span class="input-group-text" id="basic-addon1">@</span>
-                                        <input type="text" class="form-control w-50" name="twitter_name" value="{{twitter_name}}"
+                                        <input type="text" class="form-control w-50" name="twitter_name"
+                                        {% if twitter_name %} value="{{twitter_name}}" {% endif %}
                                             placeholder="Twitter handle">
                                     </div>
                                     <div class="input-group w-50 mb-2">
                                         <span class="input-group-text" id="basic-addon1">u/</span>
-                                        <input type="text" class="form-control w-50" name="reddit_name" value="{{reddit_name}}"
+                                        <input type="text" class="form-control w-50" name="reddit_name"
+                                        {% if reddit_name %} value="{{reddit_name}}" {% endif %}
                                             placeholder="Reddit username">
                                     </div>
                                 </div>

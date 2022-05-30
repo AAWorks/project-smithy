@@ -18,7 +18,7 @@ db.query("CREATE TABLE IF NOT EXISTS projects (project_id INTEGER PRIMARY KEY AU
 db.query("CREATE TABLE IF NOT EXISTS comments (comment TEXT, project_id INTEGER, upvotes INTEGER, downvotes INTEGER, anonymous INTEGER);")
 db.query("CREATE TABLE IF NOT EXISTS ratings (project_id INTEGER, user_id INTEGER, rating INTEGER);")
 db.query("CREATE TABLE IF NOT EXISTS favorites (user_id INTEGER, project_id INTEGER);")
-db.query("CREATE TABLE IF NOT EXISTS user_details (user_id INTEGER PRIMARY KEY AUTOINCREMENT, about TEXT, back_end INTEGER, front_end INTEGER, git_foo INTEGER, can_serve INTEGER, discord_name TEXT, discord_id INTEGER, facebook_name TEXT, twitter_name TEXT, reddit_name TEXT);")
+db.query("CREATE TABLE IF NOT EXISTS user_details (user_id INTEGER PRIMARY KEY AUTOINCREMENT, about TEXT, back_end INTEGER, front_end INTEGER, git_foo INTEGER, can_serve TEXT, discord_name TEXT, discord_id INTEGER, facebook_name TEXT, twitter_name TEXT, reddit_name TEXT);")
 
 db.close()
 
