@@ -6,7 +6,7 @@ $('#project_image').bind('change', function () {
     }
     else {
       $(".file-upload").addClass('active');
-      $("#noFile").text(filename); 
+      $("#noFile").text(filename.replace("C:\\fakepath\\", "")); 
     }
   });
   
