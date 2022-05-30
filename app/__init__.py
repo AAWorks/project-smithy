@@ -131,13 +131,17 @@ def rAuthenticate():
 
 @app.route("/edit")
 def editProfile():
-    try:
+    # try:
         user = get_user(session['user_id'])
         details = get_details(session['user_id'])
         name = user["firstname"] + " " + user["lastname"]
-        return render_template("edit.html", pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"], about_info=details['about'])
-    except:
-        return render_template("error.html")
+        about_info = []
+        for i in details['about'].split('\r\n'):
+            about_info.append(i)
+        print(about_info)
+        return render_template("edit.html", pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"], about_info=about_info)
+    # except:
+    #     return render_template("error.html")
 
 
 @app.route('/update_info', methods=['GET', 'POST'])
@@ -180,13 +184,19 @@ def disp_home():
 
 @app.route("/account/<user_id>", methods=['GET', 'POST'])
 def user_account(user_id):
-    try:
+    # try:
         user = get_user(user_id)
         details = get_details(user_id)
         name = user["firstname"] + " " + user["lastname"]
-        return render_template("account.html", user_id=user['user_id'], pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"], about_info=details['about'])
-    except:
-        return render_template("error.html")
+
+        about_info = []
+        for i in details['about'].split('\r\n'):
+            about_info.append(i)
+
+        print(about_info)
+        return render_template("account.html", user_id=user['user_id'], pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"], about_info=about_info)
+    # except:
+    #     return render_template("error.html")
 
 @app.route("/devos", methods=['GET', 'POST'])
 def devos():
@@ -208,8 +218,7 @@ def devos():
                 "user_id": u.user_id,
                 "stuyname": u.stuy_username,
                 "num_projs": len(get_project_ids(u.user_id)),
-                # "bio": get_details(u.user_id)["about"],
-                "bio": "A totally tubular devo to test the totally tubular devos page!",
+                "bio": get_details(u.user_id)["about"],
                 "pfp": u.pfp
             } for u in get_users()
         ]
