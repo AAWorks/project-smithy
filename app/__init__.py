@@ -3,6 +3,7 @@
 # P04 -- Smithy
 
 from flask import Flask, render_template, request, session, redirect, url_for
+from werkzeug import *
 
 with open("app/db_builder.py", "rb") as source_file:
     code = compile(source_file.read(), "app/db_builder.py", "exec")
@@ -175,7 +176,7 @@ def user_account(user_id):
     try:
         user = get_user(user_id)
         name = user["firstname"] + " " + user["lastname"]
-        return render_template("account.html", pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
+        return render_template("account.html", user_id=(user['stuy_username'] + "#" + str(user['user_id'])), pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"])
     except:
         return render_template("error.html")
 
@@ -244,7 +245,11 @@ def createPost():
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
-    return render_template("upload_project.html")
+
+    if request.method == 'POST':
+      f = request.files['file']
+      f.save(secure_filename(f.filename))
+    return render_template("upload_project.html", user_id=user_id)
 
 if __name__ == "__main__":  # false if this file imported as module
     # enable debugging, auto-restarting of server when this file is modified
