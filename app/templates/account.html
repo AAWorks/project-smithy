@@ -177,94 +177,99 @@
                                 {% if can_serve_info != 'select' %}
                                 {% if not (can_serve_info is none) %}
                                 <div class="progress-text">
+                                    <div class="col-6">Can serve on apache?</div>
+                                    {% if can_serve_info == 'yes' %}
+                                    <div class="custom-progress progress progress-medium mb-3" style="height: 30px; width:13%">
+                                        <div class="animated custom-bar progress-bar slideInLeft"
+                                            style="width:100%; background-color:#3ea268" aria-valuemax="100"
+                                            role="progressbar">YES</div>
+                                    </div>
+                                    {% elif can_serve_info == 'no' %}
+                                    <div class="custom-progress progress progress-medium mb-3" style="height: 30px; width:13%">
+                                        <div class="animated custom-bar progress-bar slideInLeft"
+                                            style="width:100%; background-color:#be3a3a" aria-valuemax="100"
+                                            role="progressbar">NO</div>
+                                    </div>
+                                    {% else %}
+                                    {% endif %}
+
+                                    {% endif %}
+                                    {% endif %}
+                                    {% endif %}
+
+                                    {% if discord_name or facebook_name or twitter_name or reddit_name %}
+                                    <div>
+                                        <span class="section-title text-primary">Socials</span><br>
+                                        <span style="">
+                                            {% if discord_name %}
+                                            <a href="https://discord.com/channels/@me"><img
+                                                    src="https://img.shields.io/static/v1?label=&message={{discord_name}}%23{{discord_id}}&color=5865F2&style=flat&logo=discord&logoColor=white"></a>
+                                            {% endif %}
+
+                                            {% if facebook_name %}
+                                            <a href="https://www.facebook.com/{{facebook_name}}"><img
+                                                    src="https://img.shields.io/static/v1?label=&message={{facebook_name}}&color=1877f2&style=flat&logo=facebook&logoColor=white"></a>
+                                            {% endif %}
+
+                                            {% if twitter_name %}
+                                            <a href="https://twitter.com/{{twitter_name}}"><img
+                                                    src="https://img.shields.io/static/v1?label=&message=@{{twitter_name}}&color=00acee&style=flat&logo=twitter&logoColor=white"></a>
+                                            {% endif %}
+
+                                            {% if reddit_name %}
+                                            <a href="https://www.reddit.com/user/{{reddit_name}}"><img
+                                                    src="https://img.shields.io/static/v1?label=&message=u/{{reddit_name}}&color=FF5700&style=flat&logo=reddit&logoColor=white"></a>
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                    <br>
+                                    {% endif %}
+                                </div>
+                                <div class="mb-4 mb-sm-5">
+                                    <span class="section-title text-primary">Projects: {{num_projs}}</span>
+                                    {% if num_projs == 0 %}
+                                    {% if session['user_id']|int == user_id|int %}
+                                    <div class="alert alert-warning text-center" role="alert">
+                                        You have not uploaded any projects!
+                                    </div>
+                                    {% else %}
+                                    <div class="alert alert-warning text-center" role="alert">
+                                        {{name}} has not uploaded any projects!
+                                    </div>
+                                    {% endif %}
+                                    {% else %}
                                     <div class="row">
-                                        <div class="col-6">Can serve on apache?</div>
-                                        {% if can_serve_info == 'yes' %}
-                                        <span class="col-5"></span>
-                                        <span class="badge bg-success col-1">YES</span>
-                                        {% elif can_serve_info == 'no' %}
-                                        <span class="badge bg-success col-1">NO</span>
-                                        {% else %}
-                                        {% endif %}
-                                    </div>
-                                </div>
-
-                                {% endif %}
-                                {% endif %}
-                            </div>
-                            {% endif %}
-
-                            {% if discord_name or facebook_name or twitter_name or reddit_name %}
-                            <div>
-                                <span class="section-title text-primary">Socials</span>
-                                <span style="float: right;">
-                                {% if discord_name %}
-                                <a href="https://discord.com/channels/@me"><img
-                                        src="https://img.shields.io/static/v1?label=&message={{discord_name}}%23{{discord_id}}&color=5865F2&style=flat&logo=discord&logoColor=white"></a>
-                                {% endif %}
-
-                                {% if facebook_name %}
-                                <a href="https://www.facebook.com/{{facebook_name}}"><img
-                                        src="https://img.shields.io/static/v1?label=&message={{facebook_name}}&color=1877f2&style=flat&logo=facebook&logoColor=white"></a>
-                                {% endif %}
-
-                                {% if twitter_name %}
-                                <a href="https://twitter.com/{{twitter_name}}"><img
-                                        src="https://img.shields.io/static/v1?label=&message=@{{twitter_name}}&color=00acee&style=flat&logo=twitter&logoColor=white"></a>
-                                {% endif %}
-
-                                {% if reddit_name %}
-                                <a href="https://www.reddit.com/user/{{reddit_name}}"><img
-                                        src="https://img.shields.io/static/v1?label=&message=u/{{reddit_name}}&color=FF5700&style=flat&logo=reddit&logoColor=white"></a>
-                                {% endif %}
-                                </span>
-                            </div>
-                            <br>
-                            {% endif %}
-                        </div>
-                        <div class="mb-4 mb-sm-5">
-                            <span class="section-title text-primary">Projects: {{num_projs}}</span>
-                            {% if num_projs == 0 %}
-                            {% if session['user_id']|int == user_id|int %}
-                            <div class="alert alert-warning text-center" role="alert">
-                                You have not uploaded any projects!
-                            </div>
-                            {% else %}
-                            <div class="alert alert-warning text-center" role="alert">
-                                {{name}} has not uploaded any projects!
-                            </div>
-                            {% endif %}
-                            {% else %}
-                            <div class="row">
-                                {% for project in projects %}
-                                <div class="col-xl-3.5 col-lg-4 col-md-6 mb-4">
-                                    <div class="bg-white rounded shadow-sm"><img src="{{ project['image'] }}" alt=""
-                                            class="img-fluid card-img-top" style="padding: 10px; padding-bottom: 0px;">
-                                        <div class="p-4">
-                                            <h5 class="text-dark">{{ project['title'] }}</h5>
-                                            <p class="small text-muted mb-0">{{ project['summary'] }}</p><br>
-                                            <a href="/project/{{ project['project_id'] }}" class="btn btn-primary"
-                                                style="width: 100%;">Learn More</a>
+                                        {% for project in projects %}
+                                        <div class="col-xl-3.5 col-lg-4 col-md-6 mb-4">
+                                            <div class="bg-white rounded shadow-sm"><img src="{{ project['image'] }}"
+                                                    alt="" class="img-fluid card-img-top"
+                                                    style="padding: 10px; padding-bottom: 0px;">
+                                                <div class="p-4">
+                                                    <h5 class="text-dark">{{ project['title'] }}</h5>
+                                                    <p class="small text-muted mb-0">{{ project['summary'] }}</p><br>
+                                                    <a href="/project/{{ project['project_id'] }}"
+                                                        class="btn btn-primary" style="width: 100%;">Learn More</a>
+                                                </div>
+                                            </div>
                                         </div>
+                                        {% endfor %}
                                     </div>
+                                    {% endif %}
                                 </div>
-                                {% endfor %}
+                            </div>
+                            {% if user_match %}
+                            <div class="mb-3 text-right"><a href="/edit"
+                                    class="btn btn-outline-dark btn-block px-5 py-3 text-uppercase"
+                                    style="width:100%;">Edit
+                                    Profile</a>
+                            </div>
+                            <div class="mb-5 text-right"><a href="/upload"
+                                    class="btn btn-outline-success btn-block px-5 py-3 text-uppercase"
+                                    style="width:100%;">Upload Project</a>
                             </div>
                             {% endif %}
                         </div>
                     </div>
-                    {% if user_match %}
-                    <div class="mb-3 text-right"><a href="/edit"
-                            class="btn btn-outline-dark btn-block px-5 py-3 text-uppercase" style="width:100%;">Edit
-                            Profile</a>
-                    </div>
-                    <div class="mb-5 text-right"><a href="/upload"
-                            class="btn btn-outline-success btn-block px-5 py-3 text-uppercase"
-                            style="width:100%;">Upload Project</a>
-                    </div>
-                    {% endif %}
                 </div>
-            </div>
-        </div>
     </section>
 </body>
