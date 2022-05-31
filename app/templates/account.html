@@ -203,20 +203,20 @@
 
                             {% if discord_name or facebook_name or twitter_name or reddit_name %}
                             <div>
-                                <span class="section-title text-primary">Socials</span>
+                                <span class="section-title text-primary">Socials</span><br>
                                 {% if discord_name %}
                                 <a href="https://discord.com/channels/@me"><img
-                                        src="https://img.shields.io/static/v1?label=&message={{discord_name}}%23{{discord_id}}&color=5865F2&style=flat&logo=discord&logoColor=white"></a>
+                                        src="https://img.shields.io/static/v1?label=&message={{discord_name}}%23{{discord_id}}&color=5865F2&style=flat&logo=discord&logoColor=white"></a><br>
                                 {% endif %}
 
                                 {% if facebook_name %}
                                 <a href="https://www.facebook.com/{{facebook_name}}"><img
-                                        src="https://img.shields.io/static/v1?label=&message={{facebook_name}}&color=1877f2&style=flat&logo=facebook&logoColor=white"></a>
+                                        src="https://img.shields.io/static/v1?label=&message={{facebook_name}}&color=1877f2&style=flat&logo=facebook&logoColor=white"></a><br>
                                 {% endif %}
 
                                 {% if twitter_name %}
                                 <a href="https://twitter.com/{{twitter_name}}"><img
-                                        src="https://img.shields.io/static/v1?label=&message=@{{twitter_name}}&color=00acee&style=flat&logo=twitter&logoColor=white"></a>
+                                        src="https://img.shields.io/static/v1?label=&message=@{{twitter_name}}&color=00acee&style=flat&logo=twitter&logoColor=white"></a><br>
                                 {% endif %}
 
                                 {% if reddit_name %}
