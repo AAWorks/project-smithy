@@ -153,10 +153,10 @@ P04 -- Smithy -->
                 <p class="lead">Home To Stuyvesant's SoftDev Projects: Blogsites, Games, and more!</p>
                 <div class="input-group">
                     <div class="form-outline">
-                      <input type="search" id="form1" class="form-control" value="Project Smithy"/>
+                      <input type="search" id="form1" name="search_bar" onkeyup="search()" class="form-control" placeholder="Search projects"/>
                     </div>
-                    <button type="button" class="btn btn-outline-warning">SEARCH
-                      </button>
+                    <!-- <button type="button" class="btn btn-outline-warning">SEARCH
+                      </button> -->
                   </div>
               </div>
             </div>
@@ -166,7 +166,7 @@ P04 -- Smithy -->
           <div class="row">
             <!-- Gallery item -->
             {% for project in projects %}
-            <div class="col-xl-3.5 col-lg-4 col-md-6 mb-4">
+            <div class="col-xl-3.5 col-lg-4 col-md-6 mb-4 search_item">
               <div class="bg-white rounded shadow-sm"><img src="{{ project['image'] }}" alt="" class="img-fluid card-img-top" style="padding: 10px; padding-bottom: 0px;">
                 <div class="p-4">
                   <h5 class="text-dark">{{ project['title'] }}</h5>
@@ -181,4 +181,5 @@ P04 -- Smithy -->
           <div class="py-5 text-right"><a href="#top" class="btn btn-outline-dark btn-block px-5 py-3 text-uppercase" style="width:100%;">Return to Top</a></div>
         </div>
       </div>
+      <script src="{{ url_for('static', filename='js/search.js') }}"></script>
 </body>

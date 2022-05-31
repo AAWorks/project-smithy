@@ -20,10 +20,8 @@ P04 -- Smithy -->
     type='text/css'>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
-
-  <nav class="navbar navbar-expand-lg navbar-light justify-content-center"
-  style="background-color: white;">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+  <nav class="navbar navbar-expand-lg navbar-light justify-content-center" style="background-color: white;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -158,10 +156,10 @@ P04 -- Smithy -->
             <p class="lead">Stuyvesant's Best and Brightest From Every Part of Town!</p>
             <div class="input-group">
               <div class="form-outline">
-                <input type="search" id="form1" class="form-control" value="Thluffy Sinclair" />
+                <input type="search" id="form1" class="form-control" name="search_bar" onkeyup="search()" placeholder="Search devos" />
               </div>
-              <button type="button" class="btn btn-outline-warning">FIND
-              </button>
+              <!-- <button type="button" class="btn btn-outline-warning">FIND
+              </button> -->
             </div>
           </div>
         </div>
@@ -171,12 +169,13 @@ P04 -- Smithy -->
       <div class="row">
         <!-- Gallery item -->
         {% for devo in devos %}
-        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-4 search_item">
           <div class="bg-white rounded shadow-sm"><img src="{{ devo['pfp'] }}" alt="" class="img-fluid card-img-top"
               style="padding: 10px; padding-bottom: 0px;">
             <div class="p-4">
-              <h5 class="text-dark"><a class="purple_a" href="{{ url_for('user_account', user_id=devo['user_id']) }}" style="text-decoration:none">{{ devo['name']
-                    }}</a></h5>
+              <h5 class="text-dark"><a class="purple_a" href="{{ url_for('user_account', user_id=devo['user_id']) }}"
+                  style="text-decoration:none">{{ devo['name']
+                  }}</a></h5>
               <h6 class="text-dark">{{ devo['stuyname'] }}#{{ devo['user_id'] }}</h6>
               {% if devo['bio'] %}
               <p class="small text-muted mb-1">{{ devo['bio'] }}</p>
@@ -192,4 +191,5 @@ P04 -- Smithy -->
           style="width:100%;">Return to Top</a></div>
     </div>
   </div>
+  <script src="{{ url_for('static', filename='js/search.js') }}"></script>
 </body>

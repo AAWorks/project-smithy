@@ -236,7 +236,7 @@ def user_account(user_id):
     user = get_user(user_id)
     details = get_details(user_id)
     name = user["firstname"] + " " + user["lastname"]
-    project_ids = get_all_project_ids()
+    project_ids = get_project_ids(user.stuy_username + "#" + str(user_id))
     project_snaps = [get_project_snapshot(project_id) for project_id in project_ids]
 
     about_info = []
