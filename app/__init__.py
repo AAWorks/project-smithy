@@ -150,6 +150,7 @@ def editProfile():
             about_info.append(i)
         about_last = about_info[-1]
     print(about_info)
+    print(user['pfp'])
     return render_template("edit.html",
                            pfp=user['pfp'], 
                            first=user["firstname"].title(), 
@@ -245,9 +246,9 @@ def user_account(user_id):
         user_match = (int(session['user_id']) == int(user['user_id']))
     else:
         user_match = False
-
     return render_template("account.html",
-                           user_id=user['user_id'], pfp=user['pfp'],
+                           user_id=user['user_id'], 
+                           pfp="../"+user['pfp'],
                            first=user["firstname"].title(),
                            name=name.title(),
                            stuyname=user["stuy_username"],

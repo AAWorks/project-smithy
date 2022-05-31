@@ -84,9 +84,9 @@ def get_project_ids(user_id):
     '''gets a user's project IDs'''
     db = SqliteDb(DB_FILE)
     project_ids = [u.project_id for u in db.select("projects", pmID=user_id)]
-    print(str(user_id) + ": ")
-    print(project_ids)
-    print(db.select("projects"))
+    # print(str(user_id) + ": ")
+    # print(project_ids)
+    # print(db.select("projects"))
     for i in db.select("projects"):
         if str(user_id) in i.devoIDs.split("|"):
             project_ids.append(i.project_id)
