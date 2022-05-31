@@ -336,8 +336,8 @@ def view_project(project_id):
             hosted = True
         else:
             hosted = False
-
-        return render_template("project.html", title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'])
+            
+        return render_template("project.html", title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'])
     #except:
      #   return render_template("error.html")
 
@@ -347,14 +347,13 @@ def upload():
     if request.method == 'POST':
         app.config['UPLOAD_FOLDER'] = PROJECTS_UPLOAD_FOLDER
         cover_photo = request.files['project_image']
-        #f2 = request.files['team_flag']
-        # f2.save(secure_filename(f2.filename))
+        flag = request.files['team_flag']
         devoIDs = [request.form.get('devo1'), request.form.get(
             'devo2'), request.form.get('devo3')]
         tags = ["Project " + request.form.get('project_num')]
 
         new_project = upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get(
-            'pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 5, request.form.get('hosted_loc'))
+            'pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 5, request.form.get('hosted_loc'), url_for('static', filename='images/projects/default.png'))
         pid = new_project['project_id']
 
         if cover_photo.filename != "" and allowed_file(cover_photo.filename):
@@ -362,6 +361,13 @@ def upload():
             cover_photo.save(os.path.join(
                 app.config['UPLOAD_FOLDER'], filename))
             edit_project_info(pid, 'image', url_for(
+                'static', filename='images/projects/' + filename))
+        
+        if flag.filename != "" and allowed_file(flag.filename):
+            filename = str(pid) + "_flag" + ".png"
+            flag.save(os.path.join(
+                app.config['UPLOAD_FOLDER'], filename))
+            edit_project_info(pid, 'team_flag', url_for(
                 'static', filename='images/projects/' + filename))
 
     return render_template("upload_project.html", user_id=user)

@@ -3,12 +3,12 @@ from notanorm import SqliteDb
 
 DB_FILE = "project_reviewal.db"
 
-def upload_project(title, image, team_name, pmID, devoIDs, tags, repo, intro, descrip, rating, hosted_loc):
+def upload_project(title, image, team_name, pmID, devoIDs, tags, repo, intro, descrip, rating, hosted_loc, team_flag):
     db = SqliteDb(DB_FILE)
 
     devos = "|".join(devoIDs)
     tags = "|".join(tags)
-    db.insert("projects", title=title, image=image, team_name=team_name, pmID=pmID, devoIDs=devos, tags=tags, repo=repo, intro=intro, descrip=descrip, rating=rating, hosted_loc=hosted_loc)
+    db.insert("projects", title=title, image=image, team_name=team_name, pmID=pmID, devoIDs=devos, tags=tags, repo=repo, intro=intro, descrip=descrip, rating=rating, hosted_loc=hosted_loc, team_flag=team_flag)
 
     project = db.select("projects", title=title, team_name=team_name, intro=intro)[-1]
     return project
