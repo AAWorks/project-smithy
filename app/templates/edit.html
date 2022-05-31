@@ -148,26 +148,26 @@
                                     <div class="progress-text">
                                         <div class="row">
                                             <div class="col-6">Back end development</div>
-                                            <div class="col-6 text-end">{{back_end_info|int}}</div>
+                                            <div class="col-6 text-end" id="back_end_info">{{back_end_info|int}}%</div>
                                         </div>
                                     </div>
-                                    <input type="range" class="form-range" min="0" max="100"
+                                    <input type="range" class="form-range" onmouseup="back_end()" min="0" max="100"
                                         value="{{back_end_info|int}}" name="back_end_range" id="back_end_range">
                                     <div class="progress-text">
                                         <div class="row">
                                             <div class="col-6">Front end development</div>
-                                            <div class="col-6 text-end">{{front_end_info|int}}</div>
+                                            <div class="col-6 text-end" id="front_end_info">{{front_end_info|int}}%</div>
                                         </div>
                                     </div>
-                                    <input type="range" class="form-range" min="0" max="100"
+                                    <input type="range" class="form-range" onmouseup="front_end()" min="0" max="100"
                                         value="{{front_end_info|int}}" name="front_end_range" id="front_end_range">
                                     <div class="progress-text">
                                         <div class="row">
                                             <div class="col-6">Git-foo</div>
-                                            <div class="col-6 text-end">{{git_foo_info|int}}</div>
+                                            <div class="col-6 text-end" id="git_foo_info">{{git_foo_info|int}}%</div>
                                         </div>
                                     </div>
-                                    <input type="range" class="form-range" min="0" max="100"
+                                    <input type="range" class="form-range" onmouseup="git_foo()" min="0" max="100"
                                         value="{{git_foo_info|int}}" name="git_foo_range" id="git_foo_range">
 
                                     <div class="progress-text">
@@ -231,4 +231,5 @@
             <!-- <input type="image" onclick="save()" id="icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24"> -->
         </div>
     </section>
+    <script src="{{ url_for('static', filename='js/sliders.js') }}"></script>
 </body>
