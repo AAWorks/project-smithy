@@ -236,6 +236,8 @@ def user_account(user_id):
     user = get_user(user_id)
     details = get_details(user_id)
     name = user["firstname"] + " " + user["lastname"]
+    project_ids = get_all_project_ids()
+    project_snaps = [get_project_snapshot(project_id) for project_id in project_ids]
 
     about_info = []
     if (details['about']):
@@ -264,7 +266,9 @@ def user_account(user_id):
                            facebook_name=details['facebook_name'],
                            twitter_name=details['twitter_name'],
                            reddit_name=details['reddit_name'],
-                           user_match=user_match
+                           user_match=user_match,
+                           num_projs = len(get_project_ids(user.stuy_username + "#" + str(user.user_id))),
+                           projects=project_snaps
                            )
     # except:
     #     return render_template("error.html")
