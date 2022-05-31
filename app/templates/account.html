@@ -12,6 +12,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/account.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <nav class="navbar navbar-expand-lg navbar-light justify-content-center" style="background-color: white;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +35,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('user_account', user_id=session['user_id']) }}">My Account</a>
             </li>
-            {% endif %}
+            {% endif %} 
             {% if session['user_id'] %}
             <a href="/logout" class="btn btn-outline-danger navlink" tabindex="-1" role="button" aria-disabled="true"
                 style="text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
@@ -51,6 +52,7 @@
     <a href="/login" class="btn btn-outline-info navlink" tabindex="-1" role="button" aria-disabled="true"
         style="text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
     {% endif %}
+    <script src="{{ url_for('static', filename='js/account.js') }}"></script> 
 </head>
 
 <body>
@@ -85,7 +87,24 @@
                                         </li>
                                         <li class="display-28"><span
                                                 class="display-26 text-secondary me-2 font-weight-600">Developer
-                                                Rating:</span>[stars]</li>
+                                                Rating:</span>
+                                                <div>
+                                                <div class="star-widget">
+                                                        <!-- <span class="rating__result"> -->
+                                                        <input type="radio" name="rate" id="rate-5">
+                                                        <label for="rate-5" class="fas fa-star"></label>
+                                                        <input type="radio" name="rate" id="rate-4">
+                                                        <label for="rate-4" class="fas fa-star"></label>
+                                                        <input type="radio" name="rate" id="rate-3">
+                                                        <label for="rate-3" class="fas fa-star"></label>
+                                                        <input type="radio" name="rate" id="rate-2">
+                                                        <label for="rate-2" class="fas fa-star"></label>
+                                                        <input type="radio" name="rate" id="rate-1">
+                                                        <label for="rate-1" class="fas fa-star"></label>
+                                                    <!-- </span> -->
+                                                </div>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
