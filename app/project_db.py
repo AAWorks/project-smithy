@@ -7,15 +7,18 @@ def upload_project(title, image, team_name, pmID, devoIDs, tags, repo, intro, de
     db = SqliteDb(DB_FILE)
 
     devos = "|".join(devoIDs)
-    tags = "|".join(devoIDs)
+    tags = "|".join(tags)
     db.insert("projects", title=title, image=image, team_name=team_name, pmID=pmID, devoIDs=devos, tags=tags, repo=repo, intro=intro, descrip=descrip, rating=rating, hosted_loc=hosted_loc)
+
+    project = db.select("projects", title=title, team_name=team_name, intro=intro)[-1]
+    return project
 
 def get_project_details(project_id):
     db = SqliteDb(DB_FILE)
     
     project = db.select("projects", project_id=project_id)[0]
     details = project
-    details['devoIDs'] = project['devos'].split("|")
+    details['devoIDs'] = project['devoIDs'].split("|")
     details['tags'] = project['tags'].split("|")
 
     return details
@@ -46,3 +49,14 @@ def get_all_project_ids():
         ids.append(project['project_id'])
     
     return ids
+
+def delete_project(project_id):
+    db = SqliteDb(DB_FILE)
+    db.delete("projects", project_id=project_id)
+
+def clear_projects_table():
+    check = input("YOU ARE ABOUT TO DELETE EVERY ENTRY IN THE PROJECTS TABLE OF THE DATABASE. CONTINUE (Y/N): ")
+    if check != "Y":
+        return False
+    db = SqliteDb(DB_FILE)
+    db.delete_all("projects")

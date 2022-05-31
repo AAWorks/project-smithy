@@ -4,6 +4,7 @@
 
 from flask import Flask, render_template, request, session, redirect, url_for
 from werkzeug import *
+import os
 
 with open("app/db_builder.py", "rb") as source_file:
     code = compile(source_file.read(), "app/db_builder.py", "exec")
@@ -15,11 +16,18 @@ with open("app/project_db.py", "rb") as source_file:
     code = compile(source_file.read(), "app/project_db.py", "exec")
 exec(code)
 
+PROJECTS_UPLOAD_FOLDER = 'app/static/images/projects'
+USERS_UPLOAD_FOLDER = 'app/static/images/users'
+ALLOWED_EXTENSIONS = {'png'}
 
 app = Flask(__name__)
 app.secret_key = 'stuffins'
 
-#app.config['idk what to put here']
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -132,31 +140,68 @@ def rAuthenticate():
 @app.route("/edit")
 def editProfile():
     # try:
-        user = get_user(session['user_id'])
-        details = get_details(session['user_id'])
-        name = user["firstname"] + " " + user["lastname"]
-        about_info = []
+    user = get_user(session['user_id'])
+    details = get_details(session['user_id'])
+    name = user["firstname"] + " " + user["lastname"]
+    about_info = []
+    about_last = ""
+    if (details['about']):
         for i in details['about'].split('\r\n'):
             about_info.append(i)
-        print(about_info)
-        return render_template("edit.html", pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), user_id=session['user_id'], stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"], about_info=about_info)
+        about_last = about_info[-1]
+    print(about_info)
+    return render_template("edit.html",
+                           pfp=user['pfp'], 
+                           first=user["firstname"].title(), 
+                           name=name.title(), 
+                           user_id=session['user_id'], 
+                           stuyname=user["stuy_username"], 
+                           github=user["github"], 
+                           devo_status=user["devostatus"], 
+                           about_info=about_info[:-1], 
+                           about_last=about_last,
+                           back_end_info=details['back_end'],
+                           front_end_info=details['front_end'],
+                           git_foo_info=details['git_foo'],
+                           can_serve_info=details['can_serve'],
+                           discord_name=details['discord_name'],
+                           discord_id=details['discord_id'],
+                           facebook_name=details['facebook_name'],
+                           twitter_name=details['twitter_name'],
+                           reddit_name=details['reddit_name'])
     # except:
     #     return render_template("error.html")
 
 
 @app.route('/update_info', methods=['GET', 'POST'])
 def update_info():
-    method=request.method
+    method = request.method
     about_info = request.form.get('about_section')
     user_id = request.form.get('user_id')
+    back_end_info = int(request.form.get('back_end_range'))
+    front_end_info = int(request.form.get('front_end_range'))
+    git_foo_info = int(request.form.get('git_foo_range'))
+    can_serve_info = request.form.get('can_serve_select')
+    discord_name = request.form.get('discord_name')
+    discord_id = request.form.get('discord_id')
+    facebook_name = request.form.get('facebook_name')
+    twitter_name = request.form.get('twitter_name')
+    reddit_name = request.form.get('reddit_name')
+
+    print(can_serve_info)
 
     if method == 'GET':
         return redirect(url_for('disp_home'))
 
     if method == 'POST':
         print(about_info)
-        edit_user_data("user_details", user_id, "about", about_info)
-        return redirect(url_for('user_account', user_id=user_id))
+        if (discord_name and not discord_id) or (not discord_name and discord_id):
+            return redirect(url_for('editProfile', discord_not_match='true'))
+        else:
+            edit_user_details(user_id, about_info, back_end_info, front_end_info, git_foo_info, can_serve_info,
+                            discord_name, discord_id, facebook_name, twitter_name, reddit_name)
+            return redirect(url_for('user_account', user_id=user_id))
+
 
 @app.route("/logout")
 def logout():
@@ -182,47 +227,73 @@ def disp_home():
     except:
         return render_template("error.html")
 
+
 @app.route("/account/<user_id>", methods=['GET', 'POST'])
 def user_account(user_id):
     # try:
-        user = get_user(user_id)
-        details = get_details(user_id)
-        name = user["firstname"] + " " + user["lastname"]
 
-        about_info = []
+    user = get_user(user_id)
+    details = get_details(user_id)
+    name = user["firstname"] + " " + user["lastname"]
+
+    about_info = []
+    if (details['about']):
         for i in details['about'].split('\r\n'):
             about_info.append(i)
+    
+    if session:
+        user_match = (int(session['user_id']) == int(user['user_id']))
+    else:
+        user_match = False
 
-        print(about_info)
-        return render_template("account.html", user_id=user['user_id'], pfp=user['pfp'], first=user["firstname"].title(), name=name.title(), stuyname=user["stuy_username"], github=user["github"], devo_status=user["devostatus"], about_info=about_info)
+    return render_template("account.html",
+                           user_id=user['user_id'], pfp=user['pfp'],
+                           first=user["firstname"].title(),
+                           name=name.title(),
+                           stuyname=user["stuy_username"],
+                           github=user["github"],
+                           devo_status=user["devostatus"],
+                           about_info=about_info,
+                           back_end_info=details['back_end'],
+                           front_end_info=details['front_end'],
+                           git_foo_info=details['git_foo'],
+                           can_serve_info=details['can_serve'],
+                           discord_name=details['discord_name'],
+                           discord_id=details['discord_id'],
+                           facebook_name=details['facebook_name'],
+                           twitter_name=details['twitter_name'],
+                           reddit_name=details['reddit_name'],
+                           user_match=user_match
+                           )
     # except:
     #     return render_template("error.html")
+
 
 @app.route("/devos", methods=['GET', 'POST'])
 def devos():
     # try:
-        # tester = {"name": "Thluffy Sinclair", "id": "tsinclair20", "bio": "A totally tubular devo to test the totally tubular devos page!",
-        #           "pfp": url_for('static', filename="images/users/default.png")}
-        # devos = []
-        # for i in range(10):
-        #     devo = {}
-        #     devo["name"] = tester['name']
-        #     devo["id"] = tester['id'] + "#" + str(i)
-        #     devo["bio"] = tester["bio"]
-        #     devo["pfp"] = tester["pfp"]
-        #     devos.append(devo)
+    # tester = {"name": "Thluffy Sinclair", "id": "tsinclair20", "bio": "A totally tubular devo to test the totally tubular devos page!",
+    #           "pfp": url_for('static', filename="images/users/default.png")}
+    # devos = []
+    # for i in range(10):
+    #     devo = {}
+    #     devo["name"] = tester['name']
+    #     devo["id"] = tester['id'] + "#" + str(i)
+    #     devo["bio"] = tester["bio"]
+    #     devo["pfp"] = tester["pfp"]
+    #     devos.append(devo)
 
-        devos = [
-            {
-                "name": u.firstname + " " + u.lastname,
-                "user_id": u.user_id,
-                "stuyname": u.stuy_username,
-                "num_projs": len(get_project_ids(u.user_id)),
-                "bio": get_details(u.user_id)["about"],
-                "pfp": u.pfp
-            } for u in get_users()
-        ]
-        return render_template("devos.html", devos=devos)
+    devos = [
+        {
+            "name": (u.firstname + " " + u.lastname).title(),
+            "user_id": u.user_id,
+            "stuyname": u.stuy_username,
+            "num_projs": len(get_project_ids(u.user_id)),
+            "bio": get_details(u.user_id)["about"],
+            "pfp": u.pfp
+        } for u in get_users()
+    ]
+    return render_template("devos.html", devos=devos)
     # except:
     #     return render_template("error.html")
 
@@ -240,36 +311,54 @@ def gallery():
     except:
         return render_template("error.html")
 
-
-@app.route("/project/<string:project_id>", methods=['GET', 'POST'])
+@app.route("/project/<project_id>", methods=['GET', 'POST'])
 def view_project(project_id):
-    try:
-        #project = get_project(project_id)
-        return render_template("project.html")
-    except:
-        return render_template("error.html")
+    #try:
+        project = get_project_details(project_id)
 
+        pm_id = project['pmID'].split("#")[-1]
+        pm = get_user(pm_id)
+        pm_name=(pm['firstname'] + " " + pm['lastname']).title()
 
-@app.route("/createPost", methods=['GET', 'POST'])
-def createPost():
-    try:
-        return render_template("createPost.html")
-    except:
-        return render_template("error.html")
+        devos=[]
+        for full_devo_id in project['devoIDs']:
+            devo_id = full_devo_id.split("#")[-1]
+            devo_info = get_user(devo_id)
+            devo = {'name': (devo_info['firstname'] + " " + devo_info['lastname']).title(), 'id': devo_id}
+            devos.append(devo)
+
+        if project['hosted_loc'].startswith("http://") or project['hosted_loc'].startswith("https://"):
+            hosted = True
+        else:
+            hosted = False
+
+        return render_template("project.html", title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'])
+    #except:
+     #   return render_template("error.html")
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
     user = get_user(session['user_id'])
     if request.method == 'POST':
-        #f = request.files['project_image']
-        #f.save(secure_filename(f.filename))
+        app.config['UPLOAD_FOLDER'] = PROJECTS_UPLOAD_FOLDER
+        cover_photo = request.files['project_image']
         #f2 = request.files['team_flag']
-        #f2.save(secure_filename(f2.filename))
+        # f2.save(secure_filename(f2.filename))
+        devoIDs = [request.form.get('devo1'), request.form.get(
+            'devo2'), request.form.get('devo3')]
+        tags = ["Project " + request.form.get('project_num')]
 
-        devoIDs = [request.form.get('devo1'), request.form.get('devo2'), request.form.get('devo3')]
-        tags = ["_blank_"]
+        new_project = upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get(
+            'pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 5, request.form.get('hosted_loc'))
+        pid = new_project['project_id']
 
-        upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get('pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 5, request.form.get('hosted_loc'))
+        if cover_photo.filename != "" and allowed_file(cover_photo.filename):
+            filename = str(pid) + "_cover" + ".png"
+            cover_photo.save(os.path.join(
+                app.config['UPLOAD_FOLDER'], filename))
+            edit_project_info(pid, 'image', url_for(
+                'static', filename='images/projects/' + filename))
+
     return render_template("upload_project.html", user_id=user)
 
 if __name__ == "__main__":  # false if this file imported as module

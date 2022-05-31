@@ -14,7 +14,7 @@
   rel="stylesheet"  type='text/css'>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
-    <nav class="navbar navbar-expand-lg navbar-light justify-content-center"
+    <nav class="navbar navbar-expand-lg navbar-light justify-content-center fixed-top"
     style="background-color: white;">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,95 +47,7 @@
       {% endif %}
     </ul>
   </nav>
-    <style>
-        #intro {
-        /* Margin to fix overlapping fixed navbar */
-        margin-top: 58px;
-        }
-
-        @media (max-width: 991px) {
-        #intro {
-            /* Margin to fix overlapping fixed navbar */
-            margin-top: 45px;
-        }
-        }
-.btn-primary {
-    color: #212529;
-    background-color: #7cc;
-    border-color: #5bc2c2
-}
-
-.btn-primary:hover {
-    color: #212529;
-    background-color: #52bebe;
-    border-color: #8ad3d3
-}
-
-.btn-primary:focus,
-.btn-primary.focus {
-    box-shadow: 0 0 0 .2rem rgba(91, 194, 194, 0.5)
-}
-
-.btn-primary.disabled,
-.btn-primary:disabled {
-    color: #212529;
-    background-color: #7cc;
-    border-color: #5bc2c2
-}
-
-.btn-primary:not(:disabled):not(.disabled):active,
-.btn-primary:not(:disabled):not(.disabled).active,
-.show>.btn-primary.dropdown-toggle {
-    color: #212529;
-    background-color: #9cdada;
-    border-color: #2e7c7c
-}
-
-.btn-primary:not(:disabled):not(.disabled):active:focus,
-.btn-primary:not(:disabled):not(.disabled).active:focus,
-.show>.btn-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(91, 194, 194, 0.5)
-}
-
-.btn-outline-primary {
-    color: #7cc;
-    background-color: transparent;
-    background-image: none;
-    border-color: #7cc
-}
-
-.btn-outline-primary:hover {
-    color: #222;
-    background-color: #8ad3d3;
-    border-color: #7cc
-}
-
-.btn-outline-primary:focus,
-.btn-outline-primary.focus {
-    box-shadow: 0 0 0 .2rem rgba(119, 204, 204, 0.5)
-}
-
-.btn-outline-primary.disabled,
-.btn-outline-primary:disabled {
-    color: #7cc;
-    background-color: transparent
-}
-
-.btn-outline-primary:not(:disabled):not(.disabled):active,
-.btn-outline-primary:not(:disabled):not(.disabled).active,
-.show>.btn-outline-primary.dropdown-toggle {
-    color: #212529;
-    background-color: #8ad3d3;
-    border-color: #7cc
-}
-
-.btn-outline-primary:not(:disabled):not(.disabled):active:focus,
-.btn-outline-primary:not(:disabled):not(.disabled).active:focus,
-.show>.btn-outline-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(119, 204, 204, 0.5)
-}
-
-     </style>  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/project.css') }}">
     <div id="intro" class="p-5 text-center bg-light">
         <h1 class="mb-0 h4">{{ title }}</h1>
     </div>
@@ -165,7 +77,7 @@
 
             <div class="col-lg-6 text-center text-lg-end">
                 {% for tag in tags %}
-                <button type="button" class="btn btn-primary px-3 me-1" style="background-color: #5a4ae3;">{{ tag }}</button>
+                  <span class="badge rounded-pill bg-warning" style="margin-bottom: 9px;">{{ tag }}</span>
                 {% endfor %}
             </div>
           </div>
@@ -238,26 +150,26 @@
       <!--Grid column-->
 
       <!--Grid column-->
-      <div class="col-md-4 mb-4" style="margin-top: 20px;">
+      <div class="col-md-4 mb-4" style="margin-top: 80px;">
         <!--Section: Sidebar-->
         <section class="sticky-top" style="top: 80px;">
           <!--Section: Ad-->
           <section class="text-center border-bottom pb-4 mb-4">
             <h5>{{ team_name }}</h5>
 
-            <h6>Project Manager: </h6><a class="purple_a" href="/devo/{{ pm_id }}">{{ pm_name }}</a>
+            <h6>Project Manager: <a class="purple_a" href="/account/{{ pm_id }}">{{ pm_name }}</a></h6>
 
             {% for devo in devos %}
-            <h6>Devo: </h6><a class="purple_a" href="/devo/{{ devo['id'] }}">{{ devo['name'] }}</a>
+            <h6>Devo: <a class="purple_a" href="/account/{{ devo['id'] }}">{{ devo['name'] }}</a></h6>
             {% endfor %}
           </section>
           <!--Section: Ad-->
 
           <!--Section: Video-->
           <section class="text-center">
-            <a href="{{ repo_link }}" class="btn btn-dark"><i class="fa fa-github" style="padding-bottom: 4px; padding-top: 4px"></i></a>
+            <a href="{{ repo_link }}" class="btn btn-dark" target="_blank"><i class="fa fa-github" style="padding-bottom: 4px; padding-top: 4px"></i></a>
             {% if hosted %}
-            <a href="{{ hosted_loc }}" class="btn btn-outline-success">Hosted Site</a>
+            <a href="{{ hosted_loc }}" class="btn btn-outline-success" target="_blank">Hosted Site</a>
             {% endif %}
           </section>
         </section>

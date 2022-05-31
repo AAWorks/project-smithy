@@ -41,8 +41,20 @@ noakaiA -- 2022-05-27 22:37
   login and register pages are more uniform, the register page no longer scrolls and the navbar is expanded
   also fixed scrolling issues on home, about and browsing pages
 
+noakaiA -- 2022-05-28 18:20
+  login navbar, home and account stylistic changes
+
 justinZ -- 2022-05-29 00:32
  Worked more on edit making it a singular button and making it visible that it is edible. Trying to work on saving the work with localstorage.
 
  justinZ -- 2022-05-29 13:08
  Made the editing permenant.
+
+ noakaiA -- 2022-05-29 15:57
+  bug fixes, formatting fixes, beeg merge conflict -- manual resolution
+
+ noakaiA -- 2022-05-30 12:37
+  got the about section of the account/edit system to work finally
+
+ noakaiA -- 2022-05-30 19:25
+  I think I finished the whole account/edit system
