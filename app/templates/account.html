@@ -238,7 +238,7 @@
                                 {{name}} has not uploaded any projects!
                             </div>
                             {% endif %}
-                            {% endif %}
+                            {% else %}
                             {% for project in projects %}
                             <div class="col-xl-3.5 col-lg-4 col-md-6 mb-4">
                               <div class="bg-white rounded shadow-sm"><img src="{{ project['image'] }}" alt="" class="img-fluid card-img-top" style="padding: 10px; padding-bottom: 0px;">
@@ -250,6 +250,7 @@
                               </div>
                             </div>
                             {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                     {% if user_match %}
