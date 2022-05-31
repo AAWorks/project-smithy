@@ -361,14 +361,6 @@ def upload():
 
     return render_template("upload_project.html", user_id=user)
 
-@app.route("/delete_acc/<user_id>", methods=['GET', 'POST'])
-def delete_acc(user_id):
-    try:
-        delete_user(user_id)
-        return redirect("/logout")
-    except:
-        return render_template("error.html")
-
 if __name__ == "__main__":  # false if this file imported as module
     # enable debugging, auto-restarting of server when this file is modified
     app.debug = True
