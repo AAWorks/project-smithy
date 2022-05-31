@@ -179,22 +179,15 @@
                                 <div class="progress-text">
                                     <div class="row">
                                         <div class="col-6">Can serve on apache?</div>
+                                        {% if can_serve_info == 'yes' %}
+                                        <span class="col-5"></span>
+                                        <span class="badge bg-success col-1">YES</span>
+                                        {% elif can_serve_info == 'no' %}
+                                        <span class="badge bg-success col-1">NO</span>
+                                        {% else %}
+                                        {% endif %}
                                     </div>
                                 </div>
-                                {% if can_serve_info == 'yes' %}
-                                <div class="custom-progress progress progress-medium mb-3" style="height: 30px;">
-                                    <div class="animated custom-bar progress-bar slideInLeft"
-                                        style="width:100%; background-color:#3ea268" aria-valuemax="100"
-                                        role="progressbar">YES</div>
-                                </div>
-                                {% elif can_serve_info == 'no' %}
-                                <div class="custom-progress progress progress-medium mb-3" style="height: 30px;">
-                                    <div class="animated custom-bar progress-bar slideInLeft"
-                                        style="width:100%; background-color:#ae3838" aria-valuemax="100"
-                                        role="progressbar">NO</div>
-                                </div>
-                                {% else %}
-                                {% endif %}
 
                                 {% endif %}
                                 {% endif %}
@@ -204,6 +197,7 @@
                             {% if discord_name or facebook_name or twitter_name or reddit_name %}
                             <div>
                                 <span class="section-title text-primary">Socials</span>
+                                <span style="float: right;">
                                 {% if discord_name %}
                                 <a href="https://discord.com/channels/@me"><img
                                         src="https://img.shields.io/static/v1?label=&message={{discord_name}}%23{{discord_id}}&color=5865F2&style=flat&logo=discord&logoColor=white"></a>
@@ -223,6 +217,7 @@
                                 <a href="https://www.reddit.com/user/{{reddit_name}}"><img
                                         src="https://img.shields.io/static/v1?label=&message=u/{{reddit_name}}&color=FF5700&style=flat&logo=reddit&logoColor=white"></a>
                                 {% endif %}
+                                </span>
                             </div>
                             <br>
                             {% endif %}
