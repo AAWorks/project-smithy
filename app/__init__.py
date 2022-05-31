@@ -336,7 +336,7 @@ def view_project(project_id):
             hosted = True
         else:
             hosted = False
-            
+
         return render_template("project.html", title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'])
     #except:
      #   return render_template("error.html")
@@ -344,14 +344,43 @@ def view_project(project_id):
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
     user = get_user(session['user_id'])
+    error=""
+
     if request.method == 'POST':
+        #error handling
+        if len([field for field in request.form if field != ""]) == 0:
+            return render_template("upload_project.html", user_id=user, error="Missing inputs - like, all of them.")
+        for field in request.form:
+            if not request.form.get(field) and field != 'hosted_loc' and not field.startswith('devo'):
+                fieldname = field if field != 'descrip' else "'Why this project?'"
+                return render_template("upload_project.html", user_id=user, error="Missing input - " + fieldname.title() + ".")
+            elif field in ['hosted_loc', 'repo'] and request.form.get(field) and not request.form.get(field).startswith('http://') and not request.form.get(field).startswith('https://'):
+                return render_template("upload_project.html", user_id=user, error="Falty input - website links should start with 'http://'")
+        
+        # end error handling
+
         app.config['UPLOAD_FOLDER'] = PROJECTS_UPLOAD_FOLDER
         cover_photo = request.files['project_image']
         flag = request.files['team_flag']
-        devoIDs = [request.form.get('devo1'), request.form.get(
-            'devo2'), request.form.get('devo3')]
+        devoIDs = []
+        for i in range(1, 4):
+            dev = request.form.get('devo' + str(i))
+            try:
+                dev_id = dev.split("#")[-1]
+                get_user(dev_ed)
+            except:
+                return render_template("upload_project.html", user_id=user, error="Devo IDs must match to ACTUAL devos.")
+            if dev:
+                devoIDs.append(dev)
         tags = ["Project " + request.form.get('project_num')]
 
+        pm_id = request.form.get('pm_id').split("#")[-1]
+        try:
+            get_user(pm_id)
+        except:
+            return render_template("upload_project.html", user_id=user, error="PM ID must math to an ACTUAL devo.")
+        
+        
         new_project = upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get(
             'pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 5, request.form.get('hosted_loc'), url_for('static', filename='images/projects/default.png'))
         pid = new_project['project_id']
@@ -362,6 +391,8 @@ def upload():
                 app.config['UPLOAD_FOLDER'], filename))
             edit_project_info(pid, 'image', url_for(
                 'static', filename='images/projects/' + filename))
+        else:
+            return render_template("upload_project.html", user_id=user, error="Submit a PNG file (smaller than 500KB) for your cover photo.")
         
         if flag.filename != "" and allowed_file(flag.filename):
             filename = str(pid) + "_flag" + ".png"
@@ -369,8 +400,10 @@ def upload():
                 app.config['UPLOAD_FOLDER'], filename))
             edit_project_info(pid, 'team_flag', url_for(
                 'static', filename='images/projects/' + filename))
-
-    return render_template("upload_project.html", user_id=user)
+        else:
+            return render_template("upload_project.html", user_id=user, error="Submit a PNG file (smaller than 500KB) for your team flag.")
+    
+    return render_template("upload_project.html", user_id=user, error=error)
 
 if __name__ == "__main__":  # false if this file imported as module
     # enable debugging, auto-restarting of server when this file is modified
