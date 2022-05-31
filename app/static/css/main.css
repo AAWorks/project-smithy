@@ -28,6 +28,6 @@
 
 .supa_cool_bg {
   background: #a770ef;
-  background: -webkit-linear-gradient(to right, #8a4ae3, #984ec1, #d240d9);
-  background: linear-gradient(to right, #8a4ae3, #984ec1, #d240d9);
+  background: -webkit-linear-gradient(to right, #8a4ae3, #d240d9, #d7ab63);
+  background: linear-gradient(to right, #8a4ae3, #d240d9, #d7ab63);
 }
