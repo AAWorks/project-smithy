@@ -12,7 +12,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/account.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <nav class="navbar navbar-expand-lg navbar-light justify-content-center" style="background-color: white;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +35,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('user_account', user_id=session['user_id']) }}">My Account</a>
             </li>
-            {% endif %} 
+            {% endif %}
             {% if session['user_id'] %}
             <a href="/logout" class="btn btn-outline-danger navlink" tabindex="-1" role="button" aria-disabled="true"
                 style="text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
@@ -52,7 +52,7 @@
     <a href="/login" class="btn btn-outline-info navlink" tabindex="-1" role="button" aria-disabled="true"
         style="text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
     {% endif %}
-    <script src="{{ url_for('static', filename='js/account.js') }}"></script> 
+    <script src="{{ url_for('static', filename='js/account.js') }}"></script>
 </head>
 
 <body>
@@ -88,19 +88,19 @@
                                         <li class="display-28"><span
                                                 class="display-26 text-secondary me-2 font-weight-600">Developer
                                                 Rating:</span>
-                                                <div>
+                                            <div>
                                                 <div class="star-widget">
-                                                        <!-- <span class="rating__result"> -->
-                                                        <input type="radio" name="rate" id="rate-5">
-                                                        <label for="rate-5" class="fas fa-star"></label>
-                                                        <input type="radio" name="rate" id="rate-4">
-                                                        <label for="rate-4" class="fas fa-star"></label>
-                                                        <input type="radio" name="rate" id="rate-3">
-                                                        <label for="rate-3" class="fas fa-star"></label>
-                                                        <input type="radio" name="rate" id="rate-2">
-                                                        <label for="rate-2" class="fas fa-star"></label>
-                                                        <input type="radio" name="rate" id="rate-1">
-                                                        <label for="rate-1" class="fas fa-star"></label>
+                                                    <!-- <span class="rating__result"> -->
+                                                    <input type="radio" name="rate" id="rate-5">
+                                                    <label for="rate-5" class="fas fa-star"></label>
+                                                    <input type="radio" name="rate" id="rate-4">
+                                                    <label for="rate-4" class="fas fa-star"></label>
+                                                    <input type="radio" name="rate" id="rate-3">
+                                                    <label for="rate-3" class="fas fa-star"></label>
+                                                    <input type="radio" name="rate" id="rate-2">
+                                                    <label for="rate-2" class="fas fa-star"></label>
+                                                    <input type="radio" name="rate" id="rate-1">
+                                                    <label for="rate-1" class="fas fa-star"></label>
                                                     <!-- </span> -->
                                                 </div>
                                             </div>
@@ -127,7 +127,8 @@
                     <div class="row">
                         <div class="col-lg-12">
 
-                            {% if back_end_info or front_end_info or git_foo_info or ((can_serve_info != 'select' ) and (not (can_serve_info is none))) %}
+                            {% if back_end_info or front_end_info or git_foo_info or ((can_serve_info != 'select' ) and
+                            (not (can_serve_info is none))) %}
                             <div class="mb-4 mb-sm-5">
                                 <span class="section-title text-primary">Skill Set</span>
 
@@ -239,26 +240,32 @@
                             </div>
                             {% endif %}
                             {% else %}
-                            {% for project in projects %}
-                            <div class="col-xl-3.5 col-lg-4 col-md-6 mb-4">
-                              <div class="bg-white rounded shadow-sm"><img src="{{ project['image'] }}" alt="" class="img-fluid card-img-top" style="padding: 10px; padding-bottom: 0px;">
-                                <div class="p-4">
-                                  <h5 class="text-dark">{{ project['title'] }}</h5>
-                                  <p class="small text-muted mb-0">{{ project['summary'] }}</p><br>
-                                  <a href="/project/{{ project['project_id'] }}" class="btn btn-primary" style="width: 100%;">Learn More</a>                  
+                            <div class="row">
+                                {% for project in projects %}
+                                <div class="col-xl-3.5 col-lg-4 col-md-6 mb-4">
+                                    <div class="bg-white rounded shadow-sm"><img src="{{ project['image'] }}" alt=""
+                                            class="img-fluid card-img-top" style="padding: 10px; padding-bottom: 0px;">
+                                        <div class="p-4">
+                                            <h5 class="text-dark">{{ project['title'] }}</h5>
+                                            <p class="small text-muted mb-0">{{ project['summary'] }}</p><br>
+                                            <a href="/project/{{ project['project_id'] }}" class="btn btn-primary"
+                                                style="width: 100%;">Learn More</a>
+                                        </div>
+                                    </div>
                                 </div>
-                              </div>
+                                {% endfor %}
                             </div>
-                            {% endfor %}
                             {% endif %}
                         </div>
                     </div>
                     {% if user_match %}
                     <div class="mb-3 text-right"><a href="/edit"
-                            class="btn btn-outline-dark btn-block px-5 py-3 text-uppercase" style="width:100%;">Edit Profile</a>
+                            class="btn btn-outline-dark btn-block px-5 py-3 text-uppercase" style="width:100%;">Edit
+                            Profile</a>
                     </div>
                     <div class="mb-5 text-right"><a href="/upload"
-                        class="btn btn-outline-success btn-block px-5 py-3 text-uppercase" style="width:100%;">Upload Project</a>
+                            class="btn btn-outline-success btn-block px-5 py-3 text-uppercase"
+                            style="width:100%;">Upload Project</a>
                     </div>
                     {% endif %}
                 </div>
