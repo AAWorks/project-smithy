@@ -367,7 +367,7 @@ def upload():
             dev = request.form.get('devo' + str(i))
             try:
                 dev_id = dev.split("#")[-1]
-                get_user(dev_ed)
+                get_user(dev_id)
             except:
                 return render_template("upload_project.html", user_id=user, error="Devo IDs must match to ACTUAL devos.")
             if dev:
@@ -377,6 +377,8 @@ def upload():
         pm_id = request.form.get('pm_id').split("#")[-1]
         try:
             get_user(pm_id)
+            if int(session['user_id']) != int(pm_id):
+                return render_template("upload_project.html", user_id=user, error="You must be the PM to upload a project.")
         except:
             return render_template("upload_project.html", user_id=user, error="PM ID must math to an ACTUAL devo.")
         
