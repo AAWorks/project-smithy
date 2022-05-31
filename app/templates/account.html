@@ -206,7 +206,7 @@
                             {% endif %}
                         </div>
                     </div>
-                    {% if session['user_id']|int == user_id|int %}
+                    {% if user_match %}
                     <div class="mb-5 text-right"><a href="/edit"
                             class="btn btn-outline-dark btn-block px-5 py-3 text-uppercase" style="width:100%;">Edit</a>
                     </div>

@@ -3,12 +3,12 @@
     margin-top: 58px;
     }
 
-    @media (max-width: 991px) {
-    #intro {
-        /* Margin to fix overlapping fixed navbar */
-        margin-top: 45px;
-    }
-    }
+@media (max-width: 991px) {
+#intro {
+    /* Margin to fix overlapping fixed navbar */
+    margin-top: 45px;
+}
+}
 .btn-primary {
 color: #212529;
 background-color: #7cc;

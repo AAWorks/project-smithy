@@ -231,6 +231,7 @@ def disp_home():
 @app.route("/account/<user_id>", methods=['GET', 'POST'])
 def user_account(user_id):
     # try:
+
     user = get_user(user_id)
     details = get_details(user_id)
     name = user["firstname"] + " " + user["lastname"]
@@ -239,6 +240,11 @@ def user_account(user_id):
     if (details['about']):
         for i in details['about'].split('\r\n'):
             about_info.append(i)
+    
+    if session:
+        user_match = (int(session['user_id']) == int(user['user_id']))
+    else:
+        user_match = False
 
     return render_template("account.html",
                            user_id=user['user_id'], pfp=user['pfp'],
@@ -256,7 +262,8 @@ def user_account(user_id):
                            discord_id=details['discord_id'],
                            facebook_name=details['facebook_name'],
                            twitter_name=details['twitter_name'],
-                           reddit_name=details['reddit_name']
+                           reddit_name=details['reddit_name'],
+                           user_match=user_match
                            )
     # except:
     #     return render_template("error.html")
@@ -278,7 +285,7 @@ def devos():
 
     devos = [
         {
-            "name": u.firstname + " " + u.lastname,
+            "name": (u.firstname + " " + u.lastname).title(),
             "user_id": u.user_id,
             "stuyname": u.stuy_username,
             "num_projs": len(get_project_ids(u.user_id)),
@@ -339,7 +346,7 @@ def upload():
         # f2.save(secure_filename(f2.filename))
         devoIDs = [request.form.get('devo1'), request.form.get(
             'devo2'), request.form.get('devo3')]
-        tags = ["P" + request.form.get('project_num')]
+        tags = ["Project " + request.form.get('project_num')]
 
         new_project = upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get(
             'pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 5, request.form.get('hosted_loc'))
