@@ -9,4 +9,15 @@ $('#project_image').bind('change', function () {
       $("#noFile").text(filename.replace("C:\\fakepath\\", "")); 
     }
   });
+$('#team_flag').bind('change', function () {
+    var filename = $("#team_flag").val();
+    if (/^\s*$/.test(filename)) {
+      $(".file-upload-2").removeClass('active');
+      $("#noFile2").text("No file chosen..."); 
+    }
+    else {
+      $(".file-upload-2").addClass('active');
+      $("#noFile2").text(filename.replace("C:\\fakepath\\", "")); 
+    }
+  });
   
