@@ -25,3 +25,9 @@
   background-color: transparent;
   text-decoration: underline;
 }
+
+.supa_cool_bg {
+  background: #a770ef;
+  background: -webkit-linear-gradient(to right, #8a4ae3, #d240d9, #d7ab63);
+  background: linear-gradient(to right, #8a4ae3, #d240d9, #d7ab63);
+}
