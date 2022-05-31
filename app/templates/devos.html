@@ -178,7 +178,9 @@ P04 -- Smithy -->
               <h5 class="text-dark"><a class="purple_a" href="{{ url_for('user_account', user_id=devo['user_id']) }}" style="text-decoration:none">{{ devo['name']
                     }}</a></h5>
               <h6 class="text-dark">{{ devo['stuyname'] }}#{{ devo['user_id'] }}</h6>
+              {% if devo['bio'] %}
               <p class="small text-muted mb-1">{{ devo['bio'] }}</p>
+              {% endif %}
               <p class="small mb-2">Projects: {{ devo['num_projs'] }}</p>
             </div>
           </div>

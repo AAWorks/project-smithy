@@ -288,7 +288,7 @@ def devos():
             "name": (u.firstname + " " + u.lastname).title(),
             "user_id": u.user_id,
             "stuyname": u.stuy_username,
-            "num_projs": len(get_project_ids(u.user_id)),
+            "num_projs": len(get_project_ids(u.stuy_username + "#" + str(u.user_id))),
             "bio": get_details(u.user_id)["about"],
             "pfp": u.pfp
         } for u in get_users()
@@ -360,7 +360,6 @@ def upload():
                 'static', filename='images/projects/' + filename))
 
     return render_template("upload_project.html", user_id=user)
-
 
 if __name__ == "__main__":  # false if this file imported as module
     # enable debugging, auto-restarting of server when this file is modified
