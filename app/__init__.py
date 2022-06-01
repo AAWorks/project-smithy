@@ -4,6 +4,7 @@
 
 from flask import Flask, render_template, request, session, redirect, url_for
 from werkzeug import *
+from hashlib import md5
 import os
 
 with open("app/db_builder.py", "rb") as source_file:
@@ -28,6 +29,9 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def avatar(size, email):
+    digest = md5(email.lower().encode('utf-8')).hexdigest()
+    return f'https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}'
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -156,10 +160,8 @@ def editProfile():
             for i in details['about'].split('\r\n'):
                 about_info.append(i)
             about_last = about_info[-1]
-        print(about_info)
-        print(user['pfp'])
         return render_template("edit.html",
-                            pfp=user['pfp'], 
+                            pfp=avatar(315, user['stuy_username'] + "@stuy.edu"), 
                             first=user["firstname"].title(), 
                             name=name.title(), 
                             user_id=session['user_id'], 
@@ -199,13 +201,11 @@ def update_info():
         twitter_name = request.form.get('twitter_name')
         reddit_name = request.form.get('reddit_name')
 
-        print(can_serve_info)
 
         if method == 'GET':
             return redirect(url_for('disp_home'))
 
         if method == 'POST':
-            print(about_info)
             if (discord_name and not discord_id) or (not discord_name and discord_id):
                 return redirect(url_for('editProfile', discord_not_match='true'))
             else:
@@ -262,7 +262,7 @@ def user_account(user_id):
             user_match = False
         return render_template("account.html",
                             user_id=user['user_id'], 
-                            pfp="../"+user['pfp'],
+                            pfp=avatar(315, user['stuy_username'] + "@stuy.edu"),
                             first=user["firstname"].title(),
                             name=name.title(),
                             stuyname=user["stuy_username"],
@@ -299,7 +299,7 @@ def devos():
     #     devo["bio"] = tester["bio"]
     #     devo["pfp"] = tester["pfp"]
     #     devos.append(devo)
-    try:
+    #try:
         devos = [
             {
                 "name": (u.firstname + " " + u.lastname).title(),
@@ -307,12 +307,12 @@ def devos():
                 "stuyname": u.stuy_username,
                 "num_projs": len(get_project_ids(u.stuy_username + "#" + str(u.user_id))),
                 "bio": get_details(u.user_id)["about"],
-                "pfp": u.pfp
+                "pfp": avatar(300, u.stuy_username + "@stuy.edu")
             } for u in get_users()
         ]
         return render_template("devos.html", devos=devos)
-    except:
-        return render_template("error.html")
+    #except:
+     #   return render_template("error.html")
 
 
 @app.route("/gallery", methods=['GET', 'POST'])

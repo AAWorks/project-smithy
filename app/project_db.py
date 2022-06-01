@@ -69,7 +69,6 @@ def updateRating(project_id,ratings,user_id):
     if db.select("ratings", project_id=project_id, user_id=user_id):
         sum = float(ratings)
         sum -= db.select("ratings", project_id=project_id, user_id=user_id)[0]["rating"]
-        print(db.select("ratings", project_id=project_id, user_id=user_id)[0]["rating"])
         db.update("projects", where={"project_id": project_id}, upd = {"rating": project["rating"] + sum})
         db.update("ratings", where={"project_id": project_id, "user_id":user_id}, upd={"rating": ratings})
     else:
