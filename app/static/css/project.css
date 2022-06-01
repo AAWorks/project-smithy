@@ -86,15 +86,12 @@ box-shadow: 0 0 0 .2rem rgba(119, 204, 204, 0.5)
 }
 
 
-fieldset, label { margin: 0; padding: 0; }
-body{ margin: 20px; }
-h1 { font-size: 1.5em; margin: 10px; }
+
 
 /****** Style Star Rating Widget *****/
 
 .rating { 
   border: none;
-  float: left;
 }
 
 .rating > input { display: none; } 
@@ -113,7 +110,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 
 .rating > label { 
   color: #ddd; 
- float: right; 
+  float: right;
 }
 
 /***** CSS Magic to Highlight Stars on Hover *****/

@@ -50,22 +50,6 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/project.css') }}">
     <div id="intro" class="p-5 text-center bg-light">
         <h1 class="mb-0 h4">{{ title }}</h1>
-        <form method="post" action="/project/{{project_id}}">
-          <fieldset class="rating">
-          <input type="radio" id="star5"name="star5"  value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-          <input type="radio" id="star4half"name="star4half"  value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-          <input type="radio" id="star4"name="star4"  value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-          <input type="radio" id="star3half"name="star3half"  value="3.5" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-          <input type="radio" id="star3"name="star3"  value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-          <input type="radio" id="star2half"name="star2half"  value="2.5" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-          <input type="radio" id="star2"name="star2"  value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-          <input type="radio" id="star1half"name="star1half"  value="1.5" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-          <input type="radio" id="star1"name="star1"  value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-          <input type="radio" id="starhalf"name="starhalf"  value="0.5" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-          <div class="mb-5 text-right"><button class="btn btn-outline-dark btn-block px-5 py-3 text-uppercase"
-            type="submit" style="width:100%;">Save</button></div>
-        </form>
-        <h1>Star Rating AVG: {{starratings}}</h1>
     </div>
     <!-- Jumbotron -->
 </head>
@@ -166,11 +150,33 @@
       <!--Grid column-->
 
       <!--Grid column-->
-      <div class="col-md-4 mb-4" style="margin-top: 80px;">
+      <div class="col-md-4 mb-4" style="margin-top: 40px;">
         <!--Section: Sidebar-->
         <section class="sticky-top" style="top: 80px;">
           <!--Section: Ad-->
-          <section class="text-center border-bottom pb-4 mb-4">
+          <section class="text-center border-bottom pb-2 mb-4">
+            <form method="post" action="/project/{{project_id}}" class="container">
+              <div class="row">
+                <div class="col-lg">
+                  <fieldset class="rating">
+                  <input type="radio" id="star5"name="star5"  value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                  <input type="radio" id="star4half"name="star4half"  value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                  <input type="radio" id="star4"name="star4"  value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                  <input type="radio" id="star3half"name="star3half"  value="3.5" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                  <input type="radio" id="star3"name="star3"  value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                  <input type="radio" id="star2half"name="star2half"  value="2.5" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                  <input type="radio" id="star2"name="star2"  value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                  <input type="radio" id="star1half"name="star1half"  value="1.5" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                  <input type="radio" id="star1"name="star1"  value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                  <input type="radio" id="starhalf"name="starhalf"  value="0.5" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                </div>
+                <button class="col-sm btn btn-outline-warning btn-block px-1 py-1 text-uppercase"
+                  type="submit">Rate</button>
+              </div>
+            </form>
+            <p><em>Overall Project Rating: </em>{{starratings}}<i class="fa fa-star stroke-transparent" aria-hidden="true"></i></p>
+          </section>
+          <section class="text-center border-bottom pb-3 mb-4">
             <h5><img src="{{ team_flag }}" class="rounded-5 shadow-1-strong me-2"
               height="35" alt="" loading="lazy" />{{ team_name }}</h5>
 
