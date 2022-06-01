@@ -339,17 +339,18 @@ def view_project(project_id):
 
         devos=[]
         for full_devo_id in project['devoIDs']:
-            devo_id = full_devo_id.split("#")[-1]
-            devo_info = get_user(devo_id)
-            devo = {'name': (devo_info['firstname'] + " " + devo_info['lastname']).title(), 'id': devo_id}
-            devos.append(devo)
+            if full_devo_id != "":
+                devo_id = full_devo_id.split("#")[-1]
+                devo_info = get_user(devo_id)
+                devo = {'name': (devo_info['firstname'] + " " + devo_info['lastname']).title(), 'id': devo_id}
+                devos.append(devo)
 
         if project['hosted_loc'].startswith("http://") or project['hosted_loc'].startswith("https://"):
             hosted = True
         else:
             hosted = False
 
-        if session:
+        if session['user_id']:
             star5 = request.form.get('star5')
             star4half = request.form.get('star4half')
             star4 = request.form.get('star4')
@@ -412,8 +413,9 @@ def upload():
             cover_photo = request.files['project_image']
             flag = request.files['team_flag']
             devoIDs = []
-            for i in range(1, 4):
-                dev = request.form.get('devo' + str(i))
+            tmpdevs = [x for x in [request.form.get('devo1'), request.form.get('devo2'), request.form.get('devo3')] if x != ""]
+            for i in range(0, len(tmpdevs)):
+                dev = request.form.get('devo' + str(i+1))
                 try:
                     dev_id = dev.split("#")[-1]
                     get_user(dev_id)
@@ -431,28 +433,17 @@ def upload():
             except:
                 return render_template("upload_project.html", user_id=user, error="PM ID must math to an ACTUAL devo.")
             
-            
-            new_project = upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get(
+            if cover_photo.filename != "" and allowed_file(cover_photo.filename) and flag.filename != "" and allowed_file(flag.filename):
+                new_project = upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get(
                 'pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 0, request.form.get('hosted_loc'), url_for('static', filename='images/projects/default.png'))
-            pid = new_project['project_id']
-
-            if cover_photo.filename != "" and allowed_file(cover_photo.filename):
+                pid = new_project['project_id']
                 filename = str(pid) + "_cover" + ".png"
                 cover_photo.save(os.path.join(
                     app.config['UPLOAD_FOLDER'], filename))
                 edit_project_info(pid, 'image', url_for(
                     'static', filename='images/projects/' + filename))
             else:
-                return render_template("upload_project.html", user_id=user, error="Submit a PNG file (smaller than 500KB) for your cover photo.")
-            
-            if flag.filename != "" and allowed_file(flag.filename):
-                filename = str(pid) + "_flag" + ".png"
-                flag.save(os.path.join(
-                    app.config['UPLOAD_FOLDER'], filename))
-                edit_project_info(pid, 'team_flag', url_for(
-                    'static', filename='images/projects/' + filename))
-            else:
-                return render_template("upload_project.html", user_id=user, error="Submit a PNG file (smaller than 500KB) for your team flag.")
+                return render_template("upload_project.html", user_id=user, error="Submit PNG files (smaller than 500KB) for your cover and team flag photos.")
         
         return render_template("upload_project.html", user_id=user, error=error)
     except:
