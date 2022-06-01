@@ -58,3 +58,6 @@ justinZ -- 2022-05-29 00:32
 
  noakaiA -- 2022-05-30 19:25
   I think I finished the whole account/edit system
+
+justinZ -- 2022-05-31 20:23
+  Worked on star rating

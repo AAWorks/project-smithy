@@ -346,29 +346,28 @@ def view_project(project_id):
         star1half = request.form.get('star1half')
         star1 = request.form.get('star1')
         starhalf = request.form.get('starhalf')
-        project = get_project_details(project_id)
         if request.method == 'POST':
             if(star5):
-                updateRating(1,star5)
+                updateRating(project_id,star5)
             elif(star4half):
-                updateRating(1,star4half)
+                updateRating(project_id,star4half)
             elif(star4):
-                updateRating(1,star4)
+                updateRating(project_id,star4)
             elif(star3half):
-                updateRating(1,star3half)
+                updateRating(project_id,star3half)
             elif(star3):
-                updateRating(1,star3)
+                updateRating(project_id,star3)
             elif(star2half):
-                updateRating(1,star2half)
+                updateRating(project_id,star2half)
             elif(star1half):
-                updateRating(1,star2)
+                updateRating(project_id,star2)
             elif(star1):
-                updateRating(1,star1)
+                updateRating(project_id,star1)
             elif(starhalf):
-                updateRating(1,starhalf)
-            return render_template("star.html",starratings = project['rating'])
+                updateRating(project_id,starhalf)
+            return render_template("project.html",starratings = project['rating'],project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'])
 
-        return render_template("project.html", title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'])
+        return render_template("project.html",project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'])
     #except:
      #   return render_template("error.html")
 

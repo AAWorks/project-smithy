@@ -65,9 +65,9 @@ def clear_projects_table():
 def updateRating(project_id,ratings):
     db = SqliteDb(DB_FILE)
     project = db.select("projects", project_id=project_id)[0]
-    db.update("projects", rating = ratings)
-
-# def getRatings(project_id,ratings):
-#     db = SqliteDb(DB_FILE)
-#     project = db.select("projects", project_id=project_id)[0]
-#     return project
+    sum = project["rating"] 
+    # counter = project["ratingCounter"]
+    # counter += 1
+    sum += float(ratings)
+    db.update("projects", where={"project_id": project_id}, upd = {"rating": sum})
+    # ,"ratingCounter":counter}
