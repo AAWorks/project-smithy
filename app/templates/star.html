@@ -43,21 +43,17 @@
             </li>
             {% endif %}
             {% if session['user_id'] %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('user_account', user_id=session['user_id']) }}">My Account</a>
+            </li>
+            {% endif %}
+            {% if session['user_id'] %}
             <a href="/logout" class="btn btn-outline-danger navlink" tabindex="-1" role="button" aria-disabled="true"
-                style="text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
+              style="text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
             {% else %}
             <a href="/login" class="btn btn-outline-info navlink" tabindex="-1" role="button" aria-disabled="true"
-                style="text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
+              style="text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
             {% endif %}
-        </ul>
-    </nav>
-    {% if session['user_id'] %}
-    <a href="/logout" class="btn btn-outline-danger navlink" tabindex="-1" role="button" aria-disabled="true"
-        style="text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
-    {% else %}
-    <a href="/login" class="btn btn-outline-info navlink" tabindex="-1" role="button" aria-disabled="true"
-        style="text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
-    {% endif %}
 </head>
 
 
