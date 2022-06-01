@@ -1,7 +1,8 @@
+wheel==0.37.1
 black==21.9b0
 click==8.0.3
 cycler==0.11.0
-Flask==2.0.2
+Flask==2.1.2
 fonttools==4.28.5
 idna==3.3
 itsdangerous==2.0.1
@@ -17,3 +18,5 @@ urllib3==1.26.7
 Werkzeug==2.0.2
 notanorm==2.1.0
 bcrypt==3.2.2
+uWSGI==2.0.20
+requests==2.27.1
