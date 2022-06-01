@@ -43,100 +43,97 @@ P04 -- Smithy -->
       </li>
       {% endif %}
       {% if session['user_id'] %}
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('user_account', user_id=session['user_id']) }}">My Account</a>
-      </li>
-      {% endif %}
-      {% if session['user_id'] %}
       <a href="/logout" class="btn btn-outline-danger navlink" tabindex="-1" role="button" aria-disabled="true"
         style="text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
       {% else %}
       <a href="/login" class="btn btn-outline-info navlink" tabindex="-1" role="button" aria-disabled="true"
         style="text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
       {% endif %}
-      <style>
-        .banner {
-          background: #a770ef;
-          background: -webkit-linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
-          background: linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
-        }
+    </ul>
+  </nav>
+  <style>
+    .banner {
+      background: #a770ef;
+      background: -webkit-linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
+      background: linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
+    }
 
-        .btn-primary {
-          color: #212529;
-          background-color: #7cc;
-          border-color: #5bc2c2
-        }
+    .btn-primary {
+      color: #212529;
+      background-color: #7cc;
+      border-color: #5bc2c2
+    }
 
-        .btn-primary:hover {
-          color: #212529;
-          background-color: #52bebe;
-          border-color: #8ad3d3
-        }
+    .btn-primary:hover {
+      color: #212529;
+      background-color: #52bebe;
+      border-color: #8ad3d3
+    }
 
-        .btn-primary:focus,
-        .btn-primary.focus {
-          box-shadow: 0 0 0 .2rem rgba(91, 194, 194, 0.5)
-        }
+    .btn-primary:focus,
+    .btn-primary.focus {
+      box-shadow: 0 0 0 .2rem rgba(91, 194, 194, 0.5)
+    }
 
-        .btn-primary.disabled,
-        .btn-primary:disabled {
-          color: #212529;
-          background-color: #7cc;
-          border-color: #5bc2c2
-        }
+    .btn-primary.disabled,
+    .btn-primary:disabled {
+      color: #212529;
+      background-color: #7cc;
+      border-color: #5bc2c2
+    }
 
-        .btn-primary:not(:disabled):not(.disabled):active,
-        .btn-primary:not(:disabled):not(.disabled).active,
-        .show>.btn-primary.dropdown-toggle {
-          color: #212529;
-          background-color: #9cdada;
-          border-color: #2e7c7c
-        }
+    .btn-primary:not(:disabled):not(.disabled):active,
+    .btn-primary:not(:disabled):not(.disabled).active,
+    .show>.btn-primary.dropdown-toggle {
+      color: #212529;
+      background-color: #9cdada;
+      border-color: #2e7c7c
+    }
 
-        .btn-primary:not(:disabled):not(.disabled):active:focus,
-        .btn-primary:not(:disabled):not(.disabled).active:focus,
-        .show>.btn-primary.dropdown-toggle:focus {
-          box-shadow: 0 0 0 .2rem rgba(91, 194, 194, 0.5)
-        }
+    .btn-primary:not(:disabled):not(.disabled):active:focus,
+    .btn-primary:not(:disabled):not(.disabled).active:focus,
+    .show>.btn-primary.dropdown-toggle:focus {
+      box-shadow: 0 0 0 .2rem rgba(91, 194, 194, 0.5)
+    }
 
-        .btn-outline-primary {
-          color: #7cc;
-          background-color: transparent;
-          background-image: none;
-          border-color: #7cc
-        }
+    .btn-outline-primary {
+      color: #7cc;
+      background-color: transparent;
+      background-image: none;
+      border-color: #7cc
+    }
 
-        .btn-outline-primary:hover {
-          color: #222;
-          background-color: #8ad3d3;
-          border-color: #7cc
-        }
+    .btn-outline-primary:hover {
+      color: #222;
+      background-color: #8ad3d3;
+      border-color: #7cc
+    }
 
-        .btn-outline-primary:focus,
-        .btn-outline-primary.focus {
-          box-shadow: 0 0 0 .2rem rgba(119, 204, 204, 0.5)
-        }
+    .btn-outline-primary:focus,
+    .btn-outline-primary.focus {
+      box-shadow: 0 0 0 .2rem rgba(119, 204, 204, 0.5)
+    }
 
-        .btn-outline-primary.disabled,
-        .btn-outline-primary:disabled {
-          color: #7cc;
-          background-color: transparent
-        }
+    .btn-outline-primary.disabled,
+    .btn-outline-primary:disabled {
+      color: #7cc;
+      background-color: transparent
+    }
 
-        .btn-outline-primary:not(:disabled):not(.disabled):active,
-        .btn-outline-primary:not(:disabled):not(.disabled).active,
-        .show>.btn-outline-primary.dropdown-toggle {
-          color: #212529;
-          background-color: #8ad3d3;
-          border-color: #7cc
-        }
+    .btn-outline-primary:not(:disabled):not(.disabled):active,
+    .btn-outline-primary:not(:disabled):not(.disabled).active,
+    .show>.btn-outline-primary.dropdown-toggle {
+      color: #212529;
+      background-color: #8ad3d3;
+      border-color: #7cc
+    }
 
-        .btn-outline-primary:not(:disabled):not(.disabled):active:focus,
-        .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
-        .show>.btn-outline-primary.dropdown-toggle:focus {
-          box-shadow: 0 0 0 .2rem rgba(119, 204, 204, 0.5)
-        }
-      </style>
+    .btn-outline-primary:not(:disabled):not(.disabled):active:focus,
+    .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
+    .show>.btn-outline-primary.dropdown-toggle:focus {
+      box-shadow: 0 0 0 .2rem rgba(119, 204, 204, 0.5)
+    }
+  </style>
 </head>
 
 <body style="background-color: whitesmoke;">
