@@ -66,7 +66,7 @@ def updateRating(project_id,ratings,user_id):
     db = SqliteDb(DB_FILE)
     project = db.select("projects", project_id=project_id)[0]
     counter = db.select("ratings", project_id=project_id)
-    if len(db.select("ratings", project_id=project_id, user_id=user_id)):
+    if db.select("ratings", project_id=project_id, user_id=user_id):
         sum = float(ratings)
         sum -= db.select("ratings", project_id=project_id, user_id=user_id)[0]["rating"]
         print(db.select("ratings", project_id=project_id, user_id=user_id)[0]["rating"])
