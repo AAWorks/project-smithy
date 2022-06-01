@@ -437,43 +437,43 @@ def upload():
     
     return render_template("upload_project.html", user_id=user, error=error)
 
-# @app.route("/ratings", methods=['GET', 'POST'])
-# def ratings(projectId):
-#     # projectId = 1
-#     method = request.method
-#     star5 = request.form.get('star5')
-#     star4half = request.form.get('star4half')
-#     star4 = request.form.get('star4')
-#     star3half = request.form.get('star3half')
-#     star3 = request.form.get('star3')
-#     star2half = request.form.get('star2half')
-#     star2 = request.form.get('star2')
-#     star1half = request.form.get('star1half')
-#     star1 = request.form.get('star1')
-#     starhalf = request.form.get('starhalf')
-#     project = get_project_details(project_id)
-#     if method == 'GET':
-#         return redirect(url_for('disp_home'))
-#     if method == 'POST':
-#         if(star5):
-#            updateRating(1,star5)
-#         elif(star4half):
-#             updateRating(1,star4half)
-#         elif(star4):
-#             updateRating(1,star4)
-#         elif(star3half):
-#             updateRating(1,star3half)
-#         elif(star3):
-#             updateRating(1,star3)
-#         elif(star2half):
-#             updateRating(1,star2half)
-#         elif(star1half):
-#             updateRating(1,star2)
-#         elif(star1):
-#             updateRating(1,star1)
-#         elif(starhalf):
-#             updateRating(1,starhalf)
-#         return render_template("star.html",starratings = project['rating'])
+@app.route("/ratings", methods=['GET', 'POST'])
+def ratings(projectId):
+    # projectId = 1
+    method = request.method
+    star5 = request.form.get('star5')
+    star4half = request.form.get('star4half')
+    star4 = request.form.get('star4')
+    star3half = request.form.get('star3half')
+    star3 = request.form.get('star3')
+    star2half = request.form.get('star2half')
+    star2 = request.form.get('star2')
+    star1half = request.form.get('star1half')
+    star1 = request.form.get('star1')
+    starhalf = request.form.get('starhalf')
+    project = get_project_details(project_id)
+    if method == 'GET':
+        return redirect(url_for('disp_home'))
+    if method == 'POST':
+        if(star5):
+           updateRating(1,star5)
+        elif(star4half):
+            updateRating(1,star4half)
+        elif(star4):
+            updateRating(1,star4)
+        elif(star3half):
+            updateRating(1,star3half)
+        elif(star3):
+            updateRating(1,star3)
+        elif(star2half):
+            updateRating(1,star2half)
+        elif(star1half):
+            updateRating(1,star2)
+        elif(star1):
+            updateRating(1,star1)
+        elif(starhalf):
+            updateRating(1,starhalf)
+        return render_template("star.html",starratings = project['rating'])
         
 
         
