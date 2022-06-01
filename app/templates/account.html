@@ -220,7 +220,7 @@
                                 <div class="mb-4 mb-sm-5">
                                     <span class="section-title text-primary">Projects: {{num_projs}}</span>
                                     {% if num_projs == 0 %}
-                                    {% if session['user_id']|int == user_id|int %}
+                                    {% if session['user_id'] and (session['user_id']|int == user_id|int) %}
                                     <div class="alert alert-warning text-center" role="alert">
                                         You have not uploaded any projects!
                                     </div>
