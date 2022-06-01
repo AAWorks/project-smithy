@@ -330,7 +330,7 @@ def gallery():
 
 @app.route("/project/<project_id>", methods=['GET', 'POST'])
 def view_project(project_id):
-    try:
+    #try:
         project = get_project_details(project_id)
 
         pm_id = project['pmID'].split("#")[-1]
@@ -350,7 +350,7 @@ def view_project(project_id):
         else:
             hosted = False
 
-        if session['user_id']:
+        if session:
             star5 = request.form.get('star5')
             star4half = request.form.get('star4half')
             star4 = request.form.get('star4')
@@ -385,8 +385,8 @@ def view_project(project_id):
                 return render_template("project.html",starratings = getAvgRating(project_id),project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'])
 
         return render_template("project.html",project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'])
-    except:
-       return render_template("error.html")
+    #except:
+     #  return render_template("error.html")
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
