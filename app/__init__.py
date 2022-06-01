@@ -460,5 +460,9 @@ def upload():
 
 if __name__ == "__main__":  # false if this file imported as module
     # enable debugging, auto-restarting of server when this file is modified
+    # FOR DEVWORK ONLY
     app.debug = True
     app.run()
+    # FOR HOSTING ONLY
+    # app.debug = False
+    # app.run(host='0.0.0.0')
