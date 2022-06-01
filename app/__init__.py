@@ -223,6 +223,7 @@ def disp_home():
     try:
         if session:
             return render_template("home.html", returning="Current user: " + get_full_username(session['user_id']))
+            session['user_id']
         else:
             return render_template("home.html")
     except:
@@ -344,28 +345,31 @@ def view_project(project_id):
         star2half = request.form.get('star2half')
         star2 = request.form.get('star2')
         star1half = request.form.get('star1half')
+        print(star1half)
         star1 = request.form.get('star1')
         starhalf = request.form.get('starhalf')
         if request.method == 'POST':
             if(star5):
-                updateRating(project_id,star5)
+                updateRating(project_id,star5,session['user_id'])
             elif(star4half):
-                updateRating(project_id,star4half)
+                updateRating(project_id,star4half,session['user_id'])
             elif(star4):
-                updateRating(project_id,star4)
+                updateRating(project_id,star4,session['user_id'])
             elif(star3half):
-                updateRating(project_id,star3half)
+                updateRating(project_id,star3half,session['user_id'])
             elif(star3):
-                updateRating(project_id,star3)
+                updateRating(project_id,star3,session['user_id'])
             elif(star2half):
-                updateRating(project_id,star2half)
+                updateRating(project_id,star2half,session['user_id'])
+            elif(star2):
+                updateRating(project_id,star2,session['user_id'])
             elif(star1half):
-                updateRating(project_id,star2)
+                updateRating(project_id,star1half,session['user_id'])
             elif(star1):
-                updateRating(project_id,star1)
+                updateRating(project_id,star1,session['user_id'])
             elif(starhalf):
-                updateRating(project_id,starhalf)
-            return render_template("project.html",starratings = project['rating'],project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'])
+                updateRating(project_id,starhalf,session['user_id'])
+            return render_template("project.html",starratings = getAvgRating(project_id),project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'])
 
         return render_template("project.html",project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'])
     #except:
@@ -455,25 +459,26 @@ def ratings(projectId):
     if method == 'GET':
         return redirect(url_for('disp_home'))
     if method == 'POST':
+        print(session['user_id'])
         if(star5):
-           updateRating(1,star5)
+           updateRating(1,star5,session['user_id'])
         elif(star4half):
-            updateRating(1,star4half)
+            updateRating(1,star4half,session['user_id'])
         elif(star4):
-            updateRating(1,star4)
+            updateRating(1,star4,session['user_id'])
         elif(star3half):
-            updateRating(1,star3half)
+            updateRating(1,star3half,session['user_id'])
         elif(star3):
-            updateRating(1,star3)
+            updateRating(1,star3,session['user_id'])
         elif(star2half):
-            updateRating(1,star2half)
+            updateRating(1,star2half,session['user_id'])
         elif(star1half):
-            updateRating(1,star2)
+            updateRating(1,star2,session['user_id'])
         elif(star1):
-            updateRating(1,star1)
+            updateRating(1,star1,session['user_id'])
         elif(starhalf):
-            updateRating(1,starhalf)
-        return render_template("star.html",starratings = project['rating'])
+            updateRating(1,starhalf,session['user_id'])
+        return render_template("star.html",starratings = getAvgRating(project_id))
         
 
         

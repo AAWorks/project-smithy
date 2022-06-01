@@ -62,12 +62,33 @@ def clear_projects_table():
     db.delete_all("projects")
 
 
-def updateRating(project_id,ratings):
+def updateRating(project_id,ratings,user_id):
     db = SqliteDb(DB_FILE)
     project = db.select("projects", project_id=project_id)[0]
-    sum = project["rating"] 
+    counter = db.select("ratings", project_id=project_id)
+    if len(db.select("ratings", project_id=project_id, user_id=user_id)):
+        sum = float(ratings)
+        sum -= db.select("ratings", project_id=project_id, user_id=user_id)[0]["rating"]
+        print(db.select("ratings", project_id=project_id, user_id=user_id)[0]["rating"])
+        db.update("projects", where={"project_id": project_id}, upd = {"rating": project["rating"] + sum})
+        db.update("ratings", where={"project_id": project_id, "user_id":user_id}, upd={"rating": ratings})
+    else:
+        db.insert("ratings", project_id=project_id, user_id=user_id, rating = ratings)
+        sum = project["rating"] 
+        sum += float(ratings)
+        db.update("projects", where={"project_id": project_id}, upd = {"rating": sum})
+    # print(len(counter))
+    
     # counter = project["ratingCounter"]
     # counter += 1
-    sum += float(ratings)
-    db.update("projects", where={"project_id": project_id}, upd = {"rating": sum})
+    
+   
     # ,"ratingCounter":counter}
+
+
+def getAvgRating(project_id):
+    db = SqliteDb(DB_FILE)
+    project = db.select("projects", project_id=project_id)[0]
+    counter = db.select("ratings", project_id=project_id)
+    sum = project["rating"] 
+    return sum/len(counter)
