@@ -49,15 +49,6 @@
             <a href="/login" class="btn btn-outline-info navlink" tabindex="-1" role="button" aria-disabled="true"
                 style="text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
             {% endif %}
-        </ul>
-    </nav>
-    {% if session['user_id'] %}
-    <a href="/logout" class="btn btn-outline-danger navlink" tabindex="-1" role="button" aria-disabled="true"
-        style="text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
-    {% else %}
-    <a href="/login" class="btn btn-outline-info navlink" tabindex="-1" role="button" aria-disabled="true"
-        style="text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
-    {% endif %}
 </head>
 
 <body>
@@ -110,15 +101,15 @@
                                         </li>
                                         <li class="display-28"><span
                                                 class="display-26 text-secondary me-2 font-weight-600 editable">Developer
-                                                Rating:</span> 
-                                                <div class="rating">
-                                                          <span class="rating__result"></span> 
-                                                         <i class="rating__star far fa-star"></i>
-                                                         <i class="rating__star far fa-star"></i>
-                                                         <i class="rating__star far fa-star"></i>
-                                                         <i class="rating__star far fa-star"></i>
-                                                         <i class="rating__star far fa-star"></i>
-                                                      </div>
+                                                Rating:</span>
+                                            <div class="rating">
+                                                <span class="rating__result"></span>
+                                                <i class="rating__star far fa-star"></i>
+                                                <i class="rating__star far fa-star"></i>
+                                                <i class="rating__star far fa-star"></i>
+                                                <i class="rating__star far fa-star"></i>
+                                                <i class="rating__star far fa-star"></i>
+                                            </div>
 
                                         </li>
                                     </ul>
@@ -156,7 +147,8 @@
                                     <div class="progress-text">
                                         <div class="row">
                                             <div class="col-6">Front end development</div>
-                                            <div class="col-6 text-end" id="front_end_info">{{front_end_info|int}}%</div>
+                                            <div class="col-6 text-end" id="front_end_info">{{front_end_info|int}}%
+                                            </div>
                                         </div>
                                     </div>
                                     <input type="range" class="form-range" onmouseup="front_end()" min="0" max="100"
@@ -194,29 +186,29 @@
                                 <div>
                                     <span class="section-title text-primary">Social</span><br>
                                     <div class="input-group w-50 mb-2">
-                                        <input type="text" class="form-control w-50" name="discord_name" 
-                                        {% if discord_name %} value="{{discord_name}}" {% endif %}
+                                        <input type="text" class="form-control w-50" name="discord_name" {% if
+                                            discord_name %} value="{{discord_name}}" {% endif %}
                                             placeholder="Discord username">
                                         <span class="input-group-text">#</span>
-                                        <input type="text" class="form-control" name='discord_id' 
-                                        {% if discord_id %} value="{{discord_id}}" {% endif %}
-                                            placeholder="Discord ID" aria-label="Server">
+                                        <input type="text" class="form-control" name='discord_id' {% if discord_id %}
+                                            value="{{discord_id}}" {% endif %} placeholder="Discord ID"
+                                            aria-label="Server">
                                     </div>
                                     <div class="input-group w-50 mb-2">
-                                        <input type="text" class="form-control w-50" name="facebook_name"
-                                        {% if facebook_name %} value="{{facebook_name}}" {% endif %}
+                                        <input type="text" class="form-control w-50" name="facebook_name" {% if
+                                            facebook_name %} value="{{facebook_name}}" {% endif %}
                                             placeholder="Facebook username">
                                     </div>
                                     <div class="input-group w-50 mb-2">
                                         <span class="input-group-text" id="basic-addon1">@</span>
-                                        <input type="text" class="form-control w-50" name="twitter_name"
-                                        {% if twitter_name %} value="{{twitter_name}}" {% endif %}
+                                        <input type="text" class="form-control w-50" name="twitter_name" {% if
+                                            twitter_name %} value="{{twitter_name}}" {% endif %}
                                             placeholder="Twitter handle">
                                     </div>
                                     <div class="input-group w-50 mb-2">
                                         <span class="input-group-text" id="basic-addon1">u/</span>
-                                        <input type="text" class="form-control w-50" name="reddit_name"
-                                        {% if reddit_name %} value="{{reddit_name}}" {% endif %}
+                                        <input type="text" class="form-control w-50" name="reddit_name" {% if
+                                            reddit_name %} value="{{reddit_name}}" {% endif %}
                                             placeholder="Reddit username">
                                     </div>
                                 </div>
