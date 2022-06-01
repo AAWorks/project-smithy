@@ -336,6 +336,37 @@ def view_project(project_id):
             hosted = True
         else:
             hosted = False
+        star5 = request.form.get('star5')
+        star4half = request.form.get('star4half')
+        star4 = request.form.get('star4')
+        star3half = request.form.get('star3half')
+        star3 = request.form.get('star3')
+        star2half = request.form.get('star2half')
+        star2 = request.form.get('star2')
+        star1half = request.form.get('star1half')
+        star1 = request.form.get('star1')
+        starhalf = request.form.get('starhalf')
+        project = get_project_details(project_id)
+        if request.method == 'POST':
+            if(star5):
+                updateRating(1,star5)
+            elif(star4half):
+                updateRating(1,star4half)
+            elif(star4):
+                updateRating(1,star4)
+            elif(star3half):
+                updateRating(1,star3half)
+            elif(star3):
+                updateRating(1,star3)
+            elif(star2half):
+                updateRating(1,star2half)
+            elif(star1half):
+                updateRating(1,star2)
+            elif(star1):
+                updateRating(1,star1)
+            elif(starhalf):
+                updateRating(1,starhalf)
+            return render_template("star.html",starratings = project['rating'])
 
         return render_template("project.html", title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'])
     #except:
@@ -406,6 +437,47 @@ def upload():
             return render_template("upload_project.html", user_id=user, error="Submit a PNG file (smaller than 500KB) for your team flag.")
     
     return render_template("upload_project.html", user_id=user, error=error)
+
+# @app.route("/ratings", methods=['GET', 'POST'])
+# def ratings(projectId):
+#     # projectId = 1
+#     method = request.method
+#     star5 = request.form.get('star5')
+#     star4half = request.form.get('star4half')
+#     star4 = request.form.get('star4')
+#     star3half = request.form.get('star3half')
+#     star3 = request.form.get('star3')
+#     star2half = request.form.get('star2half')
+#     star2 = request.form.get('star2')
+#     star1half = request.form.get('star1half')
+#     star1 = request.form.get('star1')
+#     starhalf = request.form.get('starhalf')
+#     project = get_project_details(project_id)
+#     if method == 'GET':
+#         return redirect(url_for('disp_home'))
+#     if method == 'POST':
+#         if(star5):
+#            updateRating(1,star5)
+#         elif(star4half):
+#             updateRating(1,star4half)
+#         elif(star4):
+#             updateRating(1,star4)
+#         elif(star3half):
+#             updateRating(1,star3half)
+#         elif(star3):
+#             updateRating(1,star3)
+#         elif(star2half):
+#             updateRating(1,star2half)
+#         elif(star1half):
+#             updateRating(1,star2)
+#         elif(star1):
+#             updateRating(1,star1)
+#         elif(starhalf):
+#             updateRating(1,starhalf)
+#         return render_template("star.html",starratings = project['rating'])
+        
+
+        
 
 if __name__ == "__main__":  # false if this file imported as module
     # enable debugging, auto-restarting of server when this file is modified

@@ -60,3 +60,14 @@ def clear_projects_table():
         return False
     db = SqliteDb(DB_FILE)
     db.delete_all("projects")
+
+
+def updateRating(project_id,ratings):
+    db = SqliteDb(DB_FILE)
+    project = db.select("projects", project_id=project_id)[0]
+    db.update("projects", rating = ratings)
+
+# def getRatings(project_id,ratings):
+#     db = SqliteDb(DB_FILE)
+#     project = db.select("projects", project_id=project_id)[0]
+#     return project

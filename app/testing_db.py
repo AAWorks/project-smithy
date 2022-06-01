@@ -1,6 +1,7 @@
 from notanorm import SqliteDb
 import itertools
 from db_funcs import *
+import db_builder
 
 DB_FILE = "project_reviewal.db"
 
