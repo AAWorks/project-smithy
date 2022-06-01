@@ -418,7 +418,7 @@ def upload():
         
         
         new_project = upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get(
-            'pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 5, request.form.get('hosted_loc'), url_for('static', filename='images/projects/default.png'))
+            'pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 0, request.form.get('hosted_loc'), url_for('static', filename='images/projects/default.png'))
         pid = new_project['project_id']
 
         if cover_photo.filename != "" and allowed_file(cover_photo.filename):
