@@ -95,3 +95,15 @@ def getAvgRating(project_id):
 def get_project_comments(project_id):
     db = SqliteDb(DB_FILE)
     return db.select("comments", project_id=project_id)
+
+def get_average_rating_given(user_id):
+    db = SqliteDb(DB_FILE)
+    user_ratings = db.select('ratings', user_id=user_id)
+    avg_rating = 0
+    tot_ratings = 0
+
+    for rating in user_ratings:
+        avg_rating += rating['rating']
+        tot_ratings += 1
+    
+    return round(float(avg_rating) / float(tot_ratings), 1)
