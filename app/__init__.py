@@ -336,6 +336,7 @@ def view_project(project_id):
         pm_id = project['pmID'].split("#")[-1]
         pm = get_user(pm_id)
         pm_name=(pm['firstname'] + " " + pm['lastname']).title()
+        comments=get_project_comments(project_id)
 
         devos=[]
         for full_devo_id in project['devoIDs']:
@@ -384,7 +385,7 @@ def view_project(project_id):
                     updateRating(project_id,starhalf,session['user_id'])
                 return render_template("project.html",starratings = getAvgRating(project_id),project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'])
 
-        return render_template("project.html",project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'])
+        return render_template("project.html",project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments)
     #except:
      #  return render_template("error.html")
 
@@ -448,6 +449,30 @@ def upload():
         return render_template("upload_project.html", user_id=user, error=error)
     except:
         return render_template("error.html")
+
+@app.route("/post_comment", methods=['GET', 'POST'])
+def post_comment():
+    # try:
+        if not session:
+            return redirect('/login')
+        method=request.method
+        comment=request.form.get('comment')
+        anonymous=request.form.get('anonymous')
+        user=get_user(session['user_id'])
+
+
+        if(anonymous):
+            print(anonymous)
+        project_id=int(request.form.get('project_id'))
+        if method == 'GET':
+            return redirect(url_for('disp_home'))
+
+        if method == 'POST':
+            insert_comment(comment, user.user_id, avatar(128, user.stuy_username + "@stuy.edu"), user.firstname + " " + user.lastname, project_id, anonymous)
+            return redirect(url_for('view_project', project_id=project_id))
+    # except:
+    #     return render_template("error.html")
+
 
 if __name__ == "__main__":  # false if this file imported as module
     # enable debugging, auto-restarting of server when this file is modified

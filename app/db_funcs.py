@@ -112,3 +112,7 @@ def clear_users_table():
         return False
     db = SqliteDb(DB_FILE)
     db.delete_all("users")
+
+def insert_comment(comment, user_id, user_pfp, user_name, project_id, anonymous):
+    db = SqliteDb(DB_FILE)
+    db.insert("comments", comment=comment, user_id=user_id, user_pfp=user_pfp, user_name=user_name, project_id=project_id, upvotes=0, downvotes=0, anonymous=anonymous)
