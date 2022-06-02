@@ -160,6 +160,7 @@ def editProfile():
                 about_info.append(i)
             about_last = about_info[-1]
         return render_template("edit.html",
+                            average_given_rating=get_average_rating_given(user['user_id']),
                             pfp=avatar(315, user['stuy_username'] + "@stuy.edu"), 
                             first=user["firstname"].title(), 
                             last=user['lastname'].title(), 
@@ -249,7 +250,7 @@ def disp_home():
 
 @app.route("/account/<user_id>", methods=['GET', 'POST'])
 def user_account(user_id):
-    try:
+    #try:
         user = get_user(user_id)
         details = get_details(user_id)
         name = user["firstname"] + " " + user["lastname"]
@@ -266,6 +267,7 @@ def user_account(user_id):
         else:
             user_match = False
         return render_template("account.html",
+                            average_given_rating=get_average_rating_given(user['user_id']),
                             user_id=user['user_id'], 
                             pfp=avatar(315, user['stuy_username'] + "@stuy.edu"),
                             first=user["firstname"].title(),
@@ -287,8 +289,8 @@ def user_account(user_id):
                             num_projs = len(get_project_ids(user.stuy_username + "#" + str(user.user_id))),
                             projects=project_snaps
                             )
-    except:
-        return render_template("error.html")
+    #except:
+     #   return render_template("error.html")
 
 
 @app.route("/devos", methods=['GET', 'POST'])
@@ -388,7 +390,7 @@ def view_project(project_id, comment_empty):
                     updateRating(project_id,star1,session['user_id'])
                 elif(starhalf):
                     updateRating(project_id,starhalf,session['user_id'])
-                return render_template("project.html",starratings = getAvgRating(project_id),project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'])
+                return render_template("project.html", starratings = getAvgRating(project_id),project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
 
         return render_template("project.html",project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
     #except:

@@ -104,10 +104,14 @@
                                                 class="purple_a">https://github.com/{{ github }}</a>
 
                                         </li>
-                                        <li class="display-28"><span
-                                            class="display-26 text-secondary me-2 font-weight-600">Average Rating Given: </span><span id="identifier" class="child">{{ average_given_rating }}<i class="fa fa-star stroke-transparent"
-                                                aria-hidden="true"></i></span>
-                                    </li>
+                                        {% if average_given_rating == "N/A" %}
+                                        <li class="display-28"><span class="display-26 text-secondary me-2 font-weight-600">Average Rating Given: </span><span id="identifier" class="child">{{ average_given_rating }}</span>
+                                        </li>
+                                        {% else %}
+                                        <li class="display-28"><span class="display-26 text-secondary me-2 font-weight-600">Average Rating Given: </span><span id="identifier" class="child">{{ average_given_rating }} <i class="fa fa-star stroke-transparent"
+                                            aria-hidden="true"></i></span>
+                                        </li>
+                                        {% endif %}  
                                     </ul>
                                 </div>
                             </div>

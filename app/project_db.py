@@ -102,8 +102,11 @@ def get_average_rating_given(user_id):
     avg_rating = 0
     tot_ratings = 0
 
-    for rating in user_ratings:
-        avg_rating += rating['rating']
-        tot_ratings += 1
+    if user_ratings:
+        for rating in user_ratings:
+            avg_rating += rating['rating']
+            tot_ratings += 1
+    else:
+        return "N/A"
     
     return round(float(avg_rating) / float(tot_ratings), 1)
