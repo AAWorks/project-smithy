@@ -153,7 +153,6 @@ def editProfile():
             return redirect('/login')
         user = get_user(session['user_id'])
         details = get_details(session['user_id'])
-        name = user["firstname"] + " " + user["lastname"]
         about_info = []
         about_last = ""
         if (details['about']):
@@ -163,7 +162,7 @@ def editProfile():
         return render_template("edit.html",
                             pfp=avatar(315, user['stuy_username'] + "@stuy.edu"), 
                             first=user["firstname"].title(), 
-                            name=name.title(), 
+                            last=user['lastname'].title(), 
                             user_id=session['user_id'], 
                             stuyname=user["stuy_username"], 
                             github=user["github"], 
@@ -200,7 +199,12 @@ def update_info():
         facebook_name = request.form.get('facebook_name')
         twitter_name = request.form.get('twitter_name')
         reddit_name = request.form.get('reddit_name')
-
+        first = request.form.get('first').lower()
+        last = request.form.get('last').lower()
+        if first == "":
+            edit_user_details(user_id, about_info, back_end_info, front_end_info, git_foo_info, can_serve_info,
+                                discord_name, discord_id, facebook_name, twitter_name, reddit_name)
+            return redirect(url_for('user_account', user_id=user_id))
 
         if method == 'GET':
             return redirect(url_for('disp_home'))
@@ -211,6 +215,7 @@ def update_info():
             else:
                 edit_user_details(user_id, about_info, back_end_info, front_end_info, git_foo_info, can_serve_info,
                                 discord_name, discord_id, facebook_name, twitter_name, reddit_name)
+                edit_user_name(user_id, first, last)
                 return redirect(url_for('user_account', user_id=user_id))
     except:
         return render_template("error.html")

@@ -113,11 +113,19 @@ def clear_users_table():
     db = SqliteDb(DB_FILE)
     db.delete_all("users")
 
+def edit_user_name(user_id, first, last):
+    db = SqliteDb(DB_FILE)
+    db.update("users", where={"user_id": user_id}, firstname=first, lastname=last)
+    
 def insert_comment(comment, user_id, user_pfp, user_name, project_id, anonymous):
     db = SqliteDb(DB_FILE)
+<<<<<<< HEAD
     anonymous_thing = 0
     print(anonymous == "on")
     if (anonymous):
         anonymous_thing=1
     print(anonymous_thing)
     db.insert("comments", comment=comment, user_id=user_id, user_pfp=user_pfp, user_name=user_name, project_id=project_id, upvotes=0, downvotes=0, anonymous=anonymous_thing)
+=======
+    db.insert("comments", comment=comment, user_id=user_id, user_pfp=user_pfp, user_name=user_name, project_id=project_id, upvotes=0, downvotes=0, anonymous=anonymous)
+>>>>>>> 665a45b950628bd45c23cbd7b608f01cbaaef8bb
