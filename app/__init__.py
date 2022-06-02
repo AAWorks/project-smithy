@@ -392,7 +392,7 @@ def view_project(project_id, comment_empty):
                     updateRating(project_id,starhalf,session['user_id'])
                 return render_template("project.html", starratings = getAvgRating(project_id),project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
 
-        return render_template("project.html",project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
+        return render_template("project.html",starratings=getAvgRating(project_id), project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
     #except:
      #  return render_template("error.html")
 
