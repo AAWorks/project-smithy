@@ -317,6 +317,10 @@ def devos():
                 "pfp": avatar(300, u.stuy_username + "@stuy.edu")
             } for u in get_users()
         ]
+        
+        # Display more recent devos first, so devos from previous years aren't at the top
+        devos.reverse()
+
         return render_template("devos.html", devos=devos)
     #except:
      #   return render_template("error.html")
@@ -330,6 +334,9 @@ def gallery():
 
         for project_id in project_ids:
             project_snaps.append(get_project_snapshot(project_id))
+        
+        # Display more recent projects first, so projects from previous years aren't at the top
+        project_snaps.reverse()
 
         return render_template("gallery.html", projects=project_snaps)
     except:
