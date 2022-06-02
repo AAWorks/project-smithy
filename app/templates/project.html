@@ -87,7 +87,8 @@
           <p><strong>What is it?</strong></p>
           <p>{{ project_descrip_1 }}</p>
           <p><strong>Why make it?</strong></p>
-          <p>{{ project_descrip_2 }}</p>
+          <p id="comments_section">{{ project_descrip_2 }}</p>
+
           <!--<p>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio sapiente molestias
             consectetur. Fuga nulla officia error placeat veniam, officiis rerum laboriosam
@@ -107,7 +108,6 @@
           </p>-->
         </section>
         <!--Section: Text-->
-
         <!--Section: Comments-->
         <section class="border-bottom mb-3">
           <h5 class="text-center" style="padding-bottom: 10px; color:#237677;"><strong>Question, Comments,
@@ -133,6 +133,13 @@
               <div class="form-outline mb-4">
                 <textarea class="form-control" name="comment" id="comment" rows="4"></textarea>
               </div>
+
+              <!-- Error handling -->
+              {% if comment_empty|int == 1 %}
+              <div class="alert alert-warning text-center" role="alert">
+                Your comment cannot be empty!
+              </div>
+              {% endif %}
 
               <!-- Submit button -->
               <button type="submit" class="btn btn-primary btn-block mb-4" style="width: 100%;">
