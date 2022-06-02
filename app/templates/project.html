@@ -116,15 +116,26 @@
           {% for comment in comments %}
           <!-- Comment -->
           <div class="row mb-4">
-
+            {% if comment['anonymous'] == 0 %}
             <div class="col-2 me-0 pe-0" style="width:10%">
               <img src="{{ comment['user_pfp'] }}" class="img-fluid shadow-1-strong rounded-5" alt="" />
             </div>
 
             <div class="col-10">
-              <p class="mb-2"><strong><a class="purple_a" href="/devos/{{ comment['user_id'] }}">{{ comment['user_name'] }}</a></strong></p>
+              <p class="mb-2"><strong><a class="purple_a" href="/account/{{ comment['user_id'] }}">{{ comment['user_name'] }}</a></strong></p>
+            {% else %}
+            <div class="col-2 me-0 pe-0" style="width:10%">
+              <img src="{{url_for('static', filename='images/anonymous_user.png')}}" class="img-fluid shadow-1-strong rounded-5" alt="" />
+            </div>
+
+            <div class="col-10">
+              <p class="mb-2 gray_a"><strong>Anonymous</strong></p>
+              {% endif %}
               <p>
                 {{ comment['comment'] }}
+
+                <br>
+                anon: {{anonymous}}
             </div>
 
           </div>

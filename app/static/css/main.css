@@ -36,3 +36,9 @@
  -webkit-text-stroke: 1px gold;
  -webkit-text-fill-color: gold;
 }
+
+.gray_a {
+  color: #a1a1a1;
+  background-color: transparent;
+  text-decoration: none;
+}

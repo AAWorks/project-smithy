@@ -459,10 +459,6 @@ def post_comment():
         comment=request.form.get('comment')
         anonymous=request.form.get('anonymous')
         user=get_user(session['user_id'])
-
-
-        if(anonymous):
-            print(anonymous)
         project_id=int(request.form.get('project_id'))
         if method == 'GET':
             return redirect(url_for('disp_home'))
