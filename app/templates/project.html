@@ -151,7 +151,6 @@
             </div>
 
             <div class="col-10">
-<<<<<<< HEAD
               <p class="mb-2"><strong><a class="purple_a" href="/account/{{ comment['user_id'] }}">{{
                     comment['user_name'] }}</a></strong></p>
               {% else %}
@@ -172,26 +171,6 @@
 
             </div>
             {% endfor %}
-=======
-              <p class="mb-2"><strong><a class="purple_a" href="/account/{{ comment['user_id'] }}">{{ comment['user_name'].title() }}</a></strong></p>
-            {% else %}
-            <div class="col-2 me-0 pe-0" style="width:10%">
-              <img src="{{url_for('static', filename='images/anonymous_user.png')}}" class="img-fluid shadow-1-strong rounded-5" alt="" />
-            </div>
-
-            <div class="col-10">
-              <p class="mb-2 gray_a"><strong>Anonymous</strong></p>
-              {% endif %}
-              <p>
-                {{ comment['comment'] }}
-
-                <!--<br>
-                anon: {{anonymous}}-->
-            </div>
-
-          </div>
-          {% endfor %}
->>>>>>> c05e6c259e50d7734f5a18204565c9b216f2a09c
         </section>
         <!--Section: Comments-->
 
