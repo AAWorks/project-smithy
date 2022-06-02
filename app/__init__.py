@@ -31,7 +31,7 @@ def allowed_file(filename):
 
 def avatar(size, email):
     digest = md5(email.lower().encode('utf-8')).hexdigest()
-    return f'https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}'
+    return f'https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}' + '.jpg'
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
