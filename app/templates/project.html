@@ -113,6 +113,35 @@
           <h5 class="text-center" style="padding-bottom: 10px; color:#237677;"><strong>Question, Comments,
               Concerns</strong></h5>
 
+
+          {% if session %}
+          <!--Section: Reply-->
+          <section>
+            <p class="text-center" style="color: #237677;"><strong>Drop a Comment</strong></p>
+            <form method="post" action="/post_comment">
+
+              <!-- For backend stuff -->
+              <input type="hidden" name="project_id" value="{{project_id}}">
+
+              <!-- Anonymous switch -->
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" name="anonymous" role="switch" id="anonymous">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Anonymous</label>
+              </div>
+
+              <!-- Message input -->
+              <div class="form-outline mb-4">
+                <textarea class="form-control" name="comment" id="comment" rows="4"></textarea>
+              </div>
+
+              <!-- Submit button -->
+              <button type="submit" class="btn btn-primary btn-block mb-4" style="width: 100%;">
+                Publish
+              </button>
+            </form>
+          </section>
+          <!--Section: Reply-->
+          {% endif %}
           {% for comment in comments %}
           <!-- Comment -->
           <div class="row mb-4">
@@ -122,55 +151,28 @@
             </div>
 
             <div class="col-10">
-              <p class="mb-2"><strong><a class="purple_a" href="/account/{{ comment['user_id'] }}">{{ comment['user_name'] }}</a></strong></p>
-            {% else %}
-            <div class="col-2 me-0 pe-0" style="width:10%">
-              <img src="{{url_for('static', filename='images/anonymous_user.png')}}" class="img-fluid shadow-1-strong rounded-5" alt="" />
+              <p class="mb-2"><strong><a class="purple_a" href="/account/{{ comment['user_id'] }}">{{
+                    comment['user_name'] }}</a></strong></p>
+              {% else %}
+              <div class="col-2 me-0 pe-0" style="width:10%">
+                <img src="{{url_for('static', filename='images/anonymous_user.png')}}"
+                  class="img-fluid shadow-1-strong rounded-5" alt="" />
+              </div>
+
+              <div class="col-10">
+                <p class="mb-2 gray_a"><strong>Anonymous</strong></p>
+                {% endif %}
+                <p>
+                  {{ comment['comment'] }}
+
+                  <br>
+                  anon: {{anonymous}}
+              </div>
+
             </div>
-
-            <div class="col-10">
-              <p class="mb-2 gray_a"><strong>Anonymous</strong></p>
-              {% endif %}
-              <p>
-                {{ comment['comment'] }}
-
-                <br>
-                anon: {{anonymous}}
-            </div>
-
-          </div>
-          {% endfor %}
+            {% endfor %}
         </section>
         <!--Section: Comments-->
-
-        {% if session %}
-        <!--Section: Reply-->
-        <section>
-          <p class="text-center" style="color: #237677;"><strong>Drop a Comment</strong></p>
-          <form method="post" action="/post_comment">
-
-            <!-- For backend stuff -->
-            <input type="hidden" name="project_id" value="{{project_id}}">
-
-            <!-- Anonymous switch -->
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" name="anonymous" role="switch" id="anonymous">
-              <label class="form-check-label" for="flexSwitchCheckDefault">Anonymous</label>
-            </div>
-
-            <!-- Message input -->
-            <div class="form-outline mb-4">
-              <textarea class="form-control" name="comment" id="comment" rows="4"></textarea>
-            </div>
-
-            <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-block mb-4" style="width: 100%;">
-              Publish
-            </button>
-          </form>
-        </section>
-        <!--Section: Reply-->
-        {% endif %}
 
       </div>
       <!--Grid column-->

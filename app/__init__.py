@@ -469,8 +469,11 @@ def post_comment():
             return redirect(url_for('disp_home'))
 
         if method == 'POST':
-            insert_comment(comment, user.user_id, avatar(128, user.stuy_username + "@stuy.edu"), user.firstname + " " + user.lastname, project_id, anonymous)
-            return redirect(url_for('view_project', project_id=project_id))
+            if comment == "":
+                return redirect(url_for('view_project', project_id=project_id, comment_empty=True))
+            else:
+                insert_comment(comment, user.user_id, avatar(128, user.stuy_username + "@stuy.edu"), user.firstname + " " + user.lastname, project_id, anonymous)
+                return redirect(url_for('view_project', project_id=project_id))
     # except:
     #     return render_template("error.html")
 
