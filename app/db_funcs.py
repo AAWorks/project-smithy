@@ -125,3 +125,7 @@ def insert_comment(comment, user_id, user_pfp, user_name, project_id, anonymous)
         anonymous_thing=1
     #print(anonymous_thing)
     db.insert("comments", comment=comment, user_id=user_id, user_pfp=user_pfp, user_name=user_name, project_id=project_id, upvotes=0, downvotes=0, anonymous=anonymous_thing)
+
+def del_comment(comment_id):
+    db = SqliteDb(DB_FILE)
+    db.delete("comments", comment_id=comment_id)

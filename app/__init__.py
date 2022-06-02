@@ -457,7 +457,7 @@ def upload():
 
 @app.route("/post_comment", methods=['GET', 'POST'])
 def post_comment():
-    # try:
+    try:
         if not session:
             return redirect('/login')
         method=request.method
@@ -465,6 +465,7 @@ def post_comment():
         anonymous=request.form.get('anonymous')
         user=get_user(session['user_id'])
         project_id=int(request.form.get('project_id'))
+
         if method == 'GET':
             return redirect(url_for('disp_home'))
 
@@ -474,8 +475,28 @@ def post_comment():
             else:
                 insert_comment(comment, user.user_id, avatar(128, user.stuy_username + "@stuy.edu"), user.firstname + " " + user.lastname, project_id, anonymous)
                 return redirect(url_for('view_project', project_id=project_id, comment_empty=0))
+    except:
+        return render_template("error.html")
+
+@app.route("/delete_comment", methods=['GET', 'POST'])
+def delete_comment():
+    # try:
+        if not session:
+            return redirect('/login')
+        method=request.method
+        comment_id = request.form.get('comment_id')
+        project_id = request.form.get('project_id')
+    
+        if method == 'GET':
+            return redirect(url_for('disp_home'))
+
+        if method == 'POST':
+            del_comment(comment_id)
+            return redirect(url_for('view_project', project_id=project_id, comment_empty=0) + "#comments_section")
+    
     # except:
     #     return render_template("error.html")
+
 
 
 if __name__ == "__main__":  # false if this file imported as module
