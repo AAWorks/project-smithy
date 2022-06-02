@@ -91,3 +91,7 @@ def getAvgRating(project_id):
     counter = db.select("ratings", project_id=project_id)
     sum = project["rating"] 
     return sum/len(counter)
+
+def get_project_comments(project_id):
+    db = SqliteDb(DB_FILE)
+    return db.select("comments", project_id=project_id)
