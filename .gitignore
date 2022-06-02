@@ -227,3 +227,6 @@ app/discobandit.db
 app/project_reviewal.db
 app/static/images/projects
 app/static/images/users
+
+smithy.wsgi
+smithy.conf
