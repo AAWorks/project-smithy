@@ -112,3 +112,7 @@ def clear_users_table():
         return False
     db = SqliteDb(DB_FILE)
     db.delete_all("users")
+
+def edit_user_name(user_id, first, last):
+    db = SqliteDb(DB_FILE)
+    db.update("users", where={"user_id": user_id}, firstname=first, lastname=last)

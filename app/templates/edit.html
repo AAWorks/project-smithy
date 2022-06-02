@@ -59,12 +59,12 @@
         <!-- The below jinja2 clause doesn't work for some reason, but isn't a priority -->
         {% if discord_not_match == true %}
         <div class="alert alert-danger text-center" role="alert">
-            You must imput both a discord name and id or neither
+            You must input both a discord name and id or neither
         </div>
         <br>
         {% endif %}
 
-
+        <form method="post" action="/update_info" name="edit">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 mb-4 mb-sm-5">
@@ -77,8 +77,10 @@
                                 </div>
                                 <div class="col-lg-6 px-xl-10">
                                     <div class="bg-secondary d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded">
-
-                                        <h3 class="h2 text-white mb-0">{{ name }}</h3>
+                                        <div class="input-group" style="width: 300px;">
+                                            <input type="text" name="first" value="{{ first }}" class="form-control">
+                                            <input type="text" name="last" value="{{ last }}" class="form-control">
+                                        </div>
                                         <span class="text-warning">{{ devo_status }}</span>
                                     </div>
                                     <!-- <input type="image" onclick="edit()" id="icon" class="editable"
@@ -121,7 +123,6 @@
                         </div>
                     </div>
                 </div>
-                <form method="post" action="/update_info">
                     <div class="col-lg-12 mb-4 mb-sm-5">
                         <div>
                             <span class="section-title text-primary">About {{ first }}</span>
@@ -221,10 +222,10 @@
                     </div>
                     <div class="mb-5 text-right"><button class="btn btn-outline-dark btn-block px-5 py-3 text-uppercase"
                             type="submit" style="width:100%;">Save</button></div>
-                </form>
             </div>
             <!-- <input type="image" onclick="save()" id="icon" class="editable" src="{{url_for('static', filename='images/edit.png')}}" alt="..." height="24"> -->
         </div>
+    </form>
     </section>
     <script src="{{ url_for('static', filename='js/sliders.js') }}"></script>
 </body>
