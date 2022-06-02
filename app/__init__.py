@@ -266,6 +266,8 @@ def user_account(user_id):
             user_match = (int(session['user_id']) == int(user['user_id']))
         else:
             user_match = False
+
+        project_snaps.reverse()
         return render_template("account.html",
                             average_given_rating=get_average_rating_given(user['user_id']),
                             user_id=user['user_id'], 
