@@ -122,7 +122,7 @@
             </div>
 
             <div class="col-10">
-              <p class="mb-2"><strong><a class="purple_a" href="/devos/{{ comment['user_id'] }}">{{ comment['user_name'] }}</a></strong></p>
+              <p class="mb-2"><strong><a class="purple_a" href="/devos/{{ comment['user_id'] }}">{{ comment['user_name'].title() }}</a></strong></p>
               <p>
                 {{ comment['comment'] }}
             </div>
