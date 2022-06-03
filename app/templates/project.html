@@ -160,7 +160,7 @@
 
             <div class="col-9">
               <p class="mb-2"><strong><a class="purple_a" href="/account/{{ comment['user_id'] }}">{{
-                    comment['user_name'] }}</a></strong></p>
+                    comment['user_name'].title() }}</a></strong></p>
               {% else %}
               <div class="col-2 me-0 pe-0" style="width:10%">
                 <img src="{{url_for('static', filename='images/anonymous_user.png')}}"
