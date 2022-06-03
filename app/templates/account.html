@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 {% if about_info %}
-                <div class="col-lg-12 mb-4">
+                <div class="col-lg-12 mb-2">
                     <div>
                         <span class="section-title text-primary">About {{ first }}</span>
                         <p>
@@ -109,7 +109,7 @@
 
                             {% if back_end_info or front_end_info or git_foo_info or ((can_serve_info != 'select' ) and
                             (not (can_serve_info is none))) %}
-                            <div class="mb-4 mb-sm-5">
+                            <div class="mb-4">
                                 <span class="section-title text-primary">Skill Set</span>
 
                                 {% if back_end_info %}

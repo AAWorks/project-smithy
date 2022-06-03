@@ -1,20 +1,44 @@
-$(function(){
-    $(".increment").click(function(){
-      var count = parseInt($("~ .count", this).text());
-      
-      if($(this).hasClass("up")) {
-        var count = count + 1;
-        
-         $("~ .count", this).text(count);
-      } else {
-        var count = count - 1;
-         $("~ .count", this).text(count);     
-      }
-      
-      $(this).parent().addClass("bump");
-      
-      setTimeout(function(){
-        $(this).parent().removeClass("bump");    
-      }, 400);
+$(function () {
+    $(".increment").click(function () {
+
+
+
+        var count = parseInt($("~ .count", this).text());
+
+        if ($(this).hasClass("up")) {
+            var count = count + 1;
+
+            $("~ .count", this).text(count);
+        } else {
+            var count = count - 1;
+            $("~ .count", this).text(count);
+        }
+
+        $(this).parent().addClass("bump");
+
+
+        fetch("http://127.0.0.1:5000/receiver",
+            {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                // Strigify the payload into JSON:
+                body: JSON.stringify(cars)
+            }).then(res => {
+                if (res.ok) {
+                    return res.json()
+                } else {
+                    alert("something is wrong")
+                }
+            }).then(jsonResponse => {
+
+                // Log the response data in the console
+                console.log(jsonResponse)
+            }
+            ).catch((err) => console.error(err));
+
+
     });
-  });
+});

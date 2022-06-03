@@ -27,6 +27,7 @@
   transition: 0.3s;
   cursor: pointer;
 }
+
 .increment.up {
   background: #4BC35F;
   height: 50%;
