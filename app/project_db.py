@@ -27,7 +27,7 @@ def get_project_snapshot(project_id):
     db = SqliteDb(DB_FILE)
 
     project = db.select("projects", project_id=project_id)[0]
-    snapshot = {'image': project['image'], 'title': project['title'], 'team': project['team_name'], 'tags': project['tags'].split("|"), 'summary': project['intro'], 'project_id': project['project_id']}
+    snapshot = {'image': project['image'], 'title': project['title'], 'team': project['team_name'], 'tags': project['tags'].split("|"), 'summary': project['intro'], 'project_id': project['project_id'], 'avg_rating': getAvgRating(project['project_id'])}
 
     return snapshot
 
