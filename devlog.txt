@@ -61,3 +61,6 @@ justinZ -- 2022-05-29 00:32
 
 justinZ -- 2022-05-31 20:23
   Worked on star rating
+
+justinZ -- 2022-06-02 09:30
+  Worked on Gallery and image resizing
