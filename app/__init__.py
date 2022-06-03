@@ -2,7 +2,8 @@
 # SoftDev pd2
 # P04 -- Smithy
 
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, jsonify
+from flask_cors import CORS
 from werkzeug import *
 from hashlib import md5
 import os
