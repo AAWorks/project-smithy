@@ -117,6 +117,10 @@ def edit_user_name(user_id, first, last):
     db = SqliteDb(DB_FILE)
     db.update("users", where={"user_id": user_id}, firstname=first, lastname=last)
 
+def get_comment(comment_id):
+    db = SqliteDb(DB_FILE)
+    return db.select("comment", comment_id=comment_id)[0]
+
 def insert_comment(comment, user_id, user_pfp, user_name, project_id, anonymous):
     db = SqliteDb(DB_FILE)
     anonymous_thing = 0
@@ -124,8 +128,12 @@ def insert_comment(comment, user_id, user_pfp, user_name, project_id, anonymous)
     if (anonymous):
         anonymous_thing=1
     #print(anonymous_thing)
-    db.insert("comments", comment=comment, user_id=user_id, user_pfp=user_pfp, user_name=user_name, project_id=project_id, upvotes=0, downvotes=0, anonymous=anonymous_thing)
+    db.insert("comments", comment=comment, user_id=user_id, user_pfp=user_pfp, user_name=user_name, project_id=project_id, upvotes=0, anonymous=anonymous_thing)
 
 def del_comment(comment_id):
     db = SqliteDb(DB_FILE)
     db.delete("comments", comment_id=comment_id)
+
+def vote_comment(comment_id, upvotes):
+    db = SqliteDb(DB_FILE)
+    db.update("comments", where={"comment_id": comment_id}, upvotes=upvotes)

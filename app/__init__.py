@@ -514,6 +514,8 @@ def delete_comment():
 @app.route("/receiver", methods=["POST"])
 def reciever():
    data = request.get_json()
+   print(data)
+   
    data = jsonify(data)
    return data
 

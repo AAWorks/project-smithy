@@ -179,7 +179,7 @@
                   <button class="increment up"></button>
                   <button class="increment down"></button>
                   
-                  <div class="count">0</div>
+                  <div class="count" id="{{ comment['comment_id'] }}">0</div>
                 </div>
                 <form method="post" action="/delete_comment" class="mt-1"
                   onsubmit="return confirm('Delete comment: {{comment['comment'][:7]}}{%if comment['comment']|length>7%}...{%endif%}' + ' ?');">
