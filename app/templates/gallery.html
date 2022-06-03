@@ -138,6 +138,10 @@ P04 -- Smithy -->
     height: 500px;
     object-fit: contain; 
   }
+  .stroke-transparent {
+ -webkit-text-stroke: 1px gold;
+ -webkit-text-fill-color: gold;
+}
   </style>
 </head>
 
@@ -171,7 +175,12 @@ P04 -- Smithy -->
           <div class="bg-white rounded shadow-sm"><img src="{{ project['image'] }}" alt=""
               class="img-fluid card-img-top" style="padding: 10px; padding-bottom: 0px;">
             <div class="p-4">
-              <h5 class="text-dark">{{ project['title'] }}</h5>
+              <h5 class="text-dark" style="display: inline-block !important;">{{ project['title'] }} </h5>
+              {% if project['avg_rating'] != 0 %}
+              <p class="small text-muted mb-0" style="display: inline-block !important;"> {{ project['avg_rating'] }} <i class="fa fa-star stroke-transparent" aria-hidden="true"></i></p>
+              {% else %}
+              <p class="small text-muted mb-0" style="display: inline-block !important;"> Unrated </p>
+              {% endif %}
               <p class="small text-muted mb-0">{{ project['summary'] }}</p><br>
               <a href="/project/{{ project['project_id'] }}/0" class="btn btn-primary" style="width: 100%;">Learn More</a>
             </div>

@@ -85,9 +85,9 @@
 
         <!--Section: Text-->
         <section class="border-bottom mb-4 pb-4">
-          <p><strong>What is it?</strong></p>
+          <p><strong>Project Description</strong></p>
           <p>{{ project_descrip_1 }}</p>
-          <p><strong>Why make it?</strong></p>
+          <p><strong>The What, the Why, and the How</strong></p>
           <p id="comments_section">{{ project_descrip_2 }}</p>
 
           <!--<p>
@@ -160,7 +160,7 @@
 
             <div class="col-9">
               <p class="mb-2"><strong><a class="purple_a" href="/account/{{ comment['user_id'] }}">{{
-                    comment['user_name'] }}</a></strong></p>
+                    comment['user_name'].title() }}</a></strong></p>
               {% else %}
               <div class="col-2 me-0 pe-0" style="width:10%">
                 <img src="{{url_for('static', filename='images/anonymous_user.png')}}"
@@ -175,22 +175,27 @@
               </div>
 
               <div class="col">
-                <div class="vote chev mx-0 float-end text-start justify-content-center">
+                <span class="vote chev mx-0 float-end text-start justify-content-center">
                   <button class="increment up"></button>
                   <button class="increment down"></button>
                   
+<<<<<<< HEAD
                   <div class="count" id="{{ comment['comment_id'] }}">0</div>
+=======
+                  <div class="count">0</div>
+                </span>
                 </div>
-                <form method="post" action="/delete_comment" class="mt-1"
-                  onsubmit="return confirm('Delete comment: {{comment['comment'][:7]}}{%if comment['comment']|length>7%}...{%endif%}' + ' ?');">
-                  <input type="hidden" name="comment_id" value="{{ comment['comment_id'] }}">
-                  <input type="hidden" name="project_id" value="{{ comment['project_id'] }}">
-                  {% if session['user_id'] and (comment['user_id']|int == session['user_id']|int) %}
-                  <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
-                  {% endif %}
-                </form>
-              </div>
-
+                <div>
+                  <form style="float:right; margin-bottom: 0;" method="post" action="/delete_comment" name="delete_comment"
+                    onsubmit="return confirm('Delete comment: {{comment['comment'][:7]}}{%if comment['comment']|length>7%}...{%endif%}' + ' ?');">
+                    <input type="hidden" name="comment_id" value="{{ comment['comment_id'] }}">
+                    <input type="hidden" name="project_id" value="{{ comment['project_id'] }}">
+                    {% if session['user_id'] and (comment['user_id']|int == session['user_id']|int) %}
+                    <a href="javascript:{}" class="red_a" onclick="document.getElementById('delete_comment').submit();">Delete</a>
+                    {% endif %}
+                  </form>
+>>>>>>> 6a494803d8e2ddf2a3a6bd0b5772d96006584c27
+                </div>
             </div>
             {% endfor %}
         </section>
@@ -241,7 +246,7 @@
               </div>
             </form>
             {% if starratings %}
-            <p><em>Overall Project Rating: </em>{{starratings}}<i class="fa fa-star stroke-transparent"
+            <p><em>Overall Project Rating: </em>{{ starratings }}<i class="fa fa-star stroke-transparent"
                 aria-hidden="true"></i></p>
             {% else %}
             <p><em>Overall Project Rating: </em>N/A</p>
