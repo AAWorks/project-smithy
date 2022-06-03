@@ -13,6 +13,7 @@
   <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"
     type='text/css'>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/updownvote.css') }}">
 
   <nav class="navbar navbar-expand-lg navbar-light justify-content-center fixed-top" style="background-color: white;">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
@@ -174,6 +175,12 @@
               </div>
 
               <div class="col">
+                <div class="vote chev mx-0 float-end text-start justify-content-center">
+                  <div class="increment up"></div>
+                  <div class="increment down"></div>
+                  
+                  <div class="count">0</div>
+                </div>
                 <form method="post" action="/delete_comment"
                   onsubmit="return confirm('Delete comment: {{comment['comment'][:7]}}{%if comment['comment']|length>7%}...{%endif%}');">
                   <input type="hidden" name="comment_id" value="{{ comment['comment_id'] }}">
@@ -262,6 +269,6 @@
     <!--Grid row-->
   </div>
 
-
+  <script src="{{ url_for('static', filename='js/updownvote.js') }}"></script>
 </body>
 <!--Main layout-->

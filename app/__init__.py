@@ -23,6 +23,7 @@ USERS_UPLOAD_FOLDER = 'app/static/images/users'
 ALLOWED_EXTENSIONS = {'png'}
 
 app = Flask(__name__)
+cors = CORS(app)
 app.secret_key = 'stuffins'
 
 

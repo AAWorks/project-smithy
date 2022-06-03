@@ -1,0 +1,72 @@
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic);
+/* try 50% */
+.chev .up {
+  border-radius: 50% 50% 0 0;
+}
+.chev .down {
+  border-radius: 0 0 50% 50%;
+}
+.chev .count {
+  border-radius: 100%/50%;
+}
+
+.vote {
+  display: flex;
+  flex-direction: column;
+  font-family: "Noto Sans";
+  position: relative;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: .2.5rem;
+}
+
+.increment {
+  flex: 1 0 0;
+  text-align: center;
+  opacity: 0.5;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.increment.up {
+  background: #4BC35F;
+  height: 50%;
+  margin-bottom: 0.25rem;
+}
+.increment.down {
+  background: #C15044;
+  height: 50%;
+}
+.increment:hover {
+  opacity: 1;
+}
+
+.count {
+  position: absolute;
+  top: 0;
+  border-radius: 0.1rem;
+  margin: .625rem;
+  background: #F6F3E4;
+  width: 1.25rem;
+  font-size: .625rem;
+  font-weight: bold;
+  line-height: 1.25rem;
+  text-align: center;
+  box-shadow: 0 0 0 0.25rem #F6F3E4;
+  pointer-events: none;
+}
+.count.upvoted {
+  color: #4BC35F;
+}
+.count.downvoted {
+  color: #C15044;
+}
+
+.bump {
+  animation: bump 200ms;
+}
+
+@keyframes bump {
+  30% {
+    transform: scale(1.2);
+  }
+}
