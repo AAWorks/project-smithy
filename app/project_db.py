@@ -1,5 +1,6 @@
 from flask import url_for
 from notanorm import SqliteDb
+import datetime
 
 DB_FILE = "project_reviewal.db"
 
@@ -89,9 +90,9 @@ def getAvgRating(project_id):
     db = SqliteDb(DB_FILE)
     project = db.select("projects", project_id=project_id)[0]
     counter = db.select("ratings", project_id=project_id)
-    sum = project["rating"]
+    s = project["rating"]
     if (len(counter) > 0):
-        return sum/len(counter)
+        return s/len(counter)
     return 0
 
 def get_project_comments(project_id):
@@ -112,3 +113,22 @@ def get_average_rating_given(user_id):
         return "N/A"
     
     return round(float(avg_rating) / float(tot_ratings), 1)
+
+def get_projects_by_devo_year():
+    db = SqliteDb(DB_FILE)
+    projects, all_projects = [], db.select("projects")
+
+    for project in all_projects:
+        user_id = project['pmID']
+        pm_year = db.select("users", user_id=user_id)[0]["year"]
+        temp_project = project
+        temp_project["year"] = pm_year
+        
+        projects.append(temp_project)
+
+    return sorted(projects, key=lambda d: d['year'])
+
+def get_projects_by_star_rating(): #not sure if this works -- needs testing
+    db = SqliteDb(DB_FILE)
+
+    return sorted(db.select("projects"), key=lambda d: d['rating'])

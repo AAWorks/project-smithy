@@ -4,7 +4,7 @@
 
 """ Supplemental functions """
 
-import sqlite3, hashlib, bcrypt
+import sqlite3, hashlib, bcrypt, datetime
 from notanorm import SqliteDb
 
 DB_FILE = "project_reviewal.db"
@@ -53,7 +53,9 @@ def create_user(stuy_username, password, firstname, lastname, github, pfp):
 
     db = SqliteDb(DB_FILE)
     devo_status = "Devo-In-Training"
-    rowid = db.insert("users", pfp=pfp, stuy_username=stuy_username, password=hashsalt(password), firstname=firstname, lastname=lastname, github=github, devostatus=devo_status)
+    year = datetime.date.today().year if datetime.date.today().month < 7 else datetime.date.today().year + 1
+
+    rowid = db.insert("users", pfp=pfp, stuy_username=stuy_username, password=hashsalt(password), firstname=firstname, lastname=lastname, github=github, devostatus=devo_status, year=year)
     db.insert('user_details', rowid)
     return True
 
@@ -129,3 +131,8 @@ def insert_comment(comment, user_id, user_pfp, user_name, project_id, anonymous)
 def del_comment(comment_id):
     db = SqliteDb(DB_FILE)
     db.delete("comments", comment_id=comment_id)
+
+def get_devos_by_class():
+    db = SqliteDb(DB_FILE)
+    
+    return sorted(db.select("users"), key=lambda d: d['year']) 
