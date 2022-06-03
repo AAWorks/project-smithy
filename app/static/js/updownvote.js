@@ -4,11 +4,11 @@ $(function () {
 
 
         var count = parseInt($("~ .count", this).text());
-        var id = this.id
-        const jsoony = [
-            count,
-            id
-        ]
+        // var id = this.id
+        // const jsoony = [
+        //     count,
+        //     id
+        // ]
 
         if ($(this).hasClass("up")) {
             var count = count + 1;
@@ -30,7 +30,7 @@ $(function () {
                 'Accept': 'application/json'
             },
         // Strigify the payload into JSON:
-        body:JSON.stringify(jsoony)}).then(res=>{
+        body:JSON.stringify(count)}).then(res=>{
                 if(res.ok){
                     return res.json()
                 }else{
@@ -40,7 +40,6 @@ $(function () {
                 
                 // Log the response data in the console
                 console.log(jsonResponse)
-
             } 
             ).catch((err) => console.error(err));
 
