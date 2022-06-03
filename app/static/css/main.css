@@ -42,3 +42,27 @@
   background-color: transparent;
   text-decoration: none;
 }
+
+.red_a:link {
+  color: firebrick;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.red_a:visited {
+  color: firebrick;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.red_a:hover {
+  color: crimson;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.red_a:active {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
