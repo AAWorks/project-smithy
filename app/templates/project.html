@@ -176,11 +176,11 @@
 
               <div class="col">
                 <div class="vote chev mx-0 float-end text-start justify-content-center">
-                  <button class="increment up"></button>
-                  <button class="increment down"></button>
-                  
-                  <div class="count" id="{{ comment['comment_id'] }}">0</div>
+                  <button id="u{{ comment['comment_id'] }}" class="increment up"></button>
+                  <button id="d{{ comment['comment_id'] }}" class="increment down"></button>
+                  <div class="count">0</div>
                 </div>
+                id: {{comment['comment_id']}}
                 <form method="post" style="position:relative; top:43; left:55" action="/delete_comment" class="mt-1"
                   onsubmit="return confirm('Delete comment: {{comment['comment'][:7]}}{%if comment['comment']|length>7%}...{%endif%}' + ' ?');">
                   <input type="hidden" name="comment_id" value="{{ comment['comment_id'] }}">

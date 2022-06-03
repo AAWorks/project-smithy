@@ -515,8 +515,8 @@ def delete_comment():
 def reciever():
    data = request.get_json()
    print(data)
-   
-   data = jsonify(data)
+#    count = data['count']
+#    print(count)
    return data
 
 
