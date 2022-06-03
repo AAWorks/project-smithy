@@ -205,5 +205,5 @@ input:checked ~ label{
     .card-img-top {
         width: 100%;
         height: 500px;
-        object-fit: cover;  
+        object-fit: contain; 
       }
