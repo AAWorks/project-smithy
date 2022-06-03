@@ -207,6 +207,7 @@
           <section class="text-center border-bottom pb-2 mb-4">
             <form method="post" action="/project/{{ project_id }}/{{ comment_empty }}" class="container">
               <div class="row">
+                {% if session %}
                 <div class="col-lg">
                   <fieldset class="rating">
                     <input type="radio" id="star5" name="star5" value="5" /><label class="full" for="star5"
@@ -232,6 +233,11 @@
                 </div>
                 <button class="col-sm btn btn-outline-warning btn-block px-1 py-1 text-uppercase"
                   type="submit">Rate</button>
+                {% else %}
+                <div class="alert alert-info text-center my-0" role="alert">
+                  Login to Rate
+                </div>
+                {% endif %}
               </div>
             </form>
             {% if starratings %}
