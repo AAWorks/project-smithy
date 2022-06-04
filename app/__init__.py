@@ -6,7 +6,7 @@ from flask import Flask, render_template, request, session, redirect, url_for, j
 from flask_cors import CORS
 from werkzeug import *
 from hashlib import md5
-import os
+import os, datetime
 
 with open("app/db_builder.py", "rb") as source_file:
     code = compile(source_file.read(), "app/db_builder.py", "exec")
@@ -311,6 +311,13 @@ def devos():
     #     devo["pfp"] = tester["pfp"]
     #     devos.append(devo)
     #try:
+        users = get_users()
+
+        # if devos() is receiving info, set users to users sorted by class 
+        if request.method == 'POST' and request.form.get('sort') == 'year':
+            users = get_devos_by_class()
+            sections = ["Class of " + str(year) for year in range(2022, datetime.date.today().year + 1)]
+
         devos = [
             {
                 "name": (u.firstname + " " + u.lastname).title(),
@@ -319,7 +326,7 @@ def devos():
                 "num_projs": len(get_project_ids(u.stuy_username + "#" + str(u.user_id))),
                 "bio": get_details(u.user_id)["about"],
                 "pfp": avatar(300, u.stuy_username + "@stuy.edu")
-            } for u in get_users()
+            } for u in users
         ]
         
         # Display more recent devos first, so devos from previous years aren't at the top
@@ -336,8 +343,11 @@ def gallery():
         project_ids = get_all_project_ids()
         project_snaps = []
 
-        for project_id in project_ids:
-            project_snaps.append(get_project_snapshot(project_id))
+        if request.method == 'POST' and request.form.get('sort') == 'rating':
+                project_snaps = get_projects_by_star_rating()      
+        else:
+            for project_id in project_ids:
+                project_snaps.append(get_project_snapshot(project_id))
         
         # Display more recent projects first, so projects from previous years aren't at the top
         project_snaps.reverse()
