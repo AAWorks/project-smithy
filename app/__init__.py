@@ -436,8 +436,8 @@ def upload():
                     return render_template("upload_project.html", user_id=user, error="Falty input - website links should start with 'http://'")
                 elif field in ['title', 'team_name', 'summary', 'descrip'] and len([x for x in request.form.get(field).split(" ") if len(x) >= 35]) != 0:
                     return render_template("upload_project.html", user_id=user, error="Falty input - Words must be less than 40 characters.") 
-                elif not re.match(r"""^[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+\Z""", request.form.get(field)) is not None:
-                    return render_template("upload_project.html", user_id=user, error="Falty input - Characters cannot be from a foreign language.") 
+                #elif not re.match(r"""^[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+\Z""", request.form.get(field)) is not None:
+                 #   return render_template("upload_project.html", user_id=user, error="Falty input - Characters cannot be from a foreign language.") 
                     
 
             # end error handling
@@ -470,11 +470,16 @@ def upload():
                 new_project = upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get(
                 'pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 0, request.form.get('hosted_loc'), url_for('static', filename='images/projects/default.png'))
                 pid = new_project['project_id']
-                filename = str(pid) + "_cover" + ".png"
+                cover_filename = str(pid) + "_cover" + ".png"
                 cover_photo.save(os.path.join(
-                    app.config['UPLOAD_FOLDER'], filename))
+                    app.config['UPLOAD_FOLDER'], cover_filename))
                 edit_project_info(pid, 'image', url_for(
-                    'static', filename='images/projects/' + filename))
+                    'static', filename='images/projects/' + cover_filename))
+                flag_filename = str(pid) + "_flag" + ".png"
+                flag.save(os.path.join(
+                    app.config['UPLOAD_FOLDER'], flag_filename))
+                edit_project_info(pid, 'team_flag', url_for(
+                    'static', filename='images/projects/' + flag_filename))                
             else:
                 return render_template("upload_project.html", user_id=user, error="Submit PNG files (smaller than 500KB) for your cover and team flag photos.")
         
