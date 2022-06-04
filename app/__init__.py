@@ -311,28 +311,27 @@ def devos():
     #     devo["pfp"] = tester["pfp"]
     #     devos.append(devo)
     #try:
-        users = get_users()
 
         # if devos() is receiving info, set users to users sorted by class 
-        if request.method == 'POST' and request.form.get('sort') == 'year':
-            users = get_devos_by_class()
-            sections = ["Class of " + str(year) for year in range(2022, datetime.date.today().year + 1)]
+        curr_grad_year = datetime.date.today().year if datetime.date.today().month < 7 else datetime.date.today().year + 1
+        users = get_devos_by_class([str(year) for year in range(2022, curr_grad_year + 1)])
 
-        devos = [
-            {
-                "name": (u.firstname + " " + u.lastname).title(),
-                "user_id": u.user_id,
-                "stuyname": u.stuy_username,
-                "num_projs": len(get_project_ids(u.stuy_username + "#" + str(u.user_id))),
-                "bio": get_details(u.user_id)["about"],
-                "pfp": avatar(300, u.stuy_username + "@stuy.edu")
-            } for u in users
-        ]
+        for year in users.keys():
+            for i in range(len(users[year])):
+                u = users[year][i]
+                users[year][i] = {
+                        "name": (u.firstname + " " + u.lastname).title(),
+                        "user_id": u.user_id,
+                        "stuyname": u.stuy_username,
+                        "num_projs": len(get_project_ids(u.stuy_username + "#" + str(u.user_id))),
+                        "bio": get_details(u.user_id)["about"],
+                        "pfp": avatar(300, u.stuy_username + "@stuy.edu")
+                    }
         
         # Display more recent devos first, so devos from previous years aren't at the top
-        devos.reverse()
+        #devos.reverse()
 
-        return render_template("devos.html", devos=devos)
+        return render_template("devos.html", devos=users)
     #except:
      #   return render_template("error.html")
 

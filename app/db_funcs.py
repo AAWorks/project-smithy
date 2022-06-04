@@ -139,7 +139,12 @@ def del_comment(comment_id):
 def vote_comment(comment_id, upvotes):
     db = SqliteDb(DB_FILE)
     db.update("comments", where={"comment_id": comment_id}, upvotes=upvotes)
-def get_devos_by_class():
+
+def get_devos_by_class(years):
     db = SqliteDb(DB_FILE)
-    
-    return sorted(db.select("users"), key=lambda d: d['year']) 
+    user_classes = {k:[] for k in years}
+
+    for year in years:
+        user_classes[year] = db.select("users", year=int(year))
+
+    return user_classes
