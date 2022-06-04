@@ -20,3 +20,5 @@ notanorm==2.1.0
 bcrypt==3.2.2
 uWSGI==2.0.20
 flask-cors==3.0.10
+regex==2022.6.2
+DateTime==4.4 

@@ -6,7 +6,7 @@ from flask import Flask, render_template, request, session, redirect, url_for, j
 from flask_cors import CORS
 from werkzeug import *
 from hashlib import md5
-import os
+import os, datetime, re
 
 with open("app/db_builder.py", "rb") as source_file:
     code = compile(source_file.read(), "app/db_builder.py", "exec")
@@ -318,24 +318,30 @@ def devos():
     #     devo["bio"] = tester["bio"]
     #     devo["pfp"] = tester["pfp"]
     #     devos.append(devo)
-    # try:
-    devos = [
-        {
-            "name": (u.firstname + " " + u.lastname).title(),
-            "user_id": u.user_id,
-            "stuyname": u.stuy_username,
-            "num_projs": len(get_project_ids(u.stuy_username + "#" + str(u.user_id))),
-            "bio": get_details(u.user_id)["about"],
-            "pfp": avatar(300, u.stuy_username + "@stuy.edu")
-        } for u in get_users()
-    ]
+    #try:
 
-    # Display more recent devos first, so devos from previous years aren't at the top
-    devos.reverse()
+        # if devos() is receiving info, set users to users sorted by class 
+        curr_grad_year = datetime.date.today().year if datetime.date.today().month < 7 else datetime.date.today().year + 1
+        users = get_devos_by_class([str(year) for year in range(2022, curr_grad_year + 1)])
 
-    return render_template("devos.html", devos=devos)
-    # except:
- #   return render_template("error.html")
+        for year in users.keys():
+            for i in range(len(users[year])):
+                u = users[year][i]
+                users[year][i] = {
+                        "name": (u.firstname + " " + u.lastname).title(),
+                        "user_id": u.user_id,
+                        "stuyname": u.stuy_username,
+                        "num_projs": len(get_project_ids(u.stuy_username + "#" + str(u.user_id))),
+                        "bio": get_details(u.user_id)["about"],
+                        "pfp": avatar(300, u.stuy_username + "@stuy.edu")
+                    }
+        
+        # Display more recent devos first, so devos from previous years aren't at the top
+        #devos.reverse()
+
+        return render_template("devos.html", devos=users)
+    #except:
+     #   return render_template("error.html")
 
 
 @app.route("/gallery", methods=['GET', 'POST'])
@@ -344,9 +350,12 @@ def gallery():
         project_ids = get_all_project_ids()
         project_snaps = []
 
-        for project_id in project_ids:
-            project_snaps.append(get_project_snapshot(project_id))
-
+        if request.method == 'POST' and request.form.get('sort') == 'rating':
+                project_snaps = get_projects_by_star_rating()      
+        else:
+            for project_id in project_ids:
+                project_snaps.append(get_project_snapshot(project_id))
+        
         # Display more recent projects first, so projects from previous years aren't at the top
         project_snaps.reverse()
 
@@ -436,6 +445,11 @@ def upload():
                     return render_template("upload_project.html", user_id=user, error="Missing input - " + fieldname.title() + ".")
                 elif field in ['hosted_loc', 'repo'] and request.form.get(field) and not request.form.get(field).startswith('http://') and not request.form.get(field).startswith('https://'):
                     return render_template("upload_project.html", user_id=user, error="Falty input - website links should start with 'http://'")
+                elif field in ['title', 'team_name', 'summary', 'descrip'] and len([x for x in request.form.get(field).split(" ") if len(x) >= 35]) != 0:
+                    return render_template("upload_project.html", user_id=user, error="Falty input - Words must be less than 40 characters.") 
+                #elif not re.match(r"""^[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+\Z""", request.form.get(field)) is not None:
+                 #   return render_template("upload_project.html", user_id=user, error="Falty input - Characters cannot be from a foreign language.") 
+                    
 
             # end error handling
 
@@ -468,11 +482,16 @@ def upload():
                 new_project = upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get(
                     'pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 0, request.form.get('hosted_loc'), url_for('static', filename='images/projects/default.png'))
                 pid = new_project['project_id']
-                filename = str(pid) + "_cover" + ".png"
+                cover_filename = str(pid) + "_cover" + ".png"
                 cover_photo.save(os.path.join(
-                    app.config['UPLOAD_FOLDER'], filename))
+                    app.config['UPLOAD_FOLDER'], cover_filename))
                 edit_project_info(pid, 'image', url_for(
-                    'static', filename='images/projects/' + filename))
+                    'static', filename='images/projects/' + cover_filename))
+                flag_filename = str(pid) + "_flag" + ".png"
+                flag.save(os.path.join(
+                    app.config['UPLOAD_FOLDER'], flag_filename))
+                edit_project_info(pid, 'team_flag', url_for(
+                    'static', filename='images/projects/' + flag_filename))                
             else:
                 return render_template("upload_project.html", user_id=user, error="Submit PNG files (smaller than 500KB) for your cover and team flag photos.")
 

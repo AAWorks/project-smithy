@@ -134,6 +134,20 @@ P04 -- Smithy -->
     .show>.btn-outline-primary.dropdown-toggle:focus {
       box-shadow: 0 0 0 .2rem rgba(119, 204, 204, 0.5)
     }
+    section{
+      overflow: hidden;
+    }
+    .section-title {
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+.text-primary {
+    color: #6db4a3 !important;
+}
   </style>
 </head>
 
@@ -162,22 +176,25 @@ P04 -- Smithy -->
 
       <div class="row">
         <!-- Gallery item -->
-        {% for devo in devos %}
-        <div class="col-xl-3 col-lg-4 col-md-6 mb-4 search_item">
-          <div class="bg-white rounded shadow-sm"><img src="{{ devo['pfp'] }}" alt="" class="img-fluid card-img-top"
-              style="padding: 10px; padding-bottom: 0px;">
-            <div class="p-4">
-              <h5 class="text-dark"><a class="purple_a" href="{{ url_for('user_account', user_id=devo['user_id']) }}"
-                  style="text-decoration:none">{{ devo['name']
-                  }}</a></h5>
-              <h6 class="text-dark">{{ devo['stuyname'] }}#{{ devo['user_id'] }}</h6>
-              {% if devo['bio'] %}
-              <p class="small text-muted mb-1">{{ devo['bio'] }}</p>
-              {% endif %}
-              <p class="small mb-2">Projects: {{ devo['num_projs'] }}</p>
+        {% for year in devos.keys() %}
+          <h5 class="section-title text-primary">Class of {{ year }}</h5>
+          {% for devo in devos[year] %}
+            <div class="col-xl-3 col-lg-4 col-md-6 mb-4 search_item">
+              <div class="bg-white rounded shadow-sm"><img src="{{ devo['pfp'] }}" alt="" class="img-fluid card-img-top"
+                  style="padding: 10px; padding-bottom: 0px;">
+                <div class="p-4">
+                  <h5 class="text-dark"><a class="purple_a" href="{{ url_for('user_account', user_id=devo['user_id']) }}"
+                      style="text-decoration:none">{{ devo['name']
+                      }}</a></h5>
+                  <h6 class="text-dark">{{ devo['stuyname'] }}#{{ devo['user_id'] }}</h6>
+                  {% if devo['bio'] %}
+                  <p class="small text-muted mb-1">{{ devo['bio'] }}</p>
+                  {% endif %}
+                  <p class="small mb-2">Projects: {{ devo['num_projs'] }}</p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          {% endfor %}
         {% endfor %}
         <!-- End -->
       </div>
