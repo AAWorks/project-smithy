@@ -6,7 +6,7 @@ from flask import Flask, render_template, request, session, redirect, url_for, j
 from flask_cors import CORS
 from werkzeug import *
 from hashlib import md5
-import os, datetime
+import os, datetime, re
 
 with open("app/db_builder.py", "rb") as source_file:
     code = compile(source_file.read(), "app/db_builder.py", "exec")
