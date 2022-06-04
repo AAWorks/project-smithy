@@ -181,7 +181,7 @@
                   <div class="count">0</div>
                 </div>
                 id: {{comment['comment_id']}}
-                <form method="post" style="position:relative; top:43; left:55" action="/delete_comment" class="mt-1"
+                <form method="post" style="position:relative; top:19; left:55" action="/delete_comment" class="mt-1"
                   onsubmit="return confirm('Delete comment: {{comment['comment'][:7]}}{%if comment['comment']|length>7%}...{%endif%}' + ' ?');">
                   <input type="hidden" name="comment_id" value="{{ comment['comment_id'] }}">
                   <input type="hidden" name="project_id" value="{{ comment['project_id'] }}">
