@@ -31,9 +31,11 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
 def avatar(size, email):
     digest = md5(email.lower().encode('utf-8')).hexdigest()
     return f'https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}' + '.jpg'
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -162,25 +164,27 @@ def editProfile():
                 about_info.append(i)
             about_last = about_info[-1]
         return render_template("edit.html",
-                            average_given_rating=get_average_rating_given(user['user_id']),
-                            pfp=avatar(315, user['stuy_username'] + "@stuy.edu"), 
-                            first=user["firstname"].title(), 
-                            last=user['lastname'].title(), 
-                            user_id=session['user_id'], 
-                            stuyname=user["stuy_username"], 
-                            github=user["github"], 
-                            devo_status=user["devostatus"], 
-                            about_info=about_info[:-1], 
-                            about_last=about_last,
-                            back_end_info=details['back_end'],
-                            front_end_info=details['front_end'],
-                            git_foo_info=details['git_foo'],
-                            can_serve_info=details['can_serve'],
-                            discord_name=details['discord_name'],
-                            discord_id=details['discord_id'],
-                            facebook_name=details['facebook_name'],
-                            twitter_name=details['twitter_name'],
-                            reddit_name=details['reddit_name'])
+                               average_given_rating=get_average_rating_given(
+                                   user['user_id']),
+                               pfp=avatar(
+                                   315, user['stuy_username'] + "@stuy.edu"),
+                               first=user["firstname"].title(),
+                               last=user['lastname'].title(),
+                               user_id=session['user_id'],
+                               stuyname=user["stuy_username"],
+                               github=user["github"],
+                               devo_status=user["devostatus"],
+                               about_info=about_info[:-1],
+                               about_last=about_last,
+                               back_end_info=details['back_end'],
+                               front_end_info=details['front_end'],
+                               git_foo_info=details['git_foo'],
+                               can_serve_info=details['can_serve'],
+                               discord_name=details['discord_name'],
+                               discord_id=details['discord_id'],
+                               facebook_name=details['facebook_name'],
+                               twitter_name=details['twitter_name'],
+                               reddit_name=details['reddit_name'])
     except:
         return render_template("error.html")
 
@@ -206,7 +210,7 @@ def update_info():
         last = request.form.get('last').lower()
         if first == "":
             edit_user_details(user_id, about_info, back_end_info, front_end_info, git_foo_info, can_serve_info,
-                                discord_name, discord_id, facebook_name, twitter_name, reddit_name)
+                              discord_name, discord_id, facebook_name, twitter_name, reddit_name)
             return redirect(url_for('user_account', user_id=user_id))
 
         if method == 'GET':
@@ -217,7 +221,7 @@ def update_info():
                 return redirect(url_for('editProfile', discord_not_match='true'))
             else:
                 edit_user_details(user_id, about_info, back_end_info, front_end_info, git_foo_info, can_serve_info,
-                                discord_name, discord_id, facebook_name, twitter_name, reddit_name)
+                                  discord_name, discord_id, facebook_name, twitter_name, reddit_name)
                 edit_user_name(user_id, first, last)
                 return redirect(url_for('user_account', user_id=user_id))
     except:
@@ -252,49 +256,53 @@ def disp_home():
 
 @app.route("/account/<user_id>", methods=['GET', 'POST'])
 def user_account(user_id):
-    #try:
-        user = get_user(user_id)
-        details = get_details(user_id)
-        name = user["firstname"] + " " + user["lastname"]
-        project_ids = get_project_ids(user.stuy_username + "#" + str(user_id))
-        project_snaps = [get_project_snapshot(project_id) for project_id in project_ids]
+    # try:
+    user = get_user(user_id)
+    details = get_details(user_id)
+    name = user["firstname"] + " " + user["lastname"]
+    project_ids = get_project_ids(user.stuy_username + "#" + str(user_id))
+    project_snaps = [get_project_snapshot(
+        project_id) for project_id in project_ids]
 
-        about_info = []
-        if (details['about']):
-            for i in details['about'].split('\r\n'):
-                about_info.append(i)
-        
-        if session:
-            user_match = (int(session['user_id']) == int(user['user_id']))
-        else:
-            user_match = False
+    about_info = []
+    if (details['about']):
+        for i in details['about'].split('\r\n'):
+            about_info.append(i)
 
-        project_snaps.reverse()
-        return render_template("account.html",
-                            average_given_rating=get_average_rating_given(user['user_id']),
-                            user_id=user['user_id'], 
-                            pfp=avatar(315, user['stuy_username'] + "@stuy.edu"),
-                            first=user["firstname"].title(),
-                            name=name.title(),
-                            stuyname=user["stuy_username"],
-                            github=user["github"],
-                            devo_status=user["devostatus"],
-                            about_info=about_info,
-                            back_end_info=details['back_end'],
-                            front_end_info=details['front_end'],
-                            git_foo_info=details['git_foo'],
-                            can_serve_info=details['can_serve'],
-                            discord_name=details['discord_name'],
-                            discord_id=details['discord_id'],
-                            facebook_name=details['facebook_name'],
-                            twitter_name=details['twitter_name'],
-                            reddit_name=details['reddit_name'],
-                            user_match=user_match,
-                            num_projs = len(get_project_ids(user.stuy_username + "#" + str(user.user_id))),
-                            projects=project_snaps
-                            )
-    #except:
-     #   return render_template("error.html")
+    if session:
+        user_match = (int(session['user_id']) == int(user['user_id']))
+    else:
+        user_match = False
+
+    project_snaps.reverse()
+    return render_template("account.html",
+                           average_given_rating=get_average_rating_given(
+                               user['user_id']),
+                           user_id=user['user_id'],
+                           pfp=avatar(
+                               315, user['stuy_username'] + "@stuy.edu"),
+                           first=user["firstname"].title(),
+                           name=name.title(),
+                           stuyname=user["stuy_username"],
+                           github=user["github"],
+                           devo_status=user["devostatus"],
+                           about_info=about_info,
+                           back_end_info=details['back_end'],
+                           front_end_info=details['front_end'],
+                           git_foo_info=details['git_foo'],
+                           can_serve_info=details['can_serve'],
+                           discord_name=details['discord_name'],
+                           discord_id=details['discord_id'],
+                           facebook_name=details['facebook_name'],
+                           twitter_name=details['twitter_name'],
+                           reddit_name=details['reddit_name'],
+                           user_match=user_match,
+                           num_projs=len(get_project_ids(
+                               user.stuy_username + "#" + str(user.user_id))),
+                           projects=project_snaps
+                           )
+    # except:
+ #   return render_template("error.html")
 
 
 @app.route("/devos", methods=['GET', 'POST'])
@@ -310,24 +318,24 @@ def devos():
     #     devo["bio"] = tester["bio"]
     #     devo["pfp"] = tester["pfp"]
     #     devos.append(devo)
-    #try:
-        devos = [
-            {
-                "name": (u.firstname + " " + u.lastname).title(),
-                "user_id": u.user_id,
-                "stuyname": u.stuy_username,
-                "num_projs": len(get_project_ids(u.stuy_username + "#" + str(u.user_id))),
-                "bio": get_details(u.user_id)["about"],
-                "pfp": avatar(300, u.stuy_username + "@stuy.edu")
-            } for u in get_users()
-        ]
-        
-        # Display more recent devos first, so devos from previous years aren't at the top
-        devos.reverse()
+    # try:
+    devos = [
+        {
+            "name": (u.firstname + " " + u.lastname).title(),
+            "user_id": u.user_id,
+            "stuyname": u.stuy_username,
+            "num_projs": len(get_project_ids(u.stuy_username + "#" + str(u.user_id))),
+            "bio": get_details(u.user_id)["about"],
+            "pfp": avatar(300, u.stuy_username + "@stuy.edu")
+        } for u in get_users()
+    ]
 
-        return render_template("devos.html", devos=devos)
-    #except:
-     #   return render_template("error.html")
+    # Display more recent devos first, so devos from previous years aren't at the top
+    devos.reverse()
+
+    return render_template("devos.html", devos=devos)
+    # except:
+ #   return render_template("error.html")
 
 
 @app.route("/gallery", methods=['GET', 'POST'])
@@ -338,7 +346,7 @@ def gallery():
 
         for project_id in project_ids:
             project_snaps.append(get_project_snapshot(project_id))
-        
+
         # Display more recent projects first, so projects from previous years aren't at the top
         project_snaps.reverse()
 
@@ -346,66 +354,69 @@ def gallery():
     except:
         return render_template("error.html")
 
+
 @app.route("/project/<project_id>/<comment_empty>", methods=['GET', 'POST'])
 def view_project(project_id, comment_empty):
-    #try:
-        project = get_project_details(project_id)
+    # try:
+    project = get_project_details(project_id)
 
-        pm_id = project['pmID'].split("#")[-1]
-        pm = get_user(pm_id)
-        pm_name=(pm['firstname'] + " " + pm['lastname']).title()
-        comments=get_project_comments(project_id)
+    pm_id = project['pmID'].split("#")[-1]
+    pm = get_user(pm_id)
+    pm_name = (pm['firstname'] + " " + pm['lastname']).title()
+    comments = get_project_comments(project_id)
 
-        devos=[]
-        for full_devo_id in project['devoIDs']:
-            if full_devo_id != "":
-                devo_id = full_devo_id.split("#")[-1]
-                devo_info = get_user(devo_id)
-                devo = {'name': (devo_info['firstname'] + " " + devo_info['lastname']).title(), 'id': devo_id}
-                devos.append(devo)
+    devos = []
+    for full_devo_id in project['devoIDs']:
+        if full_devo_id != "":
+            devo_id = full_devo_id.split("#")[-1]
+            devo_info = get_user(devo_id)
+            devo = {'name': (
+                devo_info['firstname'] + " " + devo_info['lastname']).title(), 'id': devo_id}
+            devos.append(devo)
 
-        if project['hosted_loc'].startswith("http://") or project['hosted_loc'].startswith("https://"):
-            hosted = True
-        else:
-            hosted = False
+    if project['hosted_loc'].startswith("http://") or project['hosted_loc'].startswith("https://"):
+        hosted = True
+    else:
+        hosted = False
 
-        if session:
-            star5 = request.form.get('star5')
-            star4half = request.form.get('star4half')
-            star4 = request.form.get('star4')
-            star3half = request.form.get('star3half')
-            star3 = request.form.get('star3')
-            star2half = request.form.get('star2half')
-            star2 = request.form.get('star2')
-            star1half = request.form.get('star1half')
-            star1 = request.form.get('star1')
-            starhalf = request.form.get('starhalf')
-            if request.method == 'POST':
-                if(star5):
-                    updateRating(project_id,star5,session['user_id'])
-                elif(star4half):
-                    updateRating(project_id,star4half,session['user_id'])
-                elif(star4):
-                    updateRating(project_id,star4,session['user_id'])
-                elif(star3half):
-                    updateRating(project_id,star3half,session['user_id'])
-                elif(star3):
-                    updateRating(project_id,star3,session['user_id'])
-                elif(star2half):
-                    updateRating(project_id,star2half,session['user_id'])
-                elif(star2):
-                    updateRating(project_id,star2,session['user_id'])
-                elif(star1half):
-                    updateRating(project_id,star1half,session['user_id'])
-                elif(star1):
-                    updateRating(project_id,star1,session['user_id'])
-                elif(starhalf):
-                    updateRating(project_id,starhalf,session['user_id'])
-                return render_template("project.html", starratings = getAvgRating(project_id),project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
+    if session:
+        star5 = request.form.get('star5')
+        star4half = request.form.get('star4half')
+        star4 = request.form.get('star4')
+        star3half = request.form.get('star3half')
+        star3 = request.form.get('star3')
+        star2half = request.form.get('star2half')
+        star2 = request.form.get('star2')
+        star1half = request.form.get('star1half')
+        star1 = request.form.get('star1')
+        starhalf = request.form.get('starhalf')
+        if request.method == 'POST':
+            if(star5):
+                updateRating(project_id, star5, session['user_id'])
+            elif(star4half):
+                updateRating(project_id, star4half, session['user_id'])
+            elif(star4):
+                updateRating(project_id, star4, session['user_id'])
+            elif(star3half):
+                updateRating(project_id, star3half, session['user_id'])
+            elif(star3):
+                updateRating(project_id, star3, session['user_id'])
+            elif(star2half):
+                updateRating(project_id, star2half, session['user_id'])
+            elif(star2):
+                updateRating(project_id, star2, session['user_id'])
+            elif(star1half):
+                updateRating(project_id, star1half, session['user_id'])
+            elif(star1):
+                updateRating(project_id, star1, session['user_id'])
+            elif(starhalf):
+                updateRating(project_id, starhalf, session['user_id'])
+            return render_template("project.html", starratings=getAvgRating(project_id), project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
 
-        return render_template("project.html",starratings=getAvgRating(project_id), project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
-    #except:
-     #  return render_template("error.html")
+    return render_template("project.html", starratings=getAvgRating(project_id), project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
+    # except:
+ #  return render_template("error.html")
+
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
@@ -413,10 +424,10 @@ def upload():
         if not session:
             return redirect('/login')
         user = get_user(session['user_id'])
-        error=""
+        error = ""
 
         if request.method == 'POST':
-            #error handling
+            # error handling
             if len([field for field in request.form if field != ""]) == 0:
                 return render_template("upload_project.html", user_id=user, error="Missing inputs - like, all of them.")
             for field in request.form:
@@ -425,14 +436,15 @@ def upload():
                     return render_template("upload_project.html", user_id=user, error="Missing input - " + fieldname.title() + ".")
                 elif field in ['hosted_loc', 'repo'] and request.form.get(field) and not request.form.get(field).startswith('http://') and not request.form.get(field).startswith('https://'):
                     return render_template("upload_project.html", user_id=user, error="Falty input - website links should start with 'http://'")
-            
+
             # end error handling
 
             app.config['UPLOAD_FOLDER'] = PROJECTS_UPLOAD_FOLDER
             cover_photo = request.files['project_image']
             flag = request.files['team_flag']
             devoIDs = []
-            tmpdevs = [x for x in [request.form.get('devo1'), request.form.get('devo2'), request.form.get('devo3')] if x != ""]
+            tmpdevs = [x for x in [request.form.get('devo1'), request.form.get(
+                'devo2'), request.form.get('devo3')] if x != ""]
             for i in range(0, len(tmpdevs)):
                 dev = request.form.get('devo' + str(i+1))
                 try:
@@ -451,10 +463,10 @@ def upload():
                     return render_template("upload_project.html", user_id=user, error="You must be the PM to upload a project.")
             except:
                 return render_template("upload_project.html", user_id=user, error="PM ID must math to an ACTUAL devo.")
-            
+
             if cover_photo.filename != "" and allowed_file(cover_photo.filename) and flag.filename != "" and allowed_file(flag.filename):
                 new_project = upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get(
-                'pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 0, request.form.get('hosted_loc'), url_for('static', filename='images/projects/default.png'))
+                    'pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 0, request.form.get('hosted_loc'), url_for('static', filename='images/projects/default.png'))
                 pid = new_project['project_id']
                 filename = str(pid) + "_cover" + ".png"
                 cover_photo.save(os.path.join(
@@ -463,21 +475,22 @@ def upload():
                     'static', filename='images/projects/' + filename))
             else:
                 return render_template("upload_project.html", user_id=user, error="Submit PNG files (smaller than 500KB) for your cover and team flag photos.")
-        
+
         return render_template("upload_project.html", user_id=user, error=error)
     except:
         return render_template("error.html")
+
 
 @app.route("/post_comment", methods=['GET', 'POST'])
 def post_comment():
     try:
         if not session:
             return redirect('/login')
-        method=request.method
-        comment=request.form.get('comment')
-        anonymous=request.form.get('anonymous')
-        user=get_user(session['user_id'])
-        project_id=int(request.form.get('project_id'))
+        method = request.method
+        comment = request.form.get('comment')
+        anonymous = request.form.get('anonymous')
+        user = get_user(session['user_id'])
+        project_id = int(request.form.get('project_id'))
 
         if method == 'GET':
             return redirect(url_for('disp_home'))
@@ -486,38 +499,42 @@ def post_comment():
             if comment == "":
                 return redirect(url_for('view_project', project_id=project_id, comment_empty=1) + "#comments_section")
             else:
-                insert_comment(comment, user.user_id, avatar(128, user.stuy_username + "@stuy.edu"), user.firstname + " " + user.lastname, project_id, anonymous)
+                insert_comment(comment, user.user_id, avatar(128, user.stuy_username +
+                               "@stuy.edu"), user.firstname + " " + user.lastname, project_id, anonymous)
                 return redirect(url_for('view_project', project_id=project_id, comment_empty=0))
     except:
         return render_template("error.html")
 
+
 @app.route("/delete_comment", methods=['GET', 'POST'])
 def delete_comment():
     # try:
-        if not session:
-            return redirect('/login')
-        method=request.method
-        comment_id = request.form.get('comment_id')
-        project_id = request.form.get('project_id')
-    
-        if method == 'GET':
-            return redirect(url_for('disp_home'))
+    if not session:
+        return redirect('/login')
+    method = request.method
+    comment_id = request.form.get('comment_id')
+    project_id = request.form.get('project_id')
 
-        if method == 'POST':
-            del_comment(comment_id)
-            return redirect(url_for('view_project', project_id=project_id, comment_empty=0) + "#comments_section")
-    
+    if method == 'GET':
+        return redirect(url_for('disp_home'))
+
+    if method == 'POST':
+        del_comment(comment_id)
+        return redirect(url_for('view_project', project_id=project_id, comment_empty=0) + "#comments_section")
+
     # except:
     #     return render_template("error.html")
 
 
 @app.route("/receiver", methods=["POST"])
 def reciever():
-   data = request.get_json()
-   print(data)
-#    count = data['count']
-#    print(count)
-   return data
+    data = request.get_json()
+    # print(data)
+    count = data['count']
+    print(count)
+
+    ret = jsonify(data)
+    return ret
 
 
 if __name__ == "__main__":  # false if this file imported as module
