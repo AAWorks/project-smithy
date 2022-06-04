@@ -434,7 +434,12 @@ def upload():
                     return render_template("upload_project.html", user_id=user, error="Missing input - " + fieldname.title() + ".")
                 elif field in ['hosted_loc', 'repo'] and request.form.get(field) and not request.form.get(field).startswith('http://') and not request.form.get(field).startswith('https://'):
                     return render_template("upload_project.html", user_id=user, error="Falty input - website links should start with 'http://'")
-            
+                elif field in ['title', 'team_name', 'summary', 'descrip'] and len([x for x in request.form.get(field).split(" ") if len(x) >= 35]) != 0:
+                    return render_template("upload_project.html", user_id=user, error="Falty input - Words must be less than 40 characters.") 
+                elif not re.match(r"""^[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+\Z""", request.form.get(field)) is not None:
+                    return render_template("upload_project.html", user_id=user, error="Falty input - Characters cannot be from a foreign language.") 
+                    
+
             # end error handling
 
             app.config['UPLOAD_FOLDER'] = PROJECTS_UPLOAD_FOLDER
