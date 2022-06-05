@@ -548,7 +548,8 @@ def delete_comment():
 @app.route("/up_receiver", methods=["POST"])
 def up_receiver():
     data = request.get_json()
-    # print(data)
+    print(data[2:])
+    upvote_comment(int(data[2:]), session['user_id'])
 
     ret = jsonify(data)
     return ret
@@ -556,7 +557,8 @@ def up_receiver():
 @app.route("/down_reciever", methods=["POST"])
 def down_reciever():
     data = request.get_json()
-    # print(data)
+    print(data)
+    downvote_comment(int(data[2:]), session['user_id'])
 
     ret = jsonify(data)
     return ret

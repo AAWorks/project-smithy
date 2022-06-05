@@ -1,14 +1,23 @@
 $(".upFunc").click(function () {
     var count = parseInt($("~ .count", this).text());
-    count += 1
-    $("~ .count", this).text(count);
-
     var id = this.id
+    var sibling = document.getElementById('ud' + id.substring(2))
+    var opposite = document.getElementById('dd' + id.substring(2))
+    var oppsibling = document.getElementById('du' + id.substring(2))
     console.log(id)
 
     this.style.zIndex = '-1'
-    var sibling = document.getElementById('ud' + id.substring(2))
     sibling.style.zIndex='1'
+
+    if (opposite.style.zIndex == '1'){
+        count += 1
+    }
+    else {
+        count += 2
+        opposite.style.zIndex = '1'
+        oppsibling.style.zIndex = '-1'
+    }
+    $("~ .count", this).text(count);
 
     $(this).parent().addClass("bump");
 
@@ -80,16 +89,26 @@ $(".upFunc2").click(function () {
 
 $(".downFunc").click(function () {
     var count = parseInt($("~ .count", this).text());
-    count -= 1
-    $("~ .count", this).text(count);
-
     var id = this.id
+    var sibling = document.getElementById('du' + id.substring(2))
+    var opposite = document.getElementById('uu' + id.substring(2))
+    var oppsibling = document.getElementById('ud' + id.substring(2))
     console.log(id)
 
     this.style.zIndex='-1'
-    var sibling = document.getElementById('du' + id.substring(2))
     sibling.style.zIndex='1'
     
+    if (opposite.style.zIndex == '1'){
+        count -= 1
+    }
+    else {
+        count -= 2
+        opposite.style.zIndex = '1'
+        oppsibling.style.zIndex = '-1'
+    }
+    $("~ .count", this).text(count);
+
+
     $(this).parent().addClass("bump");
 
 
