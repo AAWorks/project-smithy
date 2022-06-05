@@ -136,9 +136,13 @@ def del_comment(comment_id):
     db = SqliteDb(DB_FILE)
     db.delete("comments", comment_id=comment_id)
 
-def vote_comment(comment_id, upvotes):
+def upvote_comment(comment_id, user_id):
     db = SqliteDb(DB_FILE)
-    db.update("comments", where={"comment_id": comment_id}, upvotes=upvotes)
+    db.upsert("votes", where={"comment_id": comment_id, "user_id": user_id}, vote=1)
+
+def downvote_comment(comment_id, user_id):
+    db = SqliteDb(DB_FILE)
+    db.upsert("votes", where={"comment_id": comment_id, "user_id": user_id}, vote=-1)
 
 def get_devos_by_class(years):
     db = SqliteDb(DB_FILE)
