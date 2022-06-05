@@ -120,10 +120,12 @@ def edit_user_name(user_id, first, last):
     db.update("users", where={"user_id": user_id}, firstname=first, lastname=last)
 
 def get_comment(comment_id):
+    '''get a comment by id'''
     db = SqliteDb(DB_FILE)
     return db.select("comment", comment_id=comment_id)[0]
 
 def insert_comment(comment, user_id, user_pfp, user_name, project_id, anonymous):
+    '''insert a comment into the comments table'''
     db = SqliteDb(DB_FILE)
     anonymous_thing = 0
     #print(anonymous == "on")
@@ -137,12 +139,23 @@ def del_comment(comment_id):
     db.delete("comments", comment_id=comment_id)
 
 def upvote_comment(comment_id, user_id):
+    '''upvote a comment from a user'''
     db = SqliteDb(DB_FILE)
     db.upsert("votes", where={"comment_id": comment_id, "user_id": user_id}, vote=1)
 
 def downvote_comment(comment_id, user_id):
+    '''downvote a comment from a user'''
     db = SqliteDb(DB_FILE)
     db.upsert("votes", where={"comment_id": comment_id, "user_id": user_id}, vote=-1)
+
+def get_comment_rating(comment_id):
+    '''return a comment's overall rating from up and downvotes'''
+    db = SqliteDb(DB_FILE)
+    votes = db.select('votes', comment_id=comment_id)
+    ret = 0
+    for vote in votes:
+        ret += vote['vote']
+    return ret
 
 def get_devos_by_class(years):
     db = SqliteDb(DB_FILE)

@@ -6,7 +6,9 @@ from flask import Flask, render_template, request, session, redirect, url_for, j
 from flask_cors import CORS
 from werkzeug import *
 from hashlib import md5
-import os, datetime, re
+import os
+import datetime
+import re
 
 with open("app/db_builder.py", "rb") as source_file:
     code = compile(source_file.read(), "app/db_builder.py", "exec")
@@ -318,30 +320,32 @@ def devos():
     #     devo["bio"] = tester["bio"]
     #     devo["pfp"] = tester["pfp"]
     #     devos.append(devo)
-    #try:
+    # try:
 
-        # if devos() is receiving info, set users to users sorted by class 
-        curr_grad_year = datetime.date.today().year if datetime.date.today().month < 7 else datetime.date.today().year + 1
-        users = get_devos_by_class([str(year) for year in range(2022, curr_grad_year + 1)])
+    # if devos() is receiving info, set users to users sorted by class
+    curr_grad_year = datetime.date.today().year if datetime.date.today(
+    ).month < 7 else datetime.date.today().year + 1
+    users = get_devos_by_class([str(year)
+                               for year in range(2022, curr_grad_year + 1)])
 
-        for year in users.keys():
-            for i in range(len(users[year])):
-                u = users[year][i]
-                users[year][i] = {
-                        "name": (u.firstname + " " + u.lastname).title(),
-                        "user_id": u.user_id,
-                        "stuyname": u.stuy_username,
-                        "num_projs": len(get_project_ids(u.stuy_username + "#" + str(u.user_id))),
-                        "bio": get_details(u.user_id)["about"],
-                        "pfp": avatar(300, u.stuy_username + "@stuy.edu")
-                    }
-        
-        # Display more recent devos first, so devos from previous years aren't at the top
-        #devos.reverse()
+    for year in users.keys():
+        for i in range(len(users[year])):
+            u = users[year][i]
+            users[year][i] = {
+                "name": (u.firstname + " " + u.lastname).title(),
+                "user_id": u.user_id,
+                "stuyname": u.stuy_username,
+                "num_projs": len(get_project_ids(u.stuy_username + "#" + str(u.user_id))),
+                "bio": get_details(u.user_id)["about"],
+                "pfp": avatar(300, u.stuy_username + "@stuy.edu")
+            }
 
-        return render_template("devos.html", devos=users)
-    #except:
-     #   return render_template("error.html")
+    # Display more recent devos first, so devos from previous years aren't at the top
+    # devos.reverse()
+
+    return render_template("devos.html", devos=users)
+    # except:
+ #   return render_template("error.html")
 
 
 @app.route("/gallery", methods=['GET', 'POST'])
@@ -351,11 +355,11 @@ def gallery():
         project_snaps = []
 
         if request.method == 'POST' and request.form.get('sort') == 'rating':
-                project_snaps = get_projects_by_star_rating()      
+            project_snaps = get_projects_by_star_rating()
         else:
             for project_id in project_ids:
                 project_snaps.append(get_project_snapshot(project_id))
-        
+
         # Display more recent projects first, so projects from previous years aren't at the top
         project_snaps.reverse()
 
@@ -422,7 +426,25 @@ def view_project(project_id, comment_empty):
                 updateRating(project_id, starhalf, session['user_id'])
             return render_template("project.html", starratings=getAvgRating(project_id), project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
 
-    return render_template("project.html", starratings=getAvgRating(project_id), project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
+    return render_template("project.html",
+                           starratings=getAvgRating(project_id),
+                           project_id=project_id, 
+                           title=project['title'], 
+                           project_image=project['image'], 
+                           team_name=project['team_name'], 
+                           tags=project['tags'], 
+                           project_descrip_1=project['intro'], 
+                           project_descrip_2=project['descrip'], 
+                           pm_id=pm_id, 
+                           pm_name=pm_name, 
+                           devos=devos, 
+                           repo_link=project['repo'], 
+                           hosted=hosted, 
+                           hosted_loc=project['hosted_loc'], 
+                           team_flag=project['team_flag'], 
+                           comments=comments, 
+                           comment_empty=comment_empty
+                           )
     # except:
  #  return render_template("error.html")
 
@@ -446,10 +468,9 @@ def upload():
                 elif field in ['hosted_loc', 'repo'] and request.form.get(field) and not request.form.get(field).startswith('http://') and not request.form.get(field).startswith('https://'):
                     return render_template("upload_project.html", user_id=user, error="Falty input - website links should start with 'http://'")
                 elif field in ['title', 'team_name', 'summary', 'descrip'] and len([x for x in request.form.get(field).split(" ") if len(x) >= 35]) != 0:
-                    return render_template("upload_project.html", user_id=user, error="Falty input - Words must be less than 40 characters.") 
-                #elif not re.match(r"""^[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+\Z""", request.form.get(field)) is not None:
-                 #   return render_template("upload_project.html", user_id=user, error="Falty input - Characters cannot be from a foreign language.") 
-                    
+                    return render_template("upload_project.html", user_id=user, error="Falty input - Words must be less than 40 characters.")
+                # elif not re.match(r"""^[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+\Z""", request.form.get(field)) is not None:
+                 #   return render_template("upload_project.html", user_id=user, error="Falty input - Characters cannot be from a foreign language.")
 
             # end error handling
 
@@ -491,7 +512,7 @@ def upload():
                 flag.save(os.path.join(
                     app.config['UPLOAD_FOLDER'], flag_filename))
                 edit_project_info(pid, 'team_flag', url_for(
-                    'static', filename='images/projects/' + flag_filename))                
+                    'static', filename='images/projects/' + flag_filename))
             else:
                 return render_template("upload_project.html", user_id=user, error="Submit PNG files (smaller than 500KB) for your cover and team flag photos.")
 
@@ -553,6 +574,7 @@ def up_receiver():
 
     ret = jsonify(data)
     return ret
+
 
 @app.route("/down_reciever", methods=["POST"])
 def down_reciever():
