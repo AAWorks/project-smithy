@@ -545,12 +545,18 @@ def delete_comment():
     #     return render_template("error.html")
 
 
-@app.route("/receiver", methods=["POST"])
-def reciever():
+@app.route("/up_receiver", methods=["POST"])
+def up_receiver():
     data = request.get_json()
     # print(data)
-    count = data['count']
-    print(count)
+
+    ret = jsonify(data)
+    return ret
+
+@app.route("/down_reciever", methods=["POST"])
+def down_reciever():
+    data = request.get_json()
+    # print(data)
 
     ret = jsonify(data)
     return ret

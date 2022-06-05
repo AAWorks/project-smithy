@@ -11,8 +11,6 @@
 }
 
 .vote {
-  display: flex;
-  flex-direction: column;
   font-family: "Noto Sans";
   position: relative;
   width: 2.5rem;
@@ -26,18 +24,26 @@
   opacity: 0.5;
   transition: 0.3s;
   cursor: pointer;
+  border:0;
 }
 
 .increment.up {
   background: #4BC35F;
   height: 50%;
-  margin-bottom: 0.25rem;
+  width: 100%;
 }
 .increment.down {
   background: #C15044;
   height: 50%;
+  width: 100%;
 }
 .increment:hover {
+  opacity: 1;
+}
+.downFunc2 {
+  opacity: 1;
+}
+.upFunc2 {
   opacity: 1;
 }
 
@@ -54,6 +60,7 @@
   text-align: center;
   box-shadow: 0 0 0 0.25rem #F6F3E4;
   pointer-events: none;
+  opacity: 1;
 }
 .count.upvoted {
   color: #4BC35F;
