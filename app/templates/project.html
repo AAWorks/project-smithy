@@ -57,7 +57,7 @@
 
 <!--Main layout-->
 
-<body class="mt-4 mb-5">
+<body class="">
   <div class="container">
     <!--Grid row-->
     <div class="row">
@@ -288,7 +288,15 @@
       <!--Grid column-->
     </div>
     <!--Grid row-->
+    <div class="py-5 text-right">
+      <form method="post" action="/delete_project" onsubmit="return confirm('Delete project {{title}}?');">
+        <input type="hidden" name="project_id" value="{{project_id}}">
+        <button class="btn btn-outline-danger btn-block px-5 py-3 text-uppercase"
+          style="width:100%;">Delete Project</button>
+      </form>
+    </div>
   </div>
+
 
   <script src="{{ url_for('static', filename='js/updownvote.js') }}"></script>
 </body>

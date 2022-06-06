@@ -174,3 +174,7 @@ def get_devos_by_class(years):
         user_classes[year] = db.select("users", year=int(year))
 
     return user_classes
+
+def del_project(project_id):
+    db = SqliteDb(DB_FILE)
+    db.delete("projects", project_id=project_id)

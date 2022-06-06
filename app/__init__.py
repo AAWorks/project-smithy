@@ -575,6 +575,18 @@ def delete_comment():
     # except:
     #     return render_template("error.html")
 
+@app.route("/delete_project", methods=['GET', 'POST'])
+def delete_project():
+    method = request.method
+    project_id = request.form.get('project_id')
+
+    if method == 'GET':
+        return redirect(url_for('disp_home'))
+
+    if method == 'POST':
+        del_project(project_id)
+        return redirect(url_for('gallery'))
+    return
 
 @app.route("/up_receiver", methods=["POST"])
 def up_receiver():
