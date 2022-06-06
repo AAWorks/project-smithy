@@ -199,7 +199,7 @@
                   <input type="hidden" name="comment_id" value="{{ comment['comment_id'] }}">
                   <input type="hidden" name="project_id" value="{{ comment['project_id'] }}">
                   {% if session['user_id'] and (comment['user_id']|int == session['user_id']|int) %}
-                  <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                  <button type="submit" style="position:absolute; right:48" class="btn btn-outline-danger btn-sm">Delete</button>
                   {% endif %}
                 </form>
               </div>
