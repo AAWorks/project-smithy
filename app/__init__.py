@@ -384,6 +384,8 @@ def view_project(project_id, comment_empty):
             for vote in get_user_votes(session['user_id']):
                 if vote['comment_id'] == comment['comment_id']:
                     comment['vote']= vote['vote']
+                else:
+                    comment['vote']=0
 
 
     devos = []
