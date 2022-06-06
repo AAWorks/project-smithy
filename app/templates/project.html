@@ -65,8 +65,9 @@
       <div class="col-md-8 mb-4">
         <!--Section: Post data-mdb-->
         <section class="border-bottom mb-4">
-          <img src="{{ project_image }}" class="imgFit img-fluid shadow-2-strong rounded-5 mb-4" alt="" />
-
+          <div class="">
+            <img src="{{ project_image }}" class="img-fluid shadow-2-strong rounded-5 mb-3" alt="" />
+          </div>
           <div class="row align-items-center mb-4">
             <div class="col-lg-6 text-center text-lg-start mb-3 m-lg-0">
               <img src="{{ team_flag }}" class="rounded-5 shadow-1-strong me-2" height="35" alt="" loading="lazy" />
@@ -191,7 +192,7 @@
                   <button id="du{{ comment['comment_id'] }}" class="increment down upFunc2"
                     style="z-index:{% if comment['vote']|int == -1 %}1{% else %}-1{% endif %}; position:absolute; top:50%"></button>
 
-                    {% endif %}
+                  {% endif %}
                   <div class="count" style="z-index:2">{{ comment['rating'] }}</div>
                 </div>
                 <form method="post" style="position:relative; top:43; left:55" action="/delete_comment" class="mt-1"
@@ -199,7 +200,8 @@
                   <input type="hidden" name="comment_id" value="{{ comment['comment_id'] }}">
                   <input type="hidden" name="project_id" value="{{ comment['project_id'] }}">
                   {% if session['user_id'] and (comment['user_id']|int == session['user_id']|int) %}
-                  <button type="submit" style="position:absolute; right:48" class="btn btn-outline-danger btn-sm">Delete</button>
+                  <button type="submit" style="position:absolute; right:48"
+                    class="btn btn-outline-danger btn-sm">Delete</button>
                   {% endif %}
                 </form>
               </div>

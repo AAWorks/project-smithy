@@ -161,8 +161,8 @@ P04 -- Smithy -->
                   placeholder="Search projects" />
               </div>
               <form action="/gallery" method='POST' style="display: inline-block; margin-left: 3px;">
-                <button type="submit" class="btn btn-outline-warning" name='sort' value="rating">Sort By Avg. Rating</button>
-                <button type="submit" class="btn btn-outline-warning" name='sort' value="pass">Sort By Upload Date</button>
+                <button type="submit" class="btn btn-outline-warning" name='sort' value="rating">Sort by ratings</button>
+                <button type="submit" class="btn btn-outline-warning" name='sort' value="pass">Sort by date</button>
               </form>
               <!-- <button type="button" class="btn btn-outline-warning">SEARCH
                       </button> -->
@@ -177,7 +177,7 @@ P04 -- Smithy -->
         {% for project in projects %}
         <div class="col-xl-3.5 col-lg-4 col-md-6 mb-4 search_item">
           <div class="bg-white rounded shadow-sm"><img src="{{ project['image'] }}" alt=""
-              class="img-fluid card-img-top" style="padding: 10px; padding-bottom: 0px;">
+              class="img-fluid card-img" style="padding: 10px; padding-bottom: 0px;">
             <div class="p-4">
               <h5 class="text-dark" style="display: inline-block !important;">{{ project['title'] }} </h5>
               {% if project['avg_rating'] != 0 %}
