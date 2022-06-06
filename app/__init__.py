@@ -382,10 +382,12 @@ def view_project(project_id, comment_empty):
         comment['rating'] = get_comment_rating(comment['comment_id'])
         if session:
             for vote in get_user_votes(session['user_id']):
-                if vote['comment_id'] == comment['comment_id']:
-                    comment['vote']= vote['vote']
+                if int(vote['comment_id']) == int(comment['comment_id']):
+                    comment['vote']=vote['vote']
+                    break
                 else:
                     comment['vote']=0
+                # print(comment['vote'])
 
 
     devos = []
