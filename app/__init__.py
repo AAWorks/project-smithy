@@ -524,6 +524,7 @@ def upload():
                     app.config['UPLOAD_FOLDER'], flag_filename))
                 edit_project_info(pid, 'team_flag', url_for(
                     'static', filename='images/projects/' + flag_filename))
+                return redirect(url_for('view_project', project_id=pid, comment_empty=0))
             else:
                 return render_template("upload_project.html", user_id=user, error="Submit PNG files (smaller than 500KB) for your cover and team flag photos.")
 
