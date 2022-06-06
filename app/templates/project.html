@@ -110,7 +110,7 @@
         </section>
         <!--Section: Text-->
         <!--Section: Comments-->
-        <section class="border-bottom mb-3">
+        <section class="border-bottom mb-3" style="min-height:90vh">
           <h5 class="text-center" style="padding-bottom: 10px; color:#237677;"><strong>Question, Comments,
               Concerns</strong></h5>
 
@@ -149,6 +149,10 @@
             </form>
           </section>
           <!--Section: Reply-->
+          {% else %}
+          <div class="alert alert-info text-center mt-0 mb-4" role="alert">
+            Login to vote on comments
+          </div>
           {% endif %}
           {% for comment in comments %}
           <!-- Comment -->
@@ -176,16 +180,21 @@
 
               <div class="col">
                 <div class="vote chev mx-0 float-end text-start justify-content-center">
-                  <button id="uu{{ comment['comment_id'] }}" class="increment up upFunc" style="z-index:1; position:absolute;"></button>
-                  <button id="ud{{ comment['comment_id'] }}" class="increment up downFunc2" style="z-index:-1; position:absolute;"></button>
+                  {% if session %}
+                  <button id="uu{{ comment['comment_id'] }}" class="increment up upFunc"
+                    style="z-index:{% if comment['vote']|int == 1 %}-1{% else %}1{% endif %}; position:absolute;"></button>
+                  <button id="ud{{ comment['comment_id'] }}" class="increment up downFunc2"
+                    style="z-index:{% if comment['vote']|int == 1 %}1{% else %}-1{% endif %}; position:absolute;"></button>
 
-                  <button id="dd{{ comment['comment_id'] }}" class="increment down downFunc" style="z-index:1; position:absolute; top:50%"></button>
-                  <button id="du{{ comment['comment_id'] }}" class="increment down upFunc2" style="z-index:-1; position:absolute; top:50%"></button>
+                  <button id="dd{{ comment['comment_id'] }}" class="increment down downFunc"
+                    style="z-index:{% if comment['vote']|int == -1 %}-1{% else %}1{% endif %}; position:absolute; top:50%"></button>
+                  <button id="du{{ comment['comment_id'] }}" class="increment down upFunc2"
+                    style="z-index:{% if comment['vote']|int == -1 %}1{% else %}-1{% endif %}; position:absolute; top:50%"></button>
 
-                  <div class="count" style="z-index:2">0</div>
+                    {% endif %}
+                  <div class="count" style="z-index:2">{{ comment['rating'] }}</div>
                 </div>
-                id: {{comment['comment_id']}}
-                <form method="post" style="position:relative; top:19; left:55" action="/delete_comment" class="mt-1"
+                <form method="post" style="position:relative; top:43; left:55" action="/delete_comment" class="mt-1"
                   onsubmit="return confirm('Delete comment: {{comment['comment'][:7]}}{%if comment['comment']|length>7%}...{%endif%}' + ' ?');">
                   <input type="hidden" name="comment_id" value="{{ comment['comment_id'] }}">
                   <input type="hidden" name="project_id" value="{{ comment['project_id'] }}">
@@ -239,7 +248,7 @@
                   type="submit">Rate</button>
                 {% else %}
                 <div class="alert alert-info text-center my-0" role="alert">
-                  Login to Rate
+                  Login to rate
                 </div>
                 {% endif %}
               </div>

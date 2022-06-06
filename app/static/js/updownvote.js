@@ -62,7 +62,7 @@ $(".upFunc2").click(function () {
     $(this).parent().addClass("bump");
 
 
-    fetch("http://127.0.0.1:5000/up_receiver",
+    fetch("http://127.0.0.1:5000/neutral_receiver",
         {
             method: 'POST',
             headers: {
@@ -154,7 +154,7 @@ $(".downFunc2").click(function () {
     $(this).parent().addClass("bump");
 
 
-    fetch("http://127.0.0.1:5000/down_reciever",
+    fetch("http://127.0.0.1:5000/neutral_receiver",
         {
             method: 'POST',
             headers: {

@@ -132,7 +132,7 @@ def insert_comment(comment, user_id, user_pfp, user_name, project_id, anonymous)
     if (anonymous):
         anonymous_thing=1
     #print(anonymous_thing)
-    db.insert("comments", comment=comment, user_id=user_id, user_pfp=user_pfp, user_name=user_name, project_id=project_id, upvotes=0, anonymous=anonymous_thing)
+    db.insert("comments", comment=comment, user_id=user_id, user_pfp=user_pfp, user_name=user_name, project_id=project_id, anonymous=anonymous_thing)
 
 def del_comment(comment_id):
     db = SqliteDb(DB_FILE)
@@ -148,6 +148,11 @@ def downvote_comment(comment_id, user_id):
     db = SqliteDb(DB_FILE)
     db.upsert("votes", where={"comment_id": comment_id, "user_id": user_id}, vote=-1)
 
+def neutralize_comment(comment_id, user_id):
+    '''downvote a comment from a user'''
+    db = SqliteDb(DB_FILE)
+    db.upsert("votes", where={"comment_id": comment_id, "user_id": user_id}, vote=0)
+
 def get_comment_rating(comment_id):
     '''return a comment's overall rating from up and downvotes'''
     db = SqliteDb(DB_FILE)
@@ -156,6 +161,10 @@ def get_comment_rating(comment_id):
     for vote in votes:
         ret += vote['vote']
     return ret
+
+def get_user_votes(user_id):
+    db = SqliteDb(DB_FILE)
+    return db.select('votes', user_id=user_id)
 
 def get_devos_by_class(years):
     db = SqliteDb(DB_FILE)

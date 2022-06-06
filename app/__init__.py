@@ -378,6 +378,14 @@ def view_project(project_id, comment_empty):
     pm_name = (pm['firstname'] + " " + pm['lastname']).title()
     comments = get_project_comments(project_id)
 
+    for comment in comments:
+        comment['rating'] = get_comment_rating(comment['comment_id'])
+        if session:
+            for vote in get_user_votes(session['user_id']):
+                if vote['comment_id'] == comment['comment_id']:
+                    comment['vote']= vote['vote']
+
+
     devos = []
     for full_devo_id in project['devoIDs']:
         if full_devo_id != "":
@@ -585,6 +593,14 @@ def down_reciever():
     ret = jsonify(data)
     return ret
 
+@app.route("/neutral_receiver", methods=["POST"])
+def neutral_receiver():
+    data = request.get_json()
+    print(data)
+    neutralize_comment(int(data[2:]), session['user_id'])
+
+    ret = jsonify(data)
+    return ret
 
 if __name__ == "__main__":  # false if this file imported as module
     # enable debugging, auto-restarting of server when this file is modified
