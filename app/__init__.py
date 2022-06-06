@@ -380,13 +380,12 @@ def view_project(project_id, comment_empty):
 
     for comment in comments:
         comment['rating'] = get_comment_rating(comment['comment_id'])
+        comment['vote']=0
         if session:
             for vote in get_user_votes(session['user_id']):
                 if int(vote['comment_id']) == int(comment['comment_id']):
                     comment['vote']=vote['vote']
                     break
-                else:
-                    comment['vote']=0
                 # print(comment['vote'])
 
 
