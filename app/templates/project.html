@@ -289,11 +289,13 @@
     </div>
     <!--Grid row-->
     <div class="py-5 text-right">
+      {% if session['user_id'] and (session['user_id']|int == pm_id|int) %}
       <form method="post" action="/delete_project" onsubmit="return confirm('Delete project {{title}}?');">
         <input type="hidden" name="project_id" value="{{project_id}}">
         <button class="btn btn-outline-danger btn-block px-5 py-3 text-uppercase"
           style="width:100%;">Delete Project</button>
       </form>
+      {% endif %}
     </div>
   </div>
 
