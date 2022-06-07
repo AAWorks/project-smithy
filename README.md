@@ -13,7 +13,8 @@ Ivan Lam(Backend Developer)
 This is going to be a Software Development Review Site, designed with Mr.Mykolyk's Softdev class in mind. The site will allow teams to upload their projects to the server, rate and comment on these projects. We will have upvoting and downvoting comments and a star system to review the overall project. We hope to add features such as awards, badges and leaderboards to help incentive certain actions and is being built with longevity in mind.
 
 ## API Cards
-None were used in the making of this project
+Gravatar API
+
 ## Launch Codes
 - Install and activate virtual environment <br>
 $ ```python3 -m venv ~/venv``` <br>
