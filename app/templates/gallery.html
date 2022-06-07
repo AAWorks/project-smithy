@@ -197,13 +197,21 @@ section{
       <!-- End -->
 
       <form class="border-bottom pb-3 mb-4" action="/gallery" method="POST" name="tag_search">
-        <h6 class="section-title text-primary">Search by Tags</h6>
+        {% if searched_tag %}
+        <h6 class="section-title text-primary">Search by Tag{{ ": " + searched_tag }}</h6>
+        {% else %}
+        <h6 class="section-title text-primary">Search by Tag</h6>
+        {% endif %}
         <div class="row justify-content-center">
           <div class="col-lg-10 text-center">
             {% for tag in tags %}
             {% if tag.startswith('Project') %}
             <button type="submit" name="selection" class="badge rounded-pill bg-warning" style="margin-bottom: 9px;" value="{{ tag }}">{{ tag }}</button>
-            {% else %}
+            {% endif %}
+            {% endfor %}
+            <br>
+            {% for tag in tags %}
+            {% if not tag.startswith('Project') %}
             <button type="submit" name="selection" class="badge rounded-pill bg-info" style="margin-bottom: 9px;" value="{{ tag }}">{{ tag }}</button>
             {% endif %}
             {% endfor %}
