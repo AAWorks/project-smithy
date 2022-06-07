@@ -174,7 +174,7 @@ section{
     <div class="px-lg-5">
 
       <!-- For demo purpose -->
-      <div class="row py-5">
+      <div class="row py-4">
         <div class="col-lg-12 mx-auto">
           <div class="text-white p-5 shadow-sm rounded banner">
             <h1 class="display-4">Here Be Machinations!</h1>
@@ -184,7 +184,7 @@ section{
                 <input type="search" id="form1" name="search_bar" onkeyup="search()" class="form-control"
                   placeholder="Search projects" />
               </div>
-              <form action="/gallery" method='POST' style="display: inline-block; margin-left: 3px;">
+              <form action="/gallery" method='POST' style="display: inline-block; margin-left: 3px;" name="sort">
                 <button type="submit" class="btn btn-outline-warning" name='sort' value="rating">Sort by Ratings</button>
                 <button type="submit" class="btn btn-outline-warning" name='sort' value="pass">Sort by Date</button>
               </form>
@@ -196,20 +196,20 @@ section{
       </div>
       <!-- End -->
 
-      <section class="border-bottom pb-3 mb-4">
+      <form class="border-bottom pb-3 mb-4" action="/gallery" method="POST" name="tag_search">
         <h6 class="section-title text-primary">Search by Tags</h6>
         <div class="row justify-content-center">
-          <div class="col-lg-8 text-center">
+          <div class="col-lg-10 text-center">
             {% for tag in tags %}
             {% if tag.startswith('Project') %}
-            <span class="badge rounded-pill bg-warning" style="margin-bottom: 9px;">{{ tag }}</span>
+            <button type="submit" class="badge rounded-pill bg-warning" style="margin-bottom: 9px;">{{ tag }}</button>
             {% else %}
-            <span class="badge rounded-pill bg-info" style="margin-bottom: 9px;">{{ tag }}</span>
+            <button type="submit" class="badge rounded-pill bg-info" style="margin-bottom: 9px;">{{ tag }}</button>
             {% endif %}
             {% endfor %}
           </div>
         </div>
-      </section>
+      </form>
       
 
       <div class="row">

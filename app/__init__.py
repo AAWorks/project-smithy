@@ -11,6 +11,12 @@ import datetime
 from datetime import date
 import re
 
+num_tags = ['Project 0', 'Project 1', 'Project 2', 'Project 3', 'Project 4', 'Project 5']
+general_tags = ['Flask', 'JS', 'Databases', 'APIs', 'Python', 'Bootstrap', 'Game', 'Utility']
+tedx_tags = ['Blockchain', 'Clojure', 'Continuous Integration', 'CoffeeScript/TypeScript', 'Docker',
+    'Fenwick Trees', 'Flutter/Dart', 'PageRank', 'Max-flow Min-cut Theorem', 'Node.js', 'NoSQL Databases', 
+    'R', 'React', 'Regex', 'Rust', 'Sass', 'Shell Scripting', 'Swift', 'TeX & LaTeX', 'Web Assembly', 'Web Socket']
+
 with open("app/db_builder.py", "rb") as source_file:
     code = compile(source_file.read(), "app/db_builder.py", "exec")
 exec(code)
@@ -357,7 +363,7 @@ def devos():
 @app.route("/gallery", methods=['GET', 'POST'])
 def gallery():
     try:
-        tags=['Tag1', 'Tag2', 'Tag3']
+        tags=num_tags + general_tags + tedx_tags
         project_ids = get_all_project_ids()
         project_snaps = []
 
