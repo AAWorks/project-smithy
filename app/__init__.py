@@ -364,14 +364,18 @@ def devos():
 def gallery():
     try:
         tags=num_tags + general_tags + tedx_tags
-        project_ids = get_all_project_ids()
-        project_snaps = []
 
-        if request.method == 'POST' and request.form.get('sort') == 'rating':
-            project_snaps = get_projects_by_star_rating()
+        if request.method == 'POST':
+            print(request.form.get('selection'))
+            if request.form.get('sort') and request.form.get('sort') == 'rating':
+                project_snaps = get_projects_by_star_rating()
+            elif request.form.get('selection'):
+                tag = request.form.get('selection')
+                project_snaps = projects_with_tag(tag)
+            else:
+                project_snaps = [get_project_snapshot(project_id) for project_id in get_all_project_ids()]
         else:
-            for project_id in project_ids:
-                project_snaps.append(get_project_snapshot(project_id))
+            project_snaps = [get_project_snapshot(project_id) for project_id in get_all_project_ids()]
 
         # Display more recent projects first, so projects from previous years aren't at the top
         project_snaps.reverse()
