@@ -202,9 +202,9 @@ section{
           <div class="col-lg-10 text-center">
             {% for tag in tags %}
             {% if tag.startswith('Project') %}
-            <button type="submit" class="badge rounded-pill bg-warning" style="margin-bottom: 9px;">{{ tag }}</button>
+            <button type="submit" name="selection" class="badge rounded-pill bg-warning" style="margin-bottom: 9px;" value="{{ tag }}">{{ tag }}</button>
             {% else %}
-            <button type="submit" class="badge rounded-pill bg-info" style="margin-bottom: 9px;">{{ tag }}</button>
+            <button type="submit" name="selection" class="badge rounded-pill bg-info" style="margin-bottom: 9px;" value="{{ tag }}">{{ tag }}</button>
             {% endif %}
             {% endfor %}
           </div>
@@ -214,6 +214,11 @@ section{
 
       <div class="row">
         <!-- Gallery item -->
+        {% if not projects %}
+          <div class="alert alert-warning text-center" role="alert">
+              There are currently no projects matching this tag.
+          </div>
+        {% else %}
         {% for project in projects %}
         <div class="col-xl-3.5 col-lg-4 col-md-6 mb-4 search_item">
           <div class="bg-white rounded shadow-sm"><img src="{{ project['image'] }}" alt=""
@@ -245,6 +250,7 @@ section{
       <div class="py-5 text-right"><a href="#top" class="btn btn-outline-dark btn-block px-5 py-3 text-uppercase"
           style="width:100%;">Return to Top</a></div>
     </div>
+    {% endif %}
   </div>
   <script src="{{ url_for('static', filename='js/search.js') }}"></script>
 </body>
