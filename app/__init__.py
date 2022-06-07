@@ -155,42 +155,42 @@ def rAuthenticate():
 
 @app.route("/edit")
 def editProfile():
-    #try:
-        if not session:
-            return redirect('/login')
-        user = get_user(session['user_id'])
-        details = get_details(session['user_id'])
-        about_info = []
-        about_last = ""
-        if (details['about']):
-            for i in details['about'].split('\r\n'):
-                about_info.append(i)
-            about_last = about_info[-1]
-        return render_template("edit.html",
-                                full_username=get_full_username(session['user_id']),
-                               average_given_rating=get_average_rating_given(
-                                   user['user_id']),
-                               pfp=avatar(
-                                   315, user['stuy_username'] + "@stuy.edu"),
-                               first=user["firstname"].title(),
-                               last=user['lastname'].title(),
-                               user_id=session['user_id'],
-                               stuyname=user["stuy_username"],
-                               github=user["github"],
-                               devo_status=user["devostatus"],
-                               about_info=about_info[:-1],
-                               about_last=about_last,
-                               back_end_info=details['back_end'],
-                               front_end_info=details['front_end'],
-                               git_foo_info=details['git_foo'],
-                               can_serve_info=details['can_serve'],
-                               discord_name=details['discord_name'],
-                               discord_id=details['discord_id'],
-                               facebook_name=details['facebook_name'],
-                               twitter_name=details['twitter_name'],
-                               reddit_name=details['reddit_name'])
-    #except:
-     #   return render_template("error.html")
+    # try:
+    if not session:
+        return redirect('/login')
+    user = get_user(session['user_id'])
+    details = get_details(session['user_id'])
+    about_info = []
+    about_last = ""
+    if (details['about']):
+        for i in details['about'].split('\r\n'):
+            about_info.append(i)
+        about_last = about_info[-1]
+    return render_template("edit.html",
+                           full_username=get_full_username(session['user_id']),
+                           average_given_rating=get_average_rating_given(
+                               user['user_id']),
+                           pfp=avatar(
+                               315, user['stuy_username'] + "@stuy.edu"),
+                           first=user["firstname"].title(),
+                           last=user['lastname'].title(),
+                           user_id=session['user_id'],
+                           stuyname=user["stuy_username"],
+                           github=user["github"],
+                           devo_status=user["devostatus"],
+                           about_info=about_info[:-1],
+                           about_last=about_last,
+                           back_end_info=details['back_end'],
+                           front_end_info=details['front_end'],
+                           git_foo_info=details['git_foo'],
+                           can_serve_info=details['can_serve'],
+                           discord_name=details['discord_name'],
+                           discord_id=details['discord_id'],
+                           facebook_name=details['facebook_name'],
+                           twitter_name=details['twitter_name'],
+                           reddit_name=details['reddit_name'])
+    # except:
+ #   return render_template("error.html")
 
 
 @app.route('/update_info', methods=['GET', 'POST'])
@@ -253,11 +253,10 @@ def disp_home():
             updateDevosStatus()
         user = get_user(session['user_id'])
         return render_template("home.html", full_username=get_full_username(session['user_id']), name=user.firstname.title())
-        
+
         # session['user_id']
     else:
         return render_template("home.html")
-   
 
 
 @app.route("/account/<user_id>", methods=['GET', 'POST'])
@@ -373,7 +372,7 @@ def gallery():
         if session:
             user = get_user(session['user_id'])
             return render_template("gallery.html", projects=project_snaps, name=user.firstname.title(), full_username=get_full_username(session['user_id']))
-        
+
         return render_template("gallery.html", projects=project_snaps)
     except:
         return render_template("error.html")
@@ -391,14 +390,13 @@ def view_project(project_id, comment_empty):
 
     for comment in comments:
         comment['rating'] = get_comment_rating(comment['comment_id'])
-        comment['vote']=0
+        comment['vote'] = 0
         if session:
             for vote in get_user_votes(session['user_id']):
                 if int(vote['comment_id']) == int(comment['comment_id']):
-                    comment['vote']=vote['vote']
+                    comment['vote'] = vote['vote']
                     break
                 # print(comment['vote'])
-
 
     devos = []
     for full_devo_id in project['devoIDs']:
@@ -451,21 +449,21 @@ def view_project(project_id, comment_empty):
 
     return render_template("project.html",
                            starratings=getAvgRating(project_id),
-                           project_id=project_id, 
-                           title=project['title'], 
-                           project_image=project['image'], 
-                           team_name=project['team_name'], 
-                           tags=project['tags'], 
-                           project_descrip_1=project['intro'], 
-                           project_descrip_2=project['descrip'], 
-                           pm_id=pm_id, 
-                           pm_name=pm_name, 
-                           devos=devos, 
-                           repo_link=project['repo'], 
-                           hosted=hosted, 
-                           hosted_loc=project['hosted_loc'], 
-                           team_flag=project['team_flag'], 
-                           comments=comments, 
+                           project_id=project_id,
+                           title=project['title'],
+                           project_image=project['image'],
+                           team_name=project['team_name'],
+                           tags=project['tags'],
+                           project_descrip_1=project['intro'],
+                           project_descrip_2=project['descrip'],
+                           pm_id=pm_id,
+                           pm_name=pm_name,
+                           devos=devos,
+                           repo_link=project['repo'],
+                           hosted=hosted,
+                           hosted_loc=project['hosted_loc'],
+                           team_flag=project['team_flag'],
+                           comments=comments,
                            comment_empty=comment_empty
                            )
     # except:
@@ -474,80 +472,91 @@ def view_project(project_id, comment_empty):
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
-    try:
-        def get_fieldname(name):
-            if field == 'descrip':
-                return "Project Description"
-            elif field == 'general-tags':
-                return 'Select 1+ general tag(s)'
-            else:
-                return name
-        if not session:
-            return redirect('/login')
-        user = get_user(session['user_id'])
-        error = ""
+    # try:
+    def get_fieldname(name):
+        if field == 'descrip':
+            return "Project Description"
+        elif field == 'general-tags':
+            return 'Select 1+ general tag(s)'
+        else:
+            return name
+    if not session:
+        return redirect('/login')
+    user = get_user(session['user_id'])
+    error = ""
 
-        if request.method == 'POST':
-            # error handling
-            if len([field for field in request.form if field != ""]) == 0:
-                return render_template("upload_project.html", user_id=user, error="Missing inputs - like, all of them.")
-            for field in request.form:
-                if not request.form.get(field) and field != 'hosted_loc' and not field.startswith('devo') and not field == 'ted-tags':
-                    fieldname = get_fieldname(field)
-                    return render_template("upload_project.html", user_id=user, error="Missing input - " + fieldname.title() + ".")
-                elif field in ['hosted_loc', 'repo'] and request.form.get(field) and not request.form.get(field).startswith('http://') and not request.form.get(field).startswith('https://'):
-                    return render_template("upload_project.html", user_id=user, error="Falty input - website links should start with 'http://'")
-                elif field in ['title', 'team_name', 'summary', 'descrip'] and len([x for x in request.form.get(field).split(" ") if len(x) >= 35]) != 0:
-                    return render_template("upload_project.html", user_id=user, error="Falty input - Words must be less than 40 characters.")
+    if request.method == 'POST':
+        # error handling
+        if len([field for field in request.form if field != ""]) == 0:
+            return render_template("upload_project.html", user_id=user, error="Missing inputs - like, all of them.")
+        for field in request.form:
+            if not request.form.get(field) and field != 'hosted_loc' and not field.startswith('devo') and not field == 'ted-tags':
+                fieldname = get_fieldname(field)
+                return render_template("upload_project.html", user_id=user, error="Missing input - " + fieldname.title() + ".")
+            elif field in ['hosted_loc', 'repo'] and request.form.get(field) and not request.form.get(field).startswith('http://') and not request.form.get(field).startswith('https://'):
+                return render_template("upload_project.html", user_id=user, error="Falty input - website links should start with 'http://'")
+            elif field in ['title', 'team_name', 'summary', 'descrip'] and len([x for x in request.form.get(field).split(" ") if len(x) >= 35]) != 0:
+                return render_template("upload_project.html", user_id=user, error="Falty input - Words must be less than 40 characters.")
 
-            # end error handling
+        # end error handling
 
-            app.config['UPLOAD_FOLDER'] = PROJECTS_UPLOAD_FOLDER
-            cover_photo = request.files['project_image']
-            flag = request.files['team_flag']
-            devoIDs = []
-            tmpdevs = [x for x in [request.form.get('devo1'), request.form.get(
-                'devo2'), request.form.get('devo3')] if x != ""]
-            for i in range(0, len(tmpdevs)):
-                dev = request.form.get('devo' + str(i+1))
-                try:
-                    dev_id = dev.split("#")[-1]
-                    get_user(dev_id)
-                except:
-                    return render_template("upload_project.html", user_id=user, error="Devo IDs must match to ACTUAL devos.")
-                if dev:
-                    devoIDs.append(dev)
-            tags = ["Project " + request.form.get('project_num')] + request.form.get('general-tags') + request.form.get('ted-tags')
-
-            pm_id = request.form.get('pm_id').split("#")[-1]
+        app.config['UPLOAD_FOLDER'] = PROJECTS_UPLOAD_FOLDER
+        cover_photo = request.files['project_image']
+        flag = request.files['team_flag']
+        devoIDs = []
+        tmpdevs = [x for x in [request.form.get('devo1'), request.form.get(
+            'devo2'), request.form.get('devo3')] if x != ""]
+        for i in range(0, len(tmpdevs)):
+            dev = request.form.get('devo' + str(i+1))
             try:
-                get_user(pm_id)
-                if int(session['user_id']) != int(pm_id):
-                    return render_template("upload_project.html", user_id=user, error="You must be the PM to upload a project.")
+                dev_id = dev.split("#")[-1]
+                get_user(dev_id)
             except:
-                return render_template("upload_project.html", user_id=user, error="PM ID must math to an ACTUAL devo.")
+                return render_template("upload_project.html", user_id=user, error="Devo IDs must match to ACTUAL devos.")
+            if dev:
+                devoIDs.append(dev)
+        tags = ["Project " + request.form.get('project_num')] + [request.form.get(
+            'general-tags')] + [request.form.get('ted-tags')]
 
-            if cover_photo.filename != "" and allowed_file(cover_photo.filename) and flag.filename != "" and allowed_file(flag.filename):
-                new_project = upload_project(request.form.get('title'), url_for('static', filename='images/projects/default.png'), request.form.get('team_name'), request.form.get(
-                    'pm_id'), devoIDs, tags, request.form.get('repo'), request.form.get('summary'), request.form.get('descrip'), 0, request.form.get('hosted_loc'), url_for('static', filename='images/projects/default.png'))
-                pid = new_project['project_id']
-                cover_filename = str(pid) + "_cover" + ".png"
-                cover_photo.save(os.path.join(
-                    app.config['UPLOAD_FOLDER'], cover_filename))
-                edit_project_info(pid, 'image', url_for(
-                    'static', filename='images/projects/' + cover_filename))
-                flag_filename = str(pid) + "_flag" + ".png"
-                flag.save(os.path.join(
-                    app.config['UPLOAD_FOLDER'], flag_filename))
-                edit_project_info(pid, 'team_flag', url_for(
-                    'static', filename='images/projects/' + flag_filename))
-                return redirect('/view_project/' + pid + "/" + 0)
-            else:
-                return render_template("upload_project.html", user_id=user, error="Submit PNG files (smaller than 500KB) for your cover and team flag photos.")
+        pm_id = request.form.get('pm_id').split("#")[-1]
+        try:
+            get_user(pm_id)
+            if int(session['user_id']) != int(pm_id):
+                return render_template("upload_project.html", user_id=user, error="You must be the PM to upload a project.")
+        except:
+            return render_template("upload_project.html", user_id=user, error="PM ID must math to an ACTUAL devo.")
 
-        return render_template("upload_project.html", user_id=user, first=user.firstname.title(), error=error, full_username=get_full_username(session['user_id']))
-    except:
-        return render_template("error.html")
+        if cover_photo.filename != "" and allowed_file(cover_photo.filename) and flag.filename != "" and allowed_file(flag.filename):
+            new_project = upload_project(request.form.get('title'),
+                                         url_for('static', filename='images/projects/default.png'),
+                                         request.form.get('team_name'),
+                                         request.form.get('pm_id'),
+                                         devoIDs,
+                                         tags,
+                                         request.form.get('repo'),
+                                         request.form.get('summary'),
+                                         request.form.get('descrip'),
+                                         0,
+                                         request.form.get('hosted_loc'),
+                                         url_for('static', filename='images/projects/default.png'))
+            pid = new_project['project_id']
+            cover_filename = str(pid) + "_cover" + ".png"
+            cover_photo.save(os.path.join(
+                app.config['UPLOAD_FOLDER'], cover_filename))
+            edit_project_info(pid, 'image', url_for(
+                'static', filename='images/projects/' + cover_filename))
+            flag_filename = str(pid) + "_flag" + ".png"
+            flag.save(os.path.join(
+                app.config['UPLOAD_FOLDER'], flag_filename))
+            edit_project_info(pid, 'team_flag', url_for(
+                'static', filename='images/projects/' + flag_filename))
+            return redirect('/project/' + str(pid) + "/" + "0")
+        else:
+            return render_template("upload_project.html", user_id=user, error="Submit PNG files (smaller than 500KB) for your cover and team flag photos.")
+
+    return render_template("upload_project.html", user_id=user, first=user.firstname.title(), error=error, full_username=get_full_username(session['user_id']))
+    # except:
+    #     return render_template("error.html")
 
 
 @app.route("/post_comment", methods=['GET', 'POST'])
@@ -594,6 +603,7 @@ def delete_comment():
     # except:
     #     return render_template("error.html")
 
+
 @app.route("/delete_project", methods=['GET', 'POST'])
 def delete_project():
     method = request.method
@@ -606,6 +616,7 @@ def delete_project():
         del_project(project_id)
         return redirect(url_for('gallery'))
     return
+
 
 @app.route("/up_receiver", methods=["POST"])
 def up_receiver():
@@ -626,6 +637,7 @@ def down_reciever():
     ret = jsonify(data)
     return ret
 
+
 @app.route("/neutral_receiver", methods=["POST"])
 def neutral_receiver():
     data = request.get_json()
@@ -634,6 +646,7 @@ def neutral_receiver():
 
     ret = jsonify(data)
     return ret
+
 
 if __name__ == "__main__":  # false if this file imported as module
     # enable debugging, auto-restarting of server when this file is modified
