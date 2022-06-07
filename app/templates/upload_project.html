@@ -22,9 +22,8 @@ P04 -- Smithy -->
     href="{{ url_for('static', filename='css/upload_project.css') }}" 
     rel="stylesheet"  type='text/css'>
 
-    <nav class="navbar navbar-expand-lg navbar-light justify-content-center"
-    style="background-color: white;">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+    <nav class="navbar navbar-expand-lg navbar-light justify-content-center" style="background-color: white;">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -42,19 +41,22 @@ P04 -- Smithy -->
         <a class="nav-link" href="/devos">Explore Devos</a>
       </li>
       {% if session['user_id'] %}
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('user_account', user_id=session['user_id']) }}">My Account</a>
+      <li class="nav-item dropdown" style="text-align: right; position: absolute; right: 10px; top: .7em; width: 160px !important;">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Hi {{ first }}!</a>
+        <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{{ url_for('user_account', user_id=session['user_id']) }}">Profile</a>
+          <a class="dropdown-item" href="/edit">Edit Details</a>
+          <a class="dropdown-item" href="/upload" style="color: #5a4ae3">Upload Project</a>
+          <span><hr class="dropdown-divider"></span>
+          <a class="dropdown-item" href="/logout" style="color: crimson;">Logout</a>
+        </div>
       </li>
-      {% endif %}
-      {% if session['user_id'] %}
-      <a href="/logout" class="btn btn-outline-danger navlink" tabindex="-1" role="button" aria-disabled="true"
-        style="text-align: right; position: absolute; right: 2%; top: .7em;">Logout</a>
       {% else %}
       <a href="/login" class="btn btn-outline-info navlink" tabindex="-1" role="button" aria-disabled="true"
         style="text-align: right; position: absolute; right: 2%; top: .7em;">Login</a>
       {% endif %}
     </ul>
-  </nav>
+    </nav>
 </head>
 <body>
   <form action="/upload" method="POST" name="upload_form" id="upload_form" class="container card-0 justify-content-center" enctype="multipart/form-data">
