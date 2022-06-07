@@ -167,6 +167,7 @@ def editProfile():
                 about_info.append(i)
             about_last = about_info[-1]
         return render_template("edit.html",
+                                full_username=get_full_username(session['user_id']),
                                average_given_rating=get_average_rating_given(
                                    user['user_id']),
                                pfp=avatar(
@@ -251,7 +252,7 @@ def disp_home():
         if(date.today() == date(2022, 6, 14)):
             updateDevosStatus()
         user = get_user(session['user_id'])
-        return render_template("home.html", returning=get_full_username(session['user_id']), name=user.firstname.title())
+        return render_template("home.html", full_username=get_full_username(session['user_id']), name=user.firstname.title())
         
         # session['user_id']
     else:
@@ -281,6 +282,7 @@ def user_account(user_id):
 
     project_snaps.reverse()
     return render_template("account.html",
+                           full_username=get_full_username(session['user_id']),
                            average_given_rating=get_average_rating_given(
                                user['user_id']),
                            user_id=user['user_id'],
@@ -347,7 +349,7 @@ def devos():
     # devos.reverse()
     if session:
         curr_user = get_user(session['user_id'])
-        return render_template("devos.html", devos=users, name=curr_user.firstname.title())
+        return render_template("devos.html", devos=users, name=curr_user.firstname.title(), full_username=get_full_username(session['user_id']))
     return render_template("devos.html", devos=users)
     # except:
  #   return render_template("error.html")
@@ -370,7 +372,7 @@ def gallery():
 
         if session:
             user = get_user(session['user_id'])
-            return render_template("gallery.html", projects=project_snaps , name=user.firstname.title())
+            return render_template("gallery.html", projects=project_snaps, name=user.firstname.title(), full_username=get_full_username(session['user_id']))
         
         return render_template("gallery.html", projects=project_snaps)
     except:
@@ -445,7 +447,7 @@ def view_project(project_id, comment_empty):
                 updateRating(project_id, star1, session['user_id'])
             elif(starhalf):
                 updateRating(project_id, starhalf, session['user_id'])
-        return render_template("project.html", first=curr_user['firstname'].title(), starratings=getAvgRating(project_id), project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
+        return render_template("project.html", full_username=get_full_username(session['user_id']), first=curr_user['firstname'].title(), starratings=getAvgRating(project_id), project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
 
     return render_template("project.html",
                            starratings=getAvgRating(project_id),
@@ -543,7 +545,7 @@ def upload():
             else:
                 return render_template("upload_project.html", user_id=user, error="Submit PNG files (smaller than 500KB) for your cover and team flag photos.")
 
-        return render_template("upload_project.html", user_id=user, first=user.firstname.title(), error=error)
+        return render_template("upload_project.html", user_id=user, first=user.firstname.title(), error=error, full_username=get_full_username(session['user_id']))
     except:
         return render_template("error.html")
 
