@@ -465,6 +465,13 @@ def view_project(project_id, comment_empty):
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
     try:
+        def get_fieldname(name):
+            if field == 'descrip':
+                return "Project Description"
+            elif field == 'general-tags':
+                return 'Select 1+ general tag(s)'
+            else:
+                return name
         if not session:
             return redirect('/login')
         user = get_user(session['user_id'])
@@ -475,8 +482,8 @@ def upload():
             if len([field for field in request.form if field != ""]) == 0:
                 return render_template("upload_project.html", user_id=user, error="Missing inputs - like, all of them.")
             for field in request.form:
-                if not request.form.get(field) and field != 'hosted_loc' and not field.startswith('devo'):
-                    fieldname = field if field != 'descrip' else "'Why this project?'"
+                if not request.form.get(field) and field != 'hosted_loc' and not field.startswith('devo') and not field == 'ted-tags':
+                    fieldname = get_fieldname(field)
                     return render_template("upload_project.html", user_id=user, error="Missing input - " + fieldname.title() + ".")
                 elif field in ['hosted_loc', 'repo'] and request.form.get(field) and not request.form.get(field).startswith('http://') and not request.form.get(field).startswith('https://'):
                     return render_template("upload_project.html", user_id=user, error="Falty input - website links should start with 'http://'")
@@ -500,7 +507,7 @@ def upload():
                     return render_template("upload_project.html", user_id=user, error="Devo IDs must match to ACTUAL devos.")
                 if dev:
                     devoIDs.append(dev)
-            tags = ["Project " + request.form.get('project_num')]
+            tags = ["Project " + request.form.get('project_num')] + request.form.get('general-tags') + request.form.get('ted-tags')
 
             pm_id = request.form.get('pm_id').split("#")[-1]
             try:

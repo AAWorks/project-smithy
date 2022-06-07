@@ -77,7 +77,10 @@
             <!-- STAR CSS -->
             <div class="col-lg-6 text-center text-lg-end">
               {% for tag in tags %}
+              {% if tag.startswith('Project') %}
               <span class="badge rounded-pill bg-warning" style="margin-bottom: 9px;">{{ tag }}</span>
+              {% else %}
+              <span class="badge rounded-pill bg-info" style="margin-bottom: 9px;">{{ tag }}</span>
               {% endfor %}
             </div>
           </div>
