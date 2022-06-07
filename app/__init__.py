@@ -8,6 +8,7 @@ from werkzeug import *
 from hashlib import md5
 import os
 import datetime
+from datetime import date
 import re
 
 with open("app/db_builder.py", "rb") as source_file:
@@ -246,14 +247,15 @@ def logout():
 @app.route("/", methods=['GET', 'POST'])
 def disp_home():
     ''' Loads the landing page '''
-    try:
-        if session:
-            return render_template("home.html", returning="Current user: " + get_full_username(session['user_id']))
-            session['user_id']
-        else:
-            return render_template("home.html")
-    except:
-        return render_template("error.html")
+    if session:
+        if(date.today() == date(2022, 6, 14)):
+            updateDevosStatus()
+        return render_template("home.html", returning="Current user: " + get_full_username(session['user_id']))
+        
+        # session['user_id']
+    else:
+        return render_template("home.html")
+   
 
 
 @app.route("/account/<user_id>", methods=['GET', 'POST'])

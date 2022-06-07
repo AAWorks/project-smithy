@@ -71,6 +71,11 @@ def get_user(user_id):
 
     return db.select("users", user_id=user_id)[0]
 
+def updateDevosStatus():
+    db = SqliteDb(DB_FILE)
+    db.update("users", {"devostatus": "Devo-In-Training"}, devostatus="Devo Emertius")
+
+
 def edit_user_data(table, user_id, column_toEdit, new_val):
     '''updates a user's account data'''
     db = SqliteDb(DB_FILE)
