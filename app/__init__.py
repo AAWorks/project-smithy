@@ -494,9 +494,9 @@ def upload():
                 fieldname = get_fieldname(field)
                 return render_template("upload_project.html", user_id=user, error="Missing input - " + fieldname.title() + ".")
             elif field in ['hosted_loc', 'repo'] and request.form.get(field) and not request.form.get(field).startswith('http://') and not request.form.get(field).startswith('https://'):
-                return render_template("upload_project.html", user_id=user, error="Falty input - website links should start with 'http://'")
+                return render_template("upload_project.html", user_id=user, error="Faulty input - website links should start with 'http://'")
             elif field in ['title', 'team_name', 'summary', 'descrip'] and len([x for x in request.form.get(field).split(" ") if len(x) >= 35]) != 0:
-                return render_template("upload_project.html", user_id=user, error="Falty input - Words must be less than 40 characters.")
+                return render_template("upload_project.html", user_id=user, error="Faulty input - Words must be less than 40 characters.")
 
         # end error handling
 
@@ -515,8 +515,8 @@ def upload():
                 return render_template("upload_project.html", user_id=user, error="Devo IDs must match to ACTUAL devos.")
             if dev:
                 devoIDs.append(dev)
-        tags = ["Project " + request.form.get('project_num')] + [request.form.get(
-            'general-tags')] + [request.form.get('ted-tags')]
+        tags = ["Project " + request.form.get('project_num')] + request.form.getlist(
+            'general-tags') + request.form.getlist('ted-tags')
 
         pm_id = request.form.get('pm_id').split("#")[-1]
         try:
