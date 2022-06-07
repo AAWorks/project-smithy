@@ -357,6 +357,7 @@ def devos():
 @app.route("/gallery", methods=['GET', 'POST'])
 def gallery():
     try:
+        tags=['Tag1', 'Tag2', 'Tag3']
         project_ids = get_all_project_ids()
         project_snaps = []
 
@@ -371,9 +372,9 @@ def gallery():
 
         if session:
             user = get_user(session['user_id'])
-            return render_template("gallery.html", projects=project_snaps, name=user.firstname.title(), full_username=get_full_username(session['user_id']))
+            return render_template("gallery.html", tags=tags, projects=project_snaps, name=user.firstname.title(), full_username=get_full_username(session['user_id']))
 
-        return render_template("gallery.html", projects=project_snaps)
+        return render_template("gallery.html", tags=tags, projects=project_snaps)
     except:
         return render_template("error.html")
 

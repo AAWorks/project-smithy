@@ -152,6 +152,20 @@ P04 -- Smithy -->
  -webkit-text-stroke: 1px gold;
  -webkit-text-fill-color: gold;
 }
+section{
+      overflow: hidden;
+    }
+    .section-title {
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+.text-primary {
+    color: #6db4a3 !important;
+}
   </style>
 </head>
 
@@ -181,6 +195,22 @@ P04 -- Smithy -->
         </div>
       </div>
       <!-- End -->
+
+      <section class="border-bottom pb-3 mb-4">
+        <h6 class="section-title text-primary">Search by Tags</h6>
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center">
+            {% for tag in tags %}
+            {% if tag.startswith('Project') %}
+            <span class="badge rounded-pill bg-warning" style="margin-bottom: 9px;">{{ tag }}</span>
+            {% else %}
+            <span class="badge rounded-pill bg-info" style="margin-bottom: 9px;">{{ tag }}</span>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+      
 
       <div class="row">
         <!-- Gallery item -->
