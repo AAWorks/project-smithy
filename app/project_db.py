@@ -136,3 +136,7 @@ def get_projects_by_star_rating():
         projects.append(get_project_snapshot(pid))
 
     return sorted(projects, key=lambda d: d['tot_rating'])
+
+def projects_with_tag(tag):
+    db = SqliteDb(DB_FILE)
+    return [get_project_snapshot(project['project_id']) for project in db.select('projects') if tag in project['tags'].split("|")]
