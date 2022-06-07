@@ -155,7 +155,7 @@ def rAuthenticate():
 
 @app.route("/edit")
 def editProfile():
-    try:
+    #try:
         if not session:
             return redirect('/login')
         user = get_user(session['user_id'])
@@ -188,8 +188,8 @@ def editProfile():
                                facebook_name=details['facebook_name'],
                                twitter_name=details['twitter_name'],
                                reddit_name=details['reddit_name'])
-    except:
-        return render_template("error.html")
+    #except:
+     #   return render_template("error.html")
 
 
 @app.route('/update_info', methods=['GET', 'POST'])
@@ -345,7 +345,9 @@ def devos():
 
     # Display more recent devos first, so devos from previous years aren't at the top
     # devos.reverse()
-
+    if session:
+        curr_user = get_user(session['user_id'])
+        return render_template("devos.html", devos=users, name=curr_user.firstname.title())
     return render_template("devos.html", devos=users)
     # except:
  #   return render_template("error.html")
@@ -366,6 +368,10 @@ def gallery():
         # Display more recent projects first, so projects from previous years aren't at the top
         project_snaps.reverse()
 
+        if session:
+            user = get_user(session['user_id'])
+            return render_template("gallery.html", projects=project_snaps , name=user.firstname.title())
+        
         return render_template("gallery.html", projects=project_snaps)
     except:
         return render_template("error.html")
@@ -407,17 +413,18 @@ def view_project(project_id, comment_empty):
         hosted = False
 
     if session:
-        star5 = request.form.get('star5')
-        star4half = request.form.get('star4half')
-        star4 = request.form.get('star4')
-        star3half = request.form.get('star3half')
-        star3 = request.form.get('star3')
-        star2half = request.form.get('star2half')
-        star2 = request.form.get('star2')
-        star1half = request.form.get('star1half')
-        star1 = request.form.get('star1')
-        starhalf = request.form.get('starhalf')
+        curr_user = get_user(session['user_id'])
         if request.method == 'POST':
+            star5 = request.form.get('star5')
+            star4half = request.form.get('star4half')
+            star4 = request.form.get('star4')
+            star3half = request.form.get('star3half')
+            star3 = request.form.get('star3')
+            star2half = request.form.get('star2half')
+            star2 = request.form.get('star2')
+            star1half = request.form.get('star1half')
+            star1 = request.form.get('star1')
+            starhalf = request.form.get('starhalf')
             if(star5):
                 updateRating(project_id, star5, session['user_id'])
             elif(star4half):
@@ -438,7 +445,7 @@ def view_project(project_id, comment_empty):
                 updateRating(project_id, star1, session['user_id'])
             elif(starhalf):
                 updateRating(project_id, starhalf, session['user_id'])
-            return render_template("project.html", starratings=getAvgRating(project_id), project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
+        return render_template("project.html", first=curr_user['firstname'].title(), starratings=getAvgRating(project_id), project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
 
     return render_template("project.html",
                            starratings=getAvgRating(project_id),
@@ -532,11 +539,11 @@ def upload():
                     app.config['UPLOAD_FOLDER'], flag_filename))
                 edit_project_info(pid, 'team_flag', url_for(
                     'static', filename='images/projects/' + flag_filename))
-                return redirect(url_for('view_project', project_id=pid, comment_empty=0))
+                return redirect('/view_project/' + pid + "/" + 0)
             else:
                 return render_template("upload_project.html", user_id=user, error="Submit PNG files (smaller than 500KB) for your cover and team flag photos.")
 
-        return render_template("upload_project.html", user_id=user, error=error)
+        return render_template("upload_project.html", user_id=user, first=user.firstname.title(), error=error)
     except:
         return render_template("error.html")
 
