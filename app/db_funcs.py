@@ -47,15 +47,21 @@ def auth_user(stuy_username, user_id, password):
     return True
 
 
-def create_user(stuy_username, password, firstname, lastname, github, pfp):
+def create_user(stuy_username, password, firstname, lastname, github, pfp, user_rank):
     ''' Adds user to database if right username and password are given when a
         person registers '''
 
     db = SqliteDb(DB_FILE)
-    devo_status = "Devo-In-Training"
+    if user_rank.lower() == "student":
+        devo_status = "Devo-In-Training"
+    elif user_rank.lower() == "teacher":
+        devo_status = "Sensei"
+    else:
+        devo_status = "Big Brother"
+
     year = datetime.date.today().year if datetime.date.today().month < 7 else datetime.date.today().year + 1
 
-    rowid = db.insert("users", pfp=pfp, stuy_username=stuy_username, password=hashsalt(password), firstname=firstname, lastname=lastname, github=github, devostatus=devo_status, year=year)
+    rowid = db.insert("users", pfp=pfp, stuy_username=stuy_username, password=hashsalt(password), firstname=firstname, lastname=lastname, github=github, devostatus=devo_status, year=year, rank=user_rank.lower())
     db.insert('user_details', rowid)
     return True
 
@@ -73,7 +79,7 @@ def get_user(user_id):
 
 def updateDevosStatus():
     db = SqliteDb(DB_FILE)
-    db.update("users", {"devostatus": "Devo-In-Training"}, devostatus="Devo Emertius")
+    db.update("users", {"devostatus": "Devo-In-Training"}, devostatus="Devo Emeritus")
 
 
 def edit_user_data(table, user_id, column_toEdit, new_val):
