@@ -136,7 +136,7 @@ def rAuthenticate():
 
         if method == 'POST':
             # error when no username is inputted
-            if not rank in ['student', 'teacher']:
+            if not rank in ['Student', 'Teacher']:
                 return render_template('register.html', given="account type")
             if len(firstname.split(" ")) != 1:
                 return render_template('register.html', given="firstname without spaces")
