@@ -41,11 +41,11 @@ P04 -- Smithy -->
     <li class="nav-item dropdown" style="text-align: right; position: absolute; right: 10px; top: .7em; width: 160px !important;">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Hi {{ name }}!</a>
       <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLink">
-        <p style="text-align: center; font-weight: 100; margin-bottom: 0px;">{{ full_username }}</p>
+        <p style="text-align: center; color: #5a4ae3; margin-bottom: 0px;">{{ full_username }}</p>
           <span><hr class="dropdown-divider"></span>
         <a class="dropdown-item" href="{{ url_for('user_account', user_id=session['user_id']) }}">Profile</a>
         <a class="dropdown-item" href="/edit">Edit Details</a>
-        <a class="dropdown-item" href="/upload" style="color: #5a4ae3">Upload Project</a>
+        <a class="dropdown-item" href="/upload">Upload Project</a>
         <span><hr class="dropdown-divider"></span>
         <a class="dropdown-item" href="/logout" style="color: crimson;">Logout</a>
       </div>
