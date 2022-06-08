@@ -354,7 +354,8 @@ def devos():
                 "stuyname": u.stuy_username,
                 "num_projs": len(get_project_ids(u.stuy_username + "#" + str(u.user_id))),
                 "bio": get_details(u.user_id)["about"],
-                "pfp": avatar(300, u.stuy_username + "@stuy.edu")
+                "pfp": avatar(300, u.stuy_username + "@stuy.edu"),
+                "rank": u.rank
             }
 
     # Display more recent devos first, so devos from previous years aren't at the top
