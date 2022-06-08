@@ -138,6 +138,10 @@ def rAuthenticate():
             # error when no username is inputted
             if not rank in ['student', 'teacher']:
                 return render_template('register.html', given="account type")
+            if len(firstname.split(" ")) != 1:
+                return render_template('register.html', given="firstname without spaces")
+            if len(lastname.split(" ")) != 1:
+                return render_template('register.html', given="lastname without spaces")
             if len(github) == 0:
                 return render_template('register.html', given="github username")
             if len(stuy_username) == 0:

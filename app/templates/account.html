@@ -67,7 +67,11 @@
                                 </div>
                                 <div class="col-lg-6 px-xl-10">
                                     <div class="bg-secondary d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded">
+                                        {% if rank == 'teacher' %}
+                                        <h3 class="h2 text-white mb-0">Prof. {{ name.split(" ")[1] }}</h3>
+                                        {% else %}
                                         <h3 class="h2 text-white mb-0">{{ name }}</h3>
+                                        {% endif }
                                         <span class="text text-warning">{{ devo_status }}</span>
                                     </div>
                                     <ul class="list-unstyled mb-1-9">
