@@ -487,6 +487,9 @@ def view_project(project_id, comment_empty):
     # except:
  #  return render_template("error.html")
 
+@app.route("/dash", methods=['GET', 'POST'])
+def dash():
+    return render_template('admin.html')
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
