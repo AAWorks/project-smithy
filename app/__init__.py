@@ -129,12 +129,15 @@ def rAuthenticate():
         github = request.form.get('github')
         password0 = request.form.get('password0')
         password1 = request.form.get('password1')
+        rank = request.form.get('rank')
 
         if method == 'GET':
             return redirect(url_for('register'))
 
         if method == 'POST':
             # error when no username is inputted
+            if not rank in ['student', 'teacher']:
+                return render_template('register.html', given="account type")
             if len(github) == 0:
                 return render_template('register.html', given="github username")
             if len(stuy_username) == 0:
@@ -153,7 +156,7 @@ def rAuthenticate():
                 else:
                     # creates user account b/c no fails
                     create_user(stuy_username, password0,
-                                firstname, lastname, github, url_for('static', filename='images/users/default.png'))
+                                firstname, lastname, github, url_for('static', filename='images/users/default.png'), rank)
                     return render_template('login.html', input='success', user_id=get_latest_id(stuy_username))
     except:
         return render_template("error.html")
