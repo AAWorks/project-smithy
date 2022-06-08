@@ -190,9 +190,9 @@ def del_project(project_id):
     db = SqliteDb(DB_FILE)
     db.delete("projects", project_id=project_id)
 
-def del_user(user_id):
+def del_user(user_num_id):
     db = SqliteDb(DB_FILE)
-    db.delete("users", user_id=user_id)
+    db.delete("users", user_id=user_num_id)
     user_id = get_full_username(user_id)
 
     user_projects = [[project['project_id'], project['devoIDs']] for project in db.select("projects") if user_id in project['devoIDs']]
@@ -208,4 +208,7 @@ def del_user(user_id):
         db.update("projects", where={"project_id": project[0]}, upd={"pmID": new_pm})
         db.update("projects", where={"project_id": project[0]}, upd={"devoIDs": devos})
     
+    for comment in db.select('comments', user_id=user_num_id):
+        del_comment(comment['comment_id'])
+
     #needs testing
