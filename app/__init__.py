@@ -489,6 +489,8 @@ def view_project(project_id, comment_empty):
 
 @app.route("/dash", methods=['GET', 'POST'])
 def dash():
+    #if not session or session['user_id'] != 'tsinclair20':
+     #   return redirect(url_for('disp_home'))
     user = get_user(session['user_id'])
     return render_template('admin.html', users=get_users(), projects=get_all_projects(), full_username=get_full_username(session['user_id']))
 
