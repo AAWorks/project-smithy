@@ -372,13 +372,16 @@ def devos():
 def gallery():
     try:
         tags=num_tags + general_tags + tedx_tags
-        searched_tag = "";
+        searched_tag = "none";
         if request.method == 'POST':
             if request.form.get('sort') and request.form.get('sort') == 'rating':
                 project_snaps = get_projects_by_star_rating()
             elif request.form.get('selection'):
                 tag = request.form.get('selection')
-                project_snaps = projects_with_tag(tag)
+                if tag == "none":
+                    project_snaps = [get_project_snapshot(project_id) for project_id in get_all_project_ids()]
+                else:
+                    project_snaps = projects_with_tag(tag)
                 searched_tag = tag
             else:
                 project_snaps = [get_project_snapshot(project_id) for project_id in get_all_project_ids()]
