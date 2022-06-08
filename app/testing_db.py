@@ -13,4 +13,4 @@ stuyusers = [(combined[i][0] + combined[i+1] + "20") for i in range(0, len(combi
 
 clear_users_table()
 for i in range(10):
-    create_user(stuyusers[i], "password", common_firsts[i], common_lasts[i], stuyusers[i], "static/images/users/default.png")
+    create_user(stuyusers[i], "password", common_firsts[i], common_lasts[i], stuyusers[i], "static/images/users/default.png", "Student")
