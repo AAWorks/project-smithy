@@ -265,7 +265,7 @@ def disp_home():
         if(date.today() == date(2022, 6, 14)):
             updateDevosStatus()
         user = get_user(session['user_id'])
-        return render_template("home.html", full_username=get_full_username(session['user_id']), name=user.firstname.title())
+        return render_template("home.html", rank=user.rank, full_username=get_full_username(session['user_id']), name=user.firstname.title())
 
         # session['user_id']
     else:

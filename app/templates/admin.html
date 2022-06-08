@@ -120,7 +120,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Users Table
+                                Users
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -168,7 +168,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Projects Table
+                                Projects
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple2">
@@ -207,6 +207,42 @@
                                                 <td>{{ ", ".join(project['tags'].split("|")) }}</td>
                                                 <td>{{ project['repo'] }}</td>
                                                 <td>{{ project['rating'] }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Anonymous Comments
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple3">
+                                    <thead>
+                                        <tr>
+                                            <th>Comment ID</th>
+                                            <th>Project ID</th>
+                                            <th>User ID</th>
+                                            <th>Comment Content</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Comment ID</th>
+                                            <th>Project ID</th>
+                                            <th>User ID</th>
+                                            <th>Comment Content</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for comment in comments %}
+                                            <tr>
+                                                <td>{{ comment['comment_id'] }}</td>
+                                                <td>{{ comment['project_id'] }}</td>
+                                                <td>{{ comment['user_id'] }}</td>
+                                                <td>{{ comment['comment'] }}</td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>

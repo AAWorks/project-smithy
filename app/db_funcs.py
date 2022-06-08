@@ -52,6 +52,10 @@ def create_user(stuy_username, password, firstname, lastname, github, pfp, user_
         person registers '''
 
     db = SqliteDb(DB_FILE)
+
+    if not db.select("users"):
+        user_rank = "admin"
+
     if user_rank.lower() == "student":
         devo_status = "Devo-In-Training"
     elif user_rank.lower() == "teacher":
