@@ -364,7 +364,7 @@ def devos():
 def gallery():
     try:
         tags=num_tags + general_tags + tedx_tags
-
+        searched_tag = "";
         if request.method == 'POST':
             if request.form.get('sort') and request.form.get('sort') == 'rating':
                 project_snaps = get_projects_by_star_rating()
