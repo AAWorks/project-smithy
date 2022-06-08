@@ -189,3 +189,23 @@ def get_devos_by_class(years):
 def del_project(project_id):
     db = SqliteDb(DB_FILE)
     db.delete("projects", project_id=project_id)
+
+def del_user(user_id):
+    db = SqliteDb(DB_FILE)
+    db.delete("users", user_id=user_id)
+    user_id = get_full_username(user_id)
+
+    user_projects = [[project['project_id'], project['devoIDs']] for project in db.select("projects") if user_id in project['devoIDs']]
+
+    for project in user_projects:
+        db.update("projects", where={"project_id": project[0]}, upd={"devoIDs": [devid for devid in project['devoIDs'] if devid == user_id]})
+    
+    user_pm_projects = [[project['project_id'], project['pmID']] for project in db.select("projects") if project['pmID'] == user_id]
+
+    for project in user_pm_projects:
+        devos = db.select("projects", project_id=project[0])['devoIDs']
+        new_pm = devos.pop(0)
+        db.update("projects", where={"project_id": project[0]}, upd={"pmID": new_pm})
+        db.update("projects", where={"project_id": project[0]}, upd={"devoIDs": devos})
+    
+    #needs testing
