@@ -207,3 +207,10 @@ input:checked ~ label{
         height: 500px;
         object-fit: contain; 
       }
+      *{
+        font-family: Exo;
+      }
+      @font-face {
+        font-family: Exo;
+        src: url(./fonts/Exo2.0-Medium.otf);
+      }

@@ -9,7 +9,13 @@
 .chev .count {
   border-radius: 100%/50%;
 }
-
+*{
+  font-family: Exo;
+}
+@font-face {
+  font-family: Exo;
+  src: url(./fonts/Exo2.0-Medium.otf);
+}
 .vote {
   font-family: "Noto Sans";
   position: relative;

@@ -13,6 +13,14 @@ p {
 
 }
 
+*{
+    font-family: Exo;
+  }
+  @font-face {
+    font-family: Exo;
+    src: url(./fonts/Exo2.0-Medium.otf);
+  }
+
 .container {
     padding-top: 50px !important;
     border-radius: 20px;

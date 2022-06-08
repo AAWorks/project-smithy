@@ -18,6 +18,7 @@ P04 -- Smithy -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"
     type='text/css'>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/gallery.css') }}">
 
   <nav class="navbar navbar-expand-lg navbar-light justify-content-center" style="background-color: white;">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
@@ -56,115 +57,6 @@ P04 -- Smithy -->
     {% endif %}
   </ul>
 </nav>
-  <style>
-    .banner {
-      background: #a770ef;
-      background: -webkit-linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
-      background: linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
-    }
-
-    .btn-primary {
-      color: #212529;
-      background-color: #7cc;
-      border-color: #5bc2c2
-    }
-
-    .btn-primary:hover {
-      color: #212529;
-      background-color: #52bebe;
-      border-color: #8ad3d3
-    }
-
-    .btn-primary:focus,
-    .btn-primary.focus {
-      box-shadow: 0 0 0 .2rem rgba(91, 194, 194, 0.5)
-    }
-
-    .btn-primary.disabled,
-    .btn-primary:disabled {
-      color: #212529;
-      background-color: #7cc;
-      border-color: #5bc2c2
-    }
-
-    .btn-primary:not(:disabled):not(.disabled):active,
-    .btn-primary:not(:disabled):not(.disabled).active,
-    .show>.btn-primary.dropdown-toggle {
-      color: #212529;
-      background-color: #9cdada;
-      border-color: #2e7c7c
-    }
-
-    .btn-primary:not(:disabled):not(.disabled):active:focus,
-    .btn-primary:not(:disabled):not(.disabled).active:focus,
-    .show>.btn-primary.dropdown-toggle:focus {
-      box-shadow: 0 0 0 .2rem rgba(91, 194, 194, 0.5)
-    }
-
-    .btn-outline-primary {
-      color: #7cc;
-      background-color: transparent;
-      background-image: none;
-      border-color: #7cc
-    }
-
-    .btn-outline-primary:hover {
-      color: #222;
-      background-color: #8ad3d3;
-      border-color: #7cc
-    }
-
-    .btn-outline-primary:focus,
-    .btn-outline-primary.focus {
-      box-shadow: 0 0 0 .2rem rgba(119, 204, 204, 0.5)
-    }
-
-    .btn-outline-primary.disabled,
-    .btn-outline-primary:disabled {
-      color: #7cc;
-      background-color: transparent
-    }
-
-    .btn-outline-primary:not(:disabled):not(.disabled):active,
-    .btn-outline-primary:not(:disabled):not(.disabled).active,
-    .show>.btn-outline-primary.dropdown-toggle {
-      color: #212529;
-      background-color: #8ad3d3;
-      border-color: #7cc
-    }
-
-    .btn-outline-primary:not(:disabled):not(.disabled):active:focus,
-    .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
-    .show>.btn-outline-primary.dropdown-toggle:focus {
-      box-shadow: 0 0 0 .2rem rgba(119, 204, 204, 0.5)
-    }
-    .card-img {
-    width: 500px;
-    height: 400px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    object-fit: contain; 
-  }
-  .stroke-transparent {
- -webkit-text-stroke: 1px gold;
- -webkit-text-fill-color: gold;
-}
-section{
-      overflow: hidden;
-    }
-    .section-title {
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    position: relative;
-    display: inline-block;
-}
-.text-primary {
-    color: #6db4a3 !important;
-}
-  </style>
 </head>
 
 <body style="background-color: whitesmoke;">
