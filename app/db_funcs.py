@@ -134,10 +134,14 @@ def edit_user_name(user_id, first, last):
     db = SqliteDb(DB_FILE)
     db.update("users", where={"user_id": user_id}, firstname=first, lastname=last)
 
+def get_anonymous_comments():
+    db = SqliteDb(DB_FILE)
+    return db.select("comments", anonymous=1)
+
 def get_comment(comment_id):
     '''get a comment by id'''
     db = SqliteDb(DB_FILE)
-    return db.select("comment", comment_id=comment_id)[0]
+    return db.select("comments", comment_id=comment_id)[0]
 
 def insert_comment(comment, user_id, user_pfp, user_name, project_id, anonymous):
     '''insert a comment into the comments table'''

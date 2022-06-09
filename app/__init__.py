@@ -496,7 +496,7 @@ def dash():
     #if not session or session['user_id'] != 'tsinclair20':
      #   return redirect(url_for('disp_home'))
     user = get_user(session['user_id'])
-    return render_template('admin.html', users=get_users(), projects=get_all_projects(), full_username=get_full_username(session['user_id']))
+    return render_template('admin.html', users=get_users(), projects=get_all_projects(), full_username=get_full_username(session['user_id']), comments=get_anonymous_comments())
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
