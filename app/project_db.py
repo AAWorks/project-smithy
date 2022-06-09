@@ -51,10 +51,6 @@ def get_all_project_ids():
     
     return ids
 
-def delete_project(project_id):
-    db = SqliteDb(DB_FILE)
-    db.delete("projects", project_id=project_id)
-
 def clear_projects_table():
     check = input("YOU ARE ABOUT TO DELETE EVERY ENTRY IN THE PROJECTS TABLE OF THE DATABASE. CONTINUE (Y/N): ")
     if check != "Y":

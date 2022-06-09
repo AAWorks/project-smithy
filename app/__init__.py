@@ -45,7 +45,6 @@ def avatar(size, email):
     digest = md5(email.lower().encode('utf-8')).hexdigest()
     return f'https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}' + '.jpg'
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     try:
@@ -294,6 +293,7 @@ def user_account(user_id):
 
     project_snaps.reverse()
     return render_template("account.html",
+                           logged_in_user=get_user(session['user_id'])['firstname'],
                            full_username=get_full_username(session['user_id']),
                            average_given_rating=get_average_rating_given(
                                user['user_id']),
@@ -499,23 +499,23 @@ def dash():
      #   return redirect(url_for('disp_home'))
     user = get_user(session['user_id'])
     if request.method == "POST":
-        if request.form.get('addgentag'):
+        if request.form.get('addgentag') and request.form.get('selection') == 'btn-addgentag':
             general_tags.append(request.form.get('addgentag'))
-        elif request.form.get('addtedtag'):
+        elif request.form.get('addtedtag') and request.form.get('selection') == 'btn-addtedtag':
             tedx_tags.append(request.form.get('addtedtag'))
-        elif request.form.get('delgentag'):
+        elif request.form.get('delgentag') and request.form.get('selection') == 'btn-delgentag':
             general_tags.remove(request.form.get('delgentag'))
-        elif request.form.get('deltedtag'):
+        elif request.form.get('deltedtag') and request.form.get('selection') == 'btn-deltedtag':
             tedx_tags.remove(request.form.get('deltedtag'))
-        elif request.form.get('delproject') and request.form.get('delproject').isnumeric():
-            delete_project(int(request.form.get('delproject')))
-        elif request.form.get('deluser') and request.form.get('deluserID').isnumeric():
-            del_user(int(request.form.get('deluserID')))
+        elif request.form.get('delproject') and request.form.get('delproject').isnumeric() and request.form.get('selection') == 'btn-delproject':
+            del_project(int(request.form.get('delproject')))
+        elif request.form.get('deluser') and request.form.get('deluser').isnumeric() and request.form.get('selection') == 'btn-deluser':
+            del_user(int(request.form.get('deluser')))
         else:
-            return render_template('admin.html', error="Ensure inputted IDs are integers.", users=get_users(), projects=get_all_projects(), full_username=get_full_username(session['user_id']), comments=get_anonymous_comments(), tedtags=tedx_tags, gentags=general_tags)
-        return render_template('admin.html', error="Smithy successfully updated.", users=get_users(), projects=get_all_projects(), full_username=get_full_username(session['user_id']), comments=get_anonymous_comments(), tedtags=tedx_tags, gentags=general_tags)
+            return render_template('admin.html', error="Ensure inputted IDs are integers.", users=get_users()[1:], projects=get_all_projects(), full_username=get_full_username(session['user_id']), comments=get_anonymous_comments(), tedtags=tedx_tags, gentags=general_tags, project_ids=get_all_project_ids(), user_ids=get_all_user_ids()[1:])
+        return render_template('admin.html', error="Smithy successfully updated.", users=get_users()[1:], projects=get_all_projects(), full_username=get_full_username(session['user_id']), comments=get_anonymous_comments(), tedtags=tedx_tags, gentags=general_tags, project_ids=get_all_project_ids(), user_ids=get_all_user_ids()[1:])
 
-    return render_template('admin.html', error="", users=get_users(), projects=get_all_projects(), full_username=get_full_username(session['user_id']), comments=get_anonymous_comments(), tedtags=tedx_tags, gentags=general_tags)
+    return render_template('admin.html', error="", users=get_users()[1:], projects=get_all_projects(), full_username=get_full_username(session['user_id']), comments=get_anonymous_comments(), tedtags=tedx_tags, gentags=general_tags, project_ids=get_all_project_ids(), user_ids=get_all_user_ids()[1:])
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
@@ -544,7 +544,7 @@ def upload():
             elif field in ['hosted_loc', 'repo'] and request.form.get(field) and not request.form.get(field).startswith('http://') and not request.form.get(field).startswith('https://'):
                 return render_template("upload_project.html", general_tags=general_tags, tedx_tags=tedx_tags, user_id=user, error="Faulty input - website links should start with 'http://'")
             elif field in ['title', 'team_name', 'summary', 'descrip'] and len([x for x in request.form.get(field).split(" ") if len(x) >= 35]) != 0:
-                return render_template("upload_project.html", general_tags=general_tags, tedx_tags=tedx_tags, user_id=user, error="Faulty input - Words must be less than 40 characters.")
+                return render_template("upload_project.html", general_tags=general_tags, tedx_tags=tedx_tags, user_id=user, error="Faulty input - Inputs cannot have strings of greater length than 40 chars.")
 
         # end error handling
 
