@@ -49,5 +49,5 @@ Bg:
 Whitesmoke
 
 ## Mentions
-Prof. Topher Mykolyk
+Prof. Topher Mykolyk<br>
 Stuyvesant High School
