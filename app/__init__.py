@@ -496,7 +496,23 @@ def dash():
     #if not session or session['user_id'] != 'tsinclair20':
      #   return redirect(url_for('disp_home'))
     user = get_user(session['user_id'])
-    return render_template('admin.html', users=get_users(), projects=get_all_projects(), full_username=get_full_username(session['user_id']), comments=get_anonymous_comments())
+    if request.method == "POST":
+        if request.form.get('addgentag'):
+            general_tags.append(request.form.get('addgentag'))
+        elif request.form.get('addtedtag'):
+            tedx_tags.append(request.form.get('addtedtag'))
+        elif request.form.get('delgentag'):
+            general_tags.remove(request.form.get('deltag'))
+        elif request.form.get('deltedtag'):
+            tedx_tags.remove(request.form.get('deltedtag'))
+        elif request.form.get('delproject') and request.form.get('delproject').isnumeric():
+            delete_project(int(request.form.get('delproject')))
+        elif request.form.get('deluserID') and request.form.get('deluserID').isnumeric():
+            del_user(int(request.form.get('deluserID')))
+        else:
+            return render_template('admin.html', error="Ensure inputted IDs are integers.", users=get_users(), projects=get_all_projects(), full_username=get_full_username(session['user_id']), comments=get_anonymous_comments())
+
+    return render_template('admin.html', error="", users=get_users(), projects=get_all_projects(), full_username=get_full_username(session['user_id']), comments=get_anonymous_comments())
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
@@ -510,21 +526,22 @@ def upload():
             return name
     if not session:
         return redirect('/login')
+
     user = get_user(session['user_id'])
     error = ""
 
     if request.method == 'POST':
         # error handling
         if len([field for field in request.form if field != ""]) == 0:
-            return render_template("upload_project.html", user_id=user, error="Missing inputs - like, all of them.")
+            return render_template("upload_project.html", general_tags=general_tags, tedx_tags=tedx_tags, user_id=user, error="Missing inputs - like, all of them.")
         for field in request.form:
             if not request.form.get(field) and field != 'hosted_loc' and not field.startswith('devo') and not field == 'ted-tags':
                 fieldname = get_fieldname(field)
-                return render_template("upload_project.html", user_id=user, error="Missing input - " + fieldname.title() + ".")
+                return render_template("upload_project.html", general_tags=general_tags, tedx_tags=tedx_tags, user_id=user, error="Missing input - " + fieldname.title() + ".")
             elif field in ['hosted_loc', 'repo'] and request.form.get(field) and not request.form.get(field).startswith('http://') and not request.form.get(field).startswith('https://'):
-                return render_template("upload_project.html", user_id=user, error="Faulty input - website links should start with 'http://'")
+                return render_template("upload_project.html", general_tags=general_tags, tedx_tags=tedx_tags, user_id=user, error="Faulty input - website links should start with 'http://'")
             elif field in ['title', 'team_name', 'summary', 'descrip'] and len([x for x in request.form.get(field).split(" ") if len(x) >= 35]) != 0:
-                return render_template("upload_project.html", user_id=user, error="Faulty input - Words must be less than 40 characters.")
+                return render_template("upload_project.html", general_tags=general_tags, tedx_tags=tedx_tags, user_id=user, error="Faulty input - Words must be less than 40 characters.")
 
         # end error handling
 
@@ -540,7 +557,7 @@ def upload():
                 dev_id = dev.split("#")[-1]
                 get_user(dev_id)
             except:
-                return render_template("upload_project.html", user_id=user, error="Devo IDs must match to ACTUAL devos.")
+                return render_template("upload_project.html", general_tags=general_tags, tedx_tags=tedx_tags,  user_id=user, error="Devo IDs must match to ACTUAL devos.")
             if dev:
                 devoIDs.append(dev)
         tags = ["Project " + request.form.get('project_num')] + request.form.getlist(
@@ -550,9 +567,9 @@ def upload():
         try:
             get_user(pm_id)
             if int(session['user_id']) != int(pm_id):
-                return render_template("upload_project.html", user_id=user, error="You must be the PM to upload a project.")
+                return render_template("upload_project.html", general_tags=general_tags, tedx_tags=tedx_tags, user_id=user, error="You must be the PM to upload a project.")
         except:
-            return render_template("upload_project.html", user_id=user, error="PM ID must math to an ACTUAL devo.")
+            return render_template("upload_project.html", general_tags=general_tags, tedx_tags=tedx_tags, user_id=user, error="PM ID must math to an ACTUAL devo.")
 
         if cover_photo.filename != "" and allowed_file(cover_photo.filename) and flag.filename != "" and allowed_file(flag.filename):
             new_project = upload_project(request.form.get('title'),
@@ -580,9 +597,9 @@ def upload():
                 'static', filename='images/projects/' + flag_filename))
             return redirect('/project/' + str(pid) + "/" + "0")
         else:
-            return render_template("upload_project.html", user_id=user, error="Submit PNG files (smaller than 500KB) for your cover and team flag photos.")
+            return render_template("upload_project.html", user_id=user, error="Submit PNG files (smaller than 500KB) for your cover and team flag photos.", general_tags=general_tags, tedx_tags=tedx_tags)
 
-    return render_template("upload_project.html", user_id=user, first=user.firstname.title(), error=error, full_username=get_full_username(session['user_id']))
+    return render_template("upload_project.html", user_id=user, general_tags=general_tags, tedx_tags=tedx_tags, first=user.firstname.title(), error=error, full_username=get_full_username(session['user_id']))
     # except:
     #     return render_template("error.html")
 

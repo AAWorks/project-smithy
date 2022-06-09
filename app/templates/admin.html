@@ -37,7 +37,7 @@
                 <span><hr class="dropdown-divider"></span>
                 <a class="dropdown-item" href="{{ url_for('user_account', user_id=session['user_id']) }}">Profile</a>
                 <a class="dropdown-item" href="/edit">Edit Details</a>
-                <a class="dropdown-item" href="/upload">Dashboard</a>
+                <a class="dropdown-item" href="/dash">Admin Dashboard</a>
                 <span><hr class="dropdown-divider"></span>
                 <a class="dropdown-item" href="/logout" style="color: crimson;">Logout</a>
               </div>
@@ -59,46 +59,71 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Stuy SoftDev</li>
                         </ol>
+                        {% if error %}
+                        <div class="alert alert-warning text-center" role="alert">
+                            {{ error }}
+                        </div>
+                        {% endif %}
+                        <form action="/dash" method="POST">
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Add Project Tag</div>
+                                    <div class="card-body">Add General Project Tag</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">Add</a>
+                                        <button type="submit" class="btn btn-success btn-sm" id="addgentag" name="addgentag">Add Tag</button>
                                         <div class="small text-white"><i class="fas fa-plus"></i></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Remove Project Tag</div>
+                                <div class="card bg-success text-white mb-4">
+                                    <div class="card-body">Add TedX Project Tag</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">Remove</a>
-                                        <div class="small text-white"><i class="fas fa-skull-crossbones"></i></div>
+                                        <button type="submit" class="btn btn-success btn-sm" id="addtedtag" name="addtedtag">Add Tag</button>
+                                        <div class="small text-white"><i class="fas fa-plus"></i></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">
-                                        Remove Project
-                                    </div>
+                                <div class="card bg-warning text-black mb-4">
+                                    <div class="card-body">Remove General Tag</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">Remove</a>
-                                        <div class="small text-white"><i class="fas fa-skull-crossbones"></i></div>
+                                        <button type="submit" class="btn btn-warning btn-sm" id="delgentag" name="delgentag">Delete Tag</button>
+                                        <div class="small text-white"><i class="fas fa-plus"></i></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
+                                <div class="card bg-warning text-black mb-4">
+                                    <div class="card-body">Remove TedX Tag</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <button type="submit" class="btn btn-warning btn-sm" id="deltedtag" name="deltedtag">Delete Tag</button>
+                                        <div class="small text-white"><i class="fas fa-plus"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6 col-md-6">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body">Remove Project</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <button type="submit" class="btn btn-danger btn-sm" id="delproject" name="delproject">Permanently Delete Project</button>
+                                        <div class="small text-white"><i class="fas fa-skull-crossbones"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-md-6">
                                 <div class="card bg-danger text-white mb-4">
                                     <div class="card-body">Remove Devo</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">Remove</a>
+                                        <button type="submit" class="btn btn-danger btn-sm" id="deluser" name="deluser">Permanently Delete User</button>
                                         <div class="small text-white"><i class="fas fa-skull-crossbones"></i></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        </form>
                         <!--<div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">

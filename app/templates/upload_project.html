@@ -133,14 +133,9 @@ P04 -- Smithy -->
                               <div class="card card-body">
                                 <label for="general-tags">Select General Tags</label>
                                 <select multiple class="form-select form-control" id="general-tags" name="general-tags" style="height: 125px;">
-                                  <option>Flask</option>
-                                  <option>JS</option>
-                                  <option>Databases</option>
-                                  <option>APIs</option>
-                                  <option>Python</option>
-                                  <option>Bootstrap</option>
-                                  <option>Game</option>
-                                  <option>Utility</option>
+                                  {% for tag in general_tags %}
+                                  <option>{{ tag.title() }}</option>
+                                  {% endfor %}
                                 </select>
                               </div>
                             </div>
@@ -148,27 +143,9 @@ P04 -- Smithy -->
                               <div class="card card-body">
                                 <label for="ted-tags">Select TEDx-related Tags</label>
                                 <select multiple class="form-select form-control" id="ted-tags" name="ted-tags" style="height: 180px;">
-                                  <option>Blockchain</option>
-                                  <option>Clojure</option>
-                                  <option>Continuous Integration</option>
-                                  <option>CoffeeScript/TypeScript</option>
-                                  <option>Docker</option>
-                                  <option>Fenwick Trees</option>
-                                  <option>Flutter/Dart</option>
-                                  <option>PageRank</option>
-                                  <option>Max-flow Min-cut Theorem</option>
-                                  <option>Node.js</option>
-                                  <option>NoSQL Databases</option>
-                                  <option>R</option>
-                                  <option>React</option>
-                                  <option>Regex</option>
-                                  <option>Rust</option>
-                                  <option>Sass</option>
-                                  <option>Shell Scripting</option>
-                                  <option>Swift</option>
-                                  <option>TeX & LaTeX</option>
-                                  <option>Web Assembly</option>
-                                  <option>Web Socket</option>
+                                  {% for tag in tedx_tags %}
+                                  <option>{{ tag.title() }}</option>
+                                  {% endfor %}
                                 </select>
                               </div>
                             </div>
