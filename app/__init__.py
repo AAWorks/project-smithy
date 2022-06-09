@@ -504,17 +504,18 @@ def dash():
         elif request.form.get('addtedtag'):
             tedx_tags.append(request.form.get('addtedtag'))
         elif request.form.get('delgentag'):
-            general_tags.remove(request.form.get('deltag'))
+            general_tags.remove(request.form.get('delgentag'))
         elif request.form.get('deltedtag'):
             tedx_tags.remove(request.form.get('deltedtag'))
         elif request.form.get('delproject') and request.form.get('delproject').isnumeric():
             delete_project(int(request.form.get('delproject')))
-        elif request.form.get('deluserID') and request.form.get('deluserID').isnumeric():
+        elif request.form.get('deluser') and request.form.get('deluserID').isnumeric():
             del_user(int(request.form.get('deluserID')))
         else:
-            return render_template('admin.html', error="Ensure inputted IDs are integers.", users=get_users(), projects=get_all_projects(), full_username=get_full_username(session['user_id']), comments=get_anonymous_comments())
+            return render_template('admin.html', error="Ensure inputted IDs are integers.", users=get_users(), projects=get_all_projects(), full_username=get_full_username(session['user_id']), comments=get_anonymous_comments(), tedtags=tedx_tags, gentags=general_tags)
+        return render_template('admin.html', error="Smithy successfully updated.", users=get_users(), projects=get_all_projects(), full_username=get_full_username(session['user_id']), comments=get_anonymous_comments(), tedtags=tedx_tags, gentags=general_tags)
 
-    return render_template('admin.html', error="", users=get_users(), projects=get_all_projects(), full_username=get_full_username(session['user_id']), comments=get_anonymous_comments())
+    return render_template('admin.html', error="", users=get_users(), projects=get_all_projects(), full_username=get_full_username(session['user_id']), comments=get_anonymous_comments(), tedtags=tedx_tags, gentags=general_tags)
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
