@@ -14,7 +14,7 @@ This is going to be a Software Development Review Site, designed with Mr.Mykolyk
 
 ## API Cards
 ##### Gravatar API
-- 411: 
+- 411: https://github.com/stuy-softdev/notes-and-code/blob/main/api_kb/411_on_Gravatar.md
 - Tutorial: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-vi-profile-page-and-avatars
 
 ## Launch Codes
