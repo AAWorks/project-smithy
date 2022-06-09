@@ -301,7 +301,7 @@
           <section class="text-center">
             <h5 style="color:#237677;"><img src="{{ url_for('static', filename='images/thluffy.png') }}" class="rounded-5 shadow-1-strong me-2" height="35" alt="" loading="lazy" />Thluffy's Commentary</h5>
             {% if admin_comment %}
-            <h6>{{ admin_comment }}</h6>
+            <h6>{{ admin_comment[0] }}</h6>
             {% else %}
             <h6>No Commentary Yet.</h6>
             {% endif %}

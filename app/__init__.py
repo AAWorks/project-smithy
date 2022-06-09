@@ -409,6 +409,7 @@ def view_project(project_id, comment_empty):
     pm = get_user(pm_id)
     pm_name = (pm['firstname'] + " " + pm['lastname']).title()
     comments = get_project_comments(project_id)
+    admin_comment = get_admin_comment(project_id)
 
     for comment in comments:
         comment['rating'] = get_comment_rating(comment['comment_id'])
@@ -467,7 +468,7 @@ def view_project(project_id, comment_empty):
                 updateRating(project_id, star1, session['user_id'])
             elif(starhalf):
                 updateRating(project_id, starhalf, session['user_id'])
-        return render_template("project.html", full_username=get_full_username(session['user_id']), first=curr_user['firstname'].title(), starratings=getAvgRating(project_id), project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
+        return render_template("project.html", admin_comment=admin_comment, full_username=get_full_username(session['user_id']), first=curr_user['firstname'].title(), starratings=getAvgRating(project_id), project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comments=comments, comment_empty=comment_empty)
 
     return render_template("project.html",
                            starratings=getAvgRating(project_id),
@@ -485,6 +486,7 @@ def view_project(project_id, comment_empty):
                            hosted=hosted,
                            hosted_loc=project['hosted_loc'],
                            team_flag=project['team_flag'],
+                           admin_comment=admin_comment,
                            comments=comments,
                            comment_empty=comment_empty
                            )

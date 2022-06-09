@@ -97,7 +97,11 @@ def getAvgRating(project_id):
 
 def get_project_comments(project_id):
     db = SqliteDb(DB_FILE)
-    return db.select("comments", project_id=project_id)
+    return [comment for comment in db.select("comments", project_id=project_id) if comment['user_id'] != 1]
+
+def get_admin_comment(project_id):
+    db = SqliteDb(DB_FILE)
+    return [comment for comment in db.select("comments", project_id=project_id) if comment['user_id'] == 1]
 
 def get_average_rating_given(user_id):
     db = SqliteDb(DB_FILE)
