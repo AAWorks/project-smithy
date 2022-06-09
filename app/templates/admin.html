@@ -95,7 +95,7 @@
                                             {% endfor %}
                                         </select> 
                                         </span>
-                                        <button type="submit" class="btn btn-warning btn-sm" style="margin-left: 15px">Delete Tag</button>
+                                        <button type="submit" class="btn btn-warning btn-sm" style="margin-left: 15px" name="selection" value="btn-delgentag">Delete Tag</button>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                                             {% endfor %}
                                         </select> 
                                         </span>
-                                        <button type="submit" class="btn btn-warning btn-sm"style="margin-left: 15px">Delete Tag</button>
+                                        <button type="submit" class="btn btn-warning btn-sm"style="margin-left: 15px" name="selection" value="btn-deltedtag">Delete Tag</button>
                                     </div>
                                 </div>
                             </div>
@@ -121,14 +121,14 @@
                                         <div class="card-body">Remove Project by Project ID
                                             <span class="form-group"> 
                                                 <select class="form-control" id="delproject" name="delproject" style="width: 50px; float: right;"> 
-                                                {% for i in range(1, projects|length) %}
-                                                <option>{{ i }}</option>
+                                                {% for pid in project_ids %}
+                                                <option>{{ pid }}</option>
                                                 {% endfor %}
                                             </select> 
                                             </span>
                                         </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <button type="submit" class="btn btn-danger btn-sm">Permanently Delete Selected Project</button>
+                                        <button type="submit" class="btn btn-danger btn-sm" name="selection" value="btn-delproject">Permanently Delete Selected Project</button>
                                         <div class="small text-white"><i class="fas fa-skull-crossbones"></i></div>
                                     </div>
                                 </div>
@@ -138,14 +138,14 @@
                                         <div class="card-body">Remove User by User ID
                                             <span class="form-group"> 
                                                 <select class="form-control" id="deluser" name="deluser" style="width: 50px; float: right;"> 
-                                                {% for i in range(1, users|length) %}
-                                                <option>{{ i }}</option>
+                                                {% for uid in user_ids %}
+                                                <option>{{ uid }}</option>
                                                 {% endfor %}
                                             </select> 
                                             </span>
                                         </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <button type="submit" class="btn btn-danger btn-sm">Permanently Delete Selected User Account</button>
+                                        <button type="submit" class="btn btn-danger btn-sm" name="selection" value="btn-deluser">Permanently Delete Selected User Account</button>
                                         <div class="small text-white"><i class="fas fa-skull-crossbones"></i></div>
                                     </div>
                                 </div>
