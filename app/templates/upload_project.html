@@ -88,19 +88,19 @@ P04 -- Smithy -->
                     <div class="card-body inner-card">
                         <div class="row justify-content-center">
                             <div class="col-lg-5 col-md-6 col-sm-12">
-                                <div class="form-group"><label for="title">Project Title</label><input type="text" class="form-control" id="title" name="title" placeholder="Smithy"> </div>
-                                <div class="form-group"> <label for="summary">Brief Project Summary (50 chars or more)</label><textarea class="rounded-0" id="summary" name="summary" rows="9" form="upload_form" maxlength="1500" minlength="50"></textarea>
+                                <div class="form-group"><label for="title">Project Title</label><input type="text" class="form-control" id="title" name="title" placeholder="Smithy" minlength="1" maxlength="40"> </div>
+                                <div class="form-group"> <label for="summary">Brief Project Summary (50-200 chars)</label><textarea class="rounded-0" id="summary" name="summary" rows="9" form="upload_form" maxlength="200" minlength="50"></textarea>
                                 </div>
-                                <div class="form-group"> <label for="repo">Github Repo</label><input type="text" class="form-control" id="repo" name="repo" placeholder="https://github.com/stuy-softdev"></div>
+                                <div class="form-group"> <label for="repo">Github Repo</label><input type="text" class="form-control" id="repo" name="repo" placeholder="https://github.com/stuy-softdev" minlength="1"></div>
                                 <div class="form-group"> <label for="hosted_loc">Site Location (If Hosted)</label> <input type="text" class="form-control" id="hosted_loc" name="hosted_loc" placeholder="http://164.92.149.123"></div>
                             </div>
                             <div class="col-lg-5 col-md-6 col-sm-12">
-                                <div class="form-group"> <label for="team_name">Team Name</label> <input type="text" class="form-control" id="team_name" name="team_name" placeholder="Team Jimin"> </div>
-                                <div class="form-group"> <label for="pm_id">PM: </label>  <input type="text" class="form-control" id="pm_id" name="pm_id" placeholder="ID (ex. tsinclair20#12)" value="{{ user_id['stuy_username'] }}#{{user_id['user_id']}}"> </div>
-                                <div class="form-group"> <label for="devo1">Devo #1: </label> <input type="text" class="form-control" id="devo1" name="devo1" placeholder="ID"> </div>
-                                <div class="form-group"> <label for="devo2">Devo #2: </label> <input type="text" class="form-control" id="devo2" name="devo2" placeholder="ID"> </div>
-                                <div class="form-group"> <label for="devo3">Devo #3: </label> <input type="text" class="form-control" id="devo3" name="devo3" placeholder="ID"></div>
-                                <div class="form-group"> <label for="project_num">Project #: </label> <select class="form-control" id="project_num" name="project_num"> <option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> </div>
+                                <div class="form-group"> <label for="team_name">Team Name</label> <input type="text" class="form-control" id="team_name" name="team_name" placeholder="Team Jimin" minlength="1" maxlength="35"> </div>
+                                <div class="form-group"> <label for="pm_id">PM: </label>  <input type="text" class="form-control" id="pm_id" name="pm_id" placeholder="ID (ex. tsinclair20#12)" value="{{ user_id['stuy_username'] }}#{{user_id['user_id']}}" maxlength="40"> </div>
+                                <div class="form-group"> <label for="devo1">Devo #1: </label> <input type="text" class="form-control" id="devo1" name="devo1" placeholder="ID" maxlength="40"> </div>
+                                <div class="form-group"> <label for="devo2">Devo #2: </label> <input type="text" class="form-control" id="devo2" name="devo2" placeholder="ID" maxlength="40"> </div>
+                                <div class="form-group"> <label for="devo3">Devo #3: </label> <input type="text" class="form-control" id="devo3" name="devo3" placeholder="ID" maxlength="40"></div>
+                                <div class="form-group"> <label for="project_num">Project #: </label> <select class="form-control" id="project_num" name="project_num"><option>5</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select> </div>
                             </div>
                         </div><br>
                         <div class="file-upload col-lg-9 col-md-6 col-sm-12" style="margin-left: 100px">
@@ -118,7 +118,7 @@ P04 -- Smithy -->
                           </div>
                         </div><br>
                         <div class="row justify-content-center">
-                            <div class="col-md-12 col-lg-10 col-12"><div class="form-group"> <label for="descrip">Project Description</label> <textarea class="rounded-0" id="descrip" name="descrip" rows="5" form="upload_form"></textarea></div>
+                            <div class="col-md-12 col-lg-10 col-12"><div class="form-group"> <label for="descrip">Project Description</label> <textarea class="rounded-0" id="descrip" name="descrip" rows="5" form="upload_form" minlength="1"></textarea></div>
                               <br>  
                             <div class="btn-group" style="width: 100%">
                               <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeneral" aria-expanded="false" aria-controls="collapseGeneral">
