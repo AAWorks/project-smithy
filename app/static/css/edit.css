@@ -1,10 +1,6 @@
 *{
-    font-family: Exo;
-  }
-  @font-face {
-    font-family: Exo;
-    src: url(./fonts/Exo2.0-Medium.otf);
-  }
+  font-family: 'Source Sans Pro', serif;
+}
 .card-style1 {
     box-shadow: 0px 0px 10px 0px rgb(89 75 128 / 9%);
 }

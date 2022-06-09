@@ -1,10 +1,10 @@
 *{
-    font-family: Exo;
+  font-family: 'Source Sans Pro', serif;
 }
-@font-face {
+/*@font-face {
     font-family: Exo;
     src: url(./fonts/Exo2.0-Medium.otf);
-}
+}*/
 .banner {
     background: #a770ef;
     background: -webkit-linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);

@@ -1,3 +1,6 @@
+*{
+  font-family: 'Source Sans Pro', serif;
+}
 #intro {
     /* Margin to fix overlapping fixed navbar */
     margin-top: 58px;

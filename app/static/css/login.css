@@ -1,9 +1,5 @@
 *{
-  font-family: Exo;
-}
-@font-face {
-  font-family: Exo;
-  src: url(./fonts/Exo2.0-Medium.otf);
+  font-family: 'Source Sans Pro', serif;
 }
 body{
     padding-bottom:2.2rem;
