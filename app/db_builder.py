@@ -8,7 +8,12 @@ import sqlite3
 from notanorm import SqliteDb
 from flask import url_for
 
-DB_FILE = "project_reviewal.db"
+if False:
+    path = "var/www/app/"
+else:
+    path= ""
+
+DB_FILE = path + "project_reviewal.db"
 
 ''' Creates / Connects to DB File '''
 

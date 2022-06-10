@@ -7,7 +7,12 @@
 import sqlite3, hashlib, bcrypt, datetime
 from notanorm import SqliteDb
 
-DB_FILE = "project_reviewal.db"
+if False:
+    path = "var/www/app/"
+else:
+    path= ""
+
+DB_FILE = path + "project_reviewal.db"
 
 def hashsalt(password: str):
     pwd = bytes(password, 'utf-8')

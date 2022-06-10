@@ -17,18 +17,23 @@ tedx_tags = ['Blockchain', 'Clojure', 'Continuous Integration', 'CoffeeScript/Ty
     'Fenwick Trees', 'Flutter/Dart', 'PageRank', 'Max-flow Min-cut Theorem', 'Node.js', 'NoSQL Databases', 
     'R', 'React', 'Regex', 'Rust', 'Sass', 'Shell Scripting', 'Swift', 'TeX & LaTeX', 'Web Assembly', 'Web Socket']
 
-with open("app/db_builder.py", "rb") as source_file:
-    code = compile(source_file.read(), "app/db_builder.py", "exec")
+if False:
+    path = "var/www/app/"
+else:
+    path= ""
+
+with open(path + "app/db_builder.py", "rb") as source_file:
+    code = compile(source_file.read(), path + "app/db_builder.py", "exec")
 exec(code)
-with open("app/db_funcs.py", "rb") as source_file:
-    code = compile(source_file.read(), "app/db_funcs.py", "exec")
+with open(path + "app/db_funcs.py", "rb") as source_file:
+    code = compile(source_file.read(), path + "app/db_funcs.py", "exec")
 exec(code)
-with open("app/project_db.py", "rb") as source_file:
-    code = compile(source_file.read(), "app/project_db.py", "exec")
+with open(path + "app/project_db.py", "rb") as source_file:
+    code = compile(source_file.read(), path + "app/project_db.py", "exec")
 exec(code)
 
-PROJECTS_UPLOAD_FOLDER = 'app/static/images/projects'
-USERS_UPLOAD_FOLDER = 'app/static/images/users'
+PROJECTS_UPLOAD_FOLDER = path + 'app/static/images/projects'
+USERS_UPLOAD_FOLDER = path + 'app/static/images/users'
 ALLOWED_EXTENSIONS = {'png'}
 
 app = Flask(__name__)

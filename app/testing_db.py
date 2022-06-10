@@ -3,7 +3,12 @@ import itertools
 from db_funcs import *
 import db_builder
 
-DB_FILE = "project_reviewal.db"
+if False:
+    path = "var/www/app/"
+else:
+    path= ""
+
+DB_FILE = path + "project_reviewal.db"
 
 common_firsts = ["liam", "noah", "oliver", "elijah", "james", "william", "benjamin", "lucas", "henry", "theodore"]
 common_lasts = ["smith", "johnson", "williams", "brown", "jones", "miller", "davis", "garcia", "rodriguez", "wilson"]

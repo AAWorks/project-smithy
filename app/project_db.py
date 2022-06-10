@@ -2,7 +2,12 @@ from flask import url_for
 from notanorm import SqliteDb
 import datetime
 
-DB_FILE = "project_reviewal.db"
+if False:
+    path = "var/www/app/"
+else:
+    path= ""
+
+DB_FILE = path + "project_reviewal.db"
 
 def upload_project(title, image, team_name, pmID, devoIDs, tags, repo, intro, descrip, rating, hosted_loc, team_flag):
     db = SqliteDb(DB_FILE)
