@@ -64,6 +64,9 @@ justinZ -- 2022-05-31 20:23
 
 justinZ -- 2022-06-02 09:30
   Worked on Gallery and image resizing
+
+ noakaiA -- 2022-06-05 00:13
+  Finally finished up/downvotes. That was pain
   
 alejandroA -- 2022-06
   See commit logs and insights
