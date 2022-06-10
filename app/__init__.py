@@ -424,6 +424,9 @@ def view_project(project_id, comment_empty):
                     comment['vote'] = vote['vote']
                     break
                 # print(comment['vote'])
+                
+    comments.reverse()
+    comments = sorted(comments, reverse=True, key=lambda comment:comment['rating'])
 
     devos = []
     for full_devo_id in project['devoIDs']:
