@@ -288,13 +288,17 @@ def user_account(user_id):
 
     if session:
         user_match = (int(session['user_id']) == int(user['user_id']))
+        logged_in = get_user(session['user_id'])['firstname']
+        full_username=get_full_username(session['user_id'])
     else:
         user_match = False
+        logged_in = ""
+        full_username=""
 
     project_snaps.reverse()
     return render_template("account.html",
-                           logged_in_user=get_user(session['user_id'])['firstname'],
-                           full_username=get_full_username(session['user_id']),
+                           logged_in_user=logged_in,
+                           full_username=full_username,
                            average_given_rating=get_average_rating_given(
                                user['user_id']),
                            user_id=user['user_id'],
