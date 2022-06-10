@@ -25,10 +25,7 @@ def hashsalt(password: str):
 def check_pw(password: str, stored_pw):
     pwd = bytes(password, 'utf-8')
     
-    salt = bcrypt.gensalt()
-    hashed = bcrypt.hashpw(pwd, salt)
-
-    match = bcrypt.checkpw(stored_pw, hashed)
+    match = bcrypt.checkpw(pwd, stored_pw)
     return match
 
 def auth_user(stuy_username, user_id, password):
@@ -46,7 +43,7 @@ def auth_user(stuy_username, user_id, password):
     if int(user_id) not in user_ids:
         return "bad_user"
 
-    if check_pw(password, db.select("users", user_id=user_id)[0].password):
+    if not check_pw(password, db.select("users", user_id=user_id)[0].password):
         return "bad_pass"
 
     return True
