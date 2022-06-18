@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<!-- Jimin: Alejandro Alonso (PM), Noakai Aronesty, Justin Zou, Ivan Lam
+SoftDev pd2
+P04 -- Smithy -->
+
+<head>
+   <title>Smithy</title>
+   <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='images/logo.png')}}">
+   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+   <!------ Include the above in your HEAD tag ---------->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+  <nav class="navbar navbar-expand-lg navbar-light justify-content-center"
+   style="background-color: white;">
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+     aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+     <span class="navbar-toggler-icon"></span>
+   </button>
+   <a class="navbar-brand" href="/">
+     <img src="{{url_for('static', filename='images/logo.png')}}" alt="..." height="36">
+   </a>
+   <ul class="navbar-nav">
+     <li class="nav-item">
+       <a class="nav-link" href="/home">Home</a>
+     </li>
+     <li class="nav-item dropdown" style="text-align: right; position: absolute; right: 10px; top: .7em; width: 160px !important;">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Hi {{ user['firstname'].title() }}!</a>
+        <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLink">
+          <p style="text-align: center; color: #5a4ae3; margin-bottom: 0px;">{{ user['stuy_username'] + "#" + user['user_id']|string }}</p>
+            <span><hr class="dropdown-divider"></span>
+          <a class="dropdown-item" href="{{ url_for('user_account', user_id=session['user_id']) }}">Profile</a>
+          <a class="dropdown-item" href="/edit">Edit Details</a>
+          {% if session['user_id'] == '1' %} 
+          <a class="dropdown-item" href="/dash">Admin Dashboard</a>
+            {% else %}
+              <a class="dropdown-item" href="/upload">Upload Project</a>
+            {% endif %} 
+          <span><hr class="dropdown-divider"></span>
+          <a class="dropdown-item" href="/logout" style="color: crimson;">Logout</a>
+        </div>
+      </li>
+   </ul>
+ </nav>
+</head>
+
+<body style="background-color: whitesmoke !important;">
+   <br>
+   <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+   <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+   <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+   <div class="container">
+      <div class="row">
+         <div class="col-md-5 mx-auto">
+            <div id="first">
+               <div class="myform form ">
+                  <div class="logo mb-3">
+                     <div class="col-md-12 text-center">
+                        <img class="rounded float-left" src="{{ url_for('static', filename='images/logo.png') }}"
+                           width=50 height=50>
+                        <h1 style="display: inline;">Smithy</h1>
+                        <img class="rounded float-right" src="{{ url_for('static', filename='images/thluffy.png') }}"
+                           width=50 height=50>
+                     </div>
+                  </div>
+
+
+
+                  <form action="/secret/reset" method="post" name="resetpass">
+                     <div class="form-group">
+                        <label for="oldpass">Old Password</label>
+                        <input type="password" name="oldpass" id="oldpass" class="form-control"
+                           aria-describedby="oldpass">
+                     </div>
+                     <div class="form-group">
+                        <label for="newpass">New Password</label>
+                        <input type="password" name="newpass" id="newpass" class="form-control"
+                           aria-describedby="newpass">
+                     </div>
+                     <div class="form-group">
+                        <label for="newpasscopy">Retype New Password</label>
+                        <input type="password" name="newpasscopy" id="newpasscopy" class="form-control"
+                           aria-describedby="newpasscopy">
+                     </div>
+
+                     {% if error %}
+                     <div class="container-fluid px-5">
+                        <div class="alert-danger alert text-center marginy py-2" role="alert">
+                           {{ error }}
+                        </div>
+                     </div>
+                     {% endif %}
+
+                     <div class="col-md-12 text-center ">
+                        <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Submit Change</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+
+</body>
