@@ -106,7 +106,11 @@ P04 -- Smithy -->
                   {% endif %}
                   <h6 class="text-dark">{{ devo['stuyname'] }}#{{ devo['user_id'] }}</h6>
                   {% if devo['bio'] %}
-                  <p class="small text-muted mb-1">{{ devo['bio'] }}</p>
+                    {% if devo['bio']|length > 90 %}
+                    <p class="small text-muted mb-1">{{ devo['bio'][:89] }}...</p>
+                    {% else %}
+                    <p class="small text-muted mb-1">{{ devo['bio'] }}</p>
+                    {% endif %}
                   {% endif %}
                   <p class="small mb-2">Projects: {{ devo['num_projs'] }}</p>
                 </div>

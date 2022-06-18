@@ -141,13 +141,13 @@ P04 -- Smithy -->
               <p class="small text-muted mb-0">{{ project['summary'] }}</p><br>
               <a href="/project/{{ project['project_id'] }}/0" class="btn btn-primary" style="width: 100%;">Learn More</a>
               
-              {% if session['user_id'] and (session['user_id']|int == project['pmID'].split('#')[1]|int) %}
+              <!--{% if session['user_id'] and (session['user_id']|int == project['pmID'].split('#')[1]|int) %}
               <form method="post" action="/delete_project" onsubmit="return confirm('Delete project {{project['title']}}?');">
                 <input type="hidden" name="project_id" value="{{project_id}}">
                 <button class="btn btn-outline-danger btn-block mt-2 text-uppercase"
                   style="width:100%;">Delete Project</button>
               </form>
-              {% endif %}
+              {% endif %}-->
               
             </div>
           </div>
