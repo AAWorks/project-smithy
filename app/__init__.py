@@ -247,6 +247,9 @@ def update_info():
             return redirect('/login')
         method = request.method
         about_info = request.form.get('about_section')
+        for word in about_info.split(" "):
+            if len(word) > 30:
+                about_info="No 30+ Char Words"
         user_id = request.form.get('user_id')
         back_end_info = int(request.form.get('back_end_range'))
         front_end_info = int(request.form.get('front_end_range'))
