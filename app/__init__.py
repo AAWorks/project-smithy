@@ -51,6 +51,8 @@ def avatar(size, email):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     try:
+        if session:
+            return redirect(url_for('disp_home'))
         return render_template("login.html")
     except:
         return render_template("error.html")
@@ -59,7 +61,8 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     try:
-        return render_template("register.html")
+        if session:
+            return render_template("register.html")
     except:
         return render_template("error.html")
 
