@@ -115,14 +115,12 @@
                                                 class="purple_a">https://github.com/{{ github }}</a>
 
                                         </li>
-                                        {% if average_given_rating == "N/A" %}
-                                        <li class="display-28"><span class="display-26 text-secondary me-2 font-weight-600">Average Rating Given: </span><span id="identifier" class="child">{{ average_given_rating }}</span>
-                                        </li>
-                                        {% else %}
-                                        <li class="display-28"><span class="display-26 text-secondary me-2 font-weight-600">Average Rating Given: </span><span id="identifier" class="child">{{ average_given_rating }} <i class="fa fa-star stroke-transparent"
-                                            aria-hidden="true"></i></span>
-                                        </li>
-                                        {% endif %}  
+                                        <li class="mb-2 mb-xl-3 display-28"><span
+                                            class="display-26 text-secondary me-2 font-weight-600">Change Password:</span>
+                                        <a href="{{ url_for('editPass') }}"
+                                            class="purple_a">Click Here</a>
+
+                                    </li>
                                     </ul>
                                 </div>
                             </div>

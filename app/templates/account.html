@@ -34,7 +34,7 @@
         </li>
         {% if session['user_id'] %}
         <li class="nav-item dropdown" style="text-align: right; position: absolute; right: 10px; top: .7em; width: 160px !important;">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Hi {{ logged_in_user }}!</a>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Hi {{ logged_in_user.title() }}!</a>
           <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLink">
             <p style="text-align: center; color: #5a4ae3; margin-bottom: 0px;">{{ full_username }}</p>
             <span><hr class="dropdown-divider"></span>
