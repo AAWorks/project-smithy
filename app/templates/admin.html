@@ -71,7 +71,7 @@
                                     <div class="card-body">Add General Project Tag</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <input class="form-control mr-sm-2" type="search" id="addgentag" name="addgentag" placeholder="Tag" aria-label="Search">
-                                        <button type="submit" class="btn btn-success btn-sm" style="margin-left: 15px">Add Tag</button>
+                                        <button type="submit" class="btn btn-success btn-sm" style="margin-left: 15px" onclick="return confirm('Add this tag?');">Add Tag</button>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                                     <div class="card-body">Add TedX Project Tag</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <input class="form-control mr-sm-2" type="search" id="addtedtag" name="addtedtag" placeholder="Tag" aria-label="Search">
-                                        <button type="submit" class="btn btn-success btn-sm" style="margin-left: 15px">Add Tag</button>
+                                        <button type="submit" class="btn btn-success btn-sm" style="margin-left: 15px" onclick="return confirm('Add this tag?');">Add Tag</button>
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +95,7 @@
                                             {% endfor %}
                                         </select> 
                                         </span>
-                                        <button type="submit" class="btn btn-warning btn-sm" style="margin-left: 15px" name="selection" value="btn-delgentag">Delete Tag</button>
+                                        <button type="submit" class="btn btn-warning btn-sm" style="margin-left: 15px" name="selection" value="btn-delgentag" onclick="return confirm('Delete this tag?');">Delete Tag</button>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                                             {% endfor %}
                                         </select> 
                                         </span>
-                                        <button type="submit" class="btn btn-warning btn-sm"style="margin-left: 15px" name="selection" value="btn-deltedtag">Delete Tag</button>
+                                        <button type="submit" class="btn btn-warning btn-sm"style="margin-left: 15px" name="selection" value="btn-deltedtag" onclick="return confirm('Delete this tag?');">Delete Tag</button>
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                                             </span>
                                         </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <button type="submit" class="btn btn-danger btn-sm" name="selection" value="btn-delproject">Permanently Delete Selected Project</button>
+                                        <button type="submit" class="btn btn-danger btn-sm" name="selection" value="btn-delproject" onclick="return confirm('Delete this project?');">Permanently Delete Selected Project</button>
                                         <div class="small text-white"><i class="fas fa-skull-crossbones"></i></div>
                                     </div>
                                 </div>
@@ -145,7 +145,7 @@
                                             </span>
                                         </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <button type="submit" class="btn btn-danger btn-sm" name="selection" value="btn-deluser">Permanently Delete Selected User Account</button>
+                                        <button type="submit" class="btn btn-danger btn-sm" name="selection" value="btn-deluser" onclick="return confirm('Delete this user?');">Permanently Delete Selected User Account</button>
                                         <div class="small text-white"><i class="fas fa-skull-crossbones"></i></div>
                                     </div>
                                 </div>
