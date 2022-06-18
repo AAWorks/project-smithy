@@ -7,10 +7,8 @@
 import sqlite3, hashlib, bcrypt, datetime
 from notanorm import SqliteDb
 
-if False:
-    path = "var/www/app/"
-else:
-    path= ""
+on_droplet = False
+path = "var/www/app/" if on_droplet else ""
 
 DB_FILE = path + "project_reviewal.db"
 

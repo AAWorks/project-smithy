@@ -2,10 +2,8 @@ from flask import url_for
 from notanorm import SqliteDb
 import datetime
 
-if False:
-    path = "var/www/app/"
-else:
-    path= ""
+on_droplet = False
+path = "var/www/app/" if on_droplet else ""
 
 DB_FILE = path + "project_reviewal.db"
 

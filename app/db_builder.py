@@ -8,10 +8,8 @@ import sqlite3
 from notanorm import SqliteDb
 from flask import url_for
 
-if False:
-    path = "var/www/app/"
-else:
-    path= ""
+on_droplet = False
+path = "var/www/app/" if on_droplet else ""
 
 DB_FILE = path + "project_reviewal.db"
 
