@@ -261,10 +261,6 @@ def update_info():
         reddit_name = request.form.get('reddit_name')
         first = request.form.get('first').lower()
         last = request.form.get('last').lower()
-        if first == "":
-            edit_user_details(user_id, about_info, back_end_info, front_end_info, git_foo_info, can_serve_info,
-                              discord_name, discord_id, facebook_name, twitter_name, reddit_name)
-            return redirect(url_for('user_account', user_id=user_id))
 
         if method == 'GET':
             return redirect(url_for('disp_home'))
@@ -275,7 +271,8 @@ def update_info():
             else:
                 edit_user_details(user_id, about_info, back_end_info, front_end_info, git_foo_info, can_serve_info,
                                   discord_name, discord_id, facebook_name, twitter_name, reddit_name)
-                edit_user_name(user_id, first, last)
+                if first != "" and last != "":
+                    edit_user_name(user_id, first, last)
                 return redirect(url_for('user_account', user_id=user_id))
     except:
         return render_template("error.html")
