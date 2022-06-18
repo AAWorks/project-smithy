@@ -71,6 +71,11 @@ def create_user(stuy_username, password, firstname, lastname, github, pfp, user_
     db.insert('user_details', rowid)
     return True
 
+def update_user_pass(user_id, newpassword):
+    db = SqliteDb(DB_FILE)
+
+    db.update('users', {"user_id": user_id}, password=hashsalt(newpassword))
+
 def get_latest_id(stuy_username):
     '''returns the latest user_id in the table for a stuy_username'''
     db = SqliteDb(DB_FILE)
