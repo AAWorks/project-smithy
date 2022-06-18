@@ -17,10 +17,8 @@ tedx_tags = ['Blockchain', 'Clojure', 'Continuous Integration', 'CoffeeScript/Ty
     'Fenwick Trees', 'Flutter/Dart', 'PageRank', 'Max-flow Min-cut Theorem', 'Node.js', 'NoSQL Databases', 
     'R', 'React', 'Regex', 'Rust', 'Sass', 'Shell Scripting', 'Swift', 'TeX & LaTeX', 'Web Assembly', 'Web Socket']
 
-if False:
-    path = "var/www/app/"
-else:
-    path= ""
+on_droplet = False
+path = "var/www/app/" if on_droplet else ""
 
 with open(path + "app/db_builder.py", "rb") as source_file:
     code = compile(source_file.read(), path + "app/db_builder.py", "exec")
@@ -38,7 +36,7 @@ ALLOWED_EXTENSIONS = {'png'}
 
 app = Flask(__name__)
 cors = CORS(app)
-app.secret_key = 'stuffins'
+app.secret_key = 'RedDr4gonSynd1cat3'
 
 
 def allowed_file(filename):
