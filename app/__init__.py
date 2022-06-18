@@ -296,7 +296,7 @@ def disp_home():
     ''' Loads the landing page '''
     try:
         if session:
-            if(date.today() == date(2022, 6, 14) or (date.today() == date(2022, 6, 27)):
+            if(date.today() == date(2022, 6, 14) or date.today() == date(2022, 6, 27)):
                 updateDevosStatus()
             user = get_user(session['user_id'])
             return render_template("home.html", rank=user.rank, full_username=get_full_username(session['user_id']), name=user.firstname.title())
