@@ -60,11 +60,13 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    try:
-        if session:
-            return render_template("register.html")
-    except:
-        return render_template("error.html")
+    #try:
+        #if session:
+            curr_grad_year = datetime.date.today().year if datetime.date.today().month < 9 else datetime.date.today().year + 1
+            years = [str(year) for year in range(1995, curr_grad_year + 3)]
+            return render_template("register.html", years=years)
+    #except:
+        #return render_template("error.html")
 
 
 @app.route('/terms', methods=['GET', 'POST'])
@@ -135,6 +137,10 @@ def rAuthenticate():
         password0 = request.form.get('password0')
         password1 = request.form.get('password1')
         rank = request.form.get('rank')
+        year = request.form.get('year')
+
+        curr_grad_year = datetime.date.today().year if datetime.date.today().month < 9 else datetime.date.today().year + 1
+        years = [str(year) for year in range(1995, curr_grad_year + 3)].reverse()
 
         if method == 'GET':
             return redirect(url_for('register'))
@@ -142,30 +148,30 @@ def rAuthenticate():
         if method == 'POST':
             # error when no username is inputted
             if not rank in ['Student', 'Teacher']:
-                return render_template('register.html', given="account type")
+                return render_template('register.html', given="account type", years=years)
             if len(firstname.split(" ")) != 1:
-                return render_template('register.html', given="firstname without spaces")
+                return render_template('register.html', given="firstname without spaces", years=years)
             if len(lastname.split(" ")) != 1:
-                return render_template('register.html', given="lastname without spaces")
+                return render_template('register.html', given="lastname without spaces", years=years)
             if len(github) == 0:
-                return render_template('register.html', given="github username")
+                return render_template('register.html', given="github username", years=years)
             if len(stuy_username) == 0:
-                return render_template('register.html', given="stuyvesant username")
+                return render_template('register.html', given="stuyvesant username", years=years)
             # error when no password is inputted
             elif len(password0) == 0:
-                return render_template('register.html', given="password")
+                return render_template('register.html', given="password", years=years)
             elif len(password0) < 6:
-                return render_template('register.html', given="password greater than 6 characters")
+                return render_template('register.html', given="password greater than 6 characters", years=years)
             # a username and password is inputted
             # a username and password is inputted
             else:
                 # if the 2 passwords given don't match, will display error saying so
                 if password0 != password1:
-                    return render_template('register.html', mismatch=True)
+                    return render_template('register.html', mismatch=True, years=years)
                 else:
                     # creates user account b/c no fails
                     create_user(stuy_username, password0,
-                                firstname, lastname, github, url_for('static', filename='images/users/default.png'), rank)
+                                firstname, lastname, github, url_for('static', filename='images/users/default.png'), rank, year)
                     return render_template('login.html', input='success', user_id=get_latest_id(stuy_username))
     except:
         return render_template("error.html")
@@ -300,7 +306,7 @@ def disp_home():
     ''' Loads the landing page '''
     try:
         if session:
-            if(date.today() == date(2022, 6, 14) or date.today() == date(2022, 6, 27)):
+            if(date.today() == date(2022, 6, 27)):
                 updateDevosStatus()
             user = get_user(session['user_id'])
             return render_template("home.html", rank=user.rank, full_username=get_full_username(session['user_id']), name=user.firstname.title())
@@ -387,9 +393,9 @@ def devos():
     # if devos() is receiving info, set users to users sorted by class
     try:
         curr_grad_year = datetime.date.today().year if datetime.date.today(
-        ).month < 7 else datetime.date.today().year + 1
+        ).month < 9 else datetime.date.today().year + 1
         users = get_devos_by_class([str(year)
-                                for year in range(2022, curr_grad_year + 1)])
+                                for year in range(1995, curr_grad_year + 1)])
 
         for year in users.keys():
             for i in range(len(users[year])):
