@@ -90,10 +90,11 @@ P04 -- Smithy -->
 
       <div class="row">
         <!-- Gallery item -->
-        {% for year in devos.keys() %}
+        {% for year in devos.keys()|reverse %}
+          {% if devos[year] %}
           <h5 class="section-title text-primary">Class of {{ year }}</h5>
           {% for devo in devos[year]|reverse %}
-            <div class="col-xl-3 col-lg-4 col-md-6 mb-4 search_item">
+            <div class="col-xl-3 col-lg-3 col-md-6 mb-4 search_item">
               <div class="bg-white rounded shadow-sm"><img src="{{ devo['pfp'] }}" alt="" class="img-fluid card-img-top"
                   style="padding: 10px; padding-bottom: 0px;">
                 <div class="p-4">
@@ -117,6 +118,7 @@ P04 -- Smithy -->
               </div>
             </div>
           {% endfor %}
+          {% endif %}
         {% endfor %}
         <!-- End -->
       </div>
