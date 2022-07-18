@@ -1,6 +1,5 @@
 from flask import url_for
 from notanorm import SqliteDb
-import datetime
 
 on_droplet = False
 path = "var/www/app/" if on_droplet else ""
