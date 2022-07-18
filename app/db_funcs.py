@@ -47,7 +47,7 @@ def auth_user(stuy_username, user_id, password):
     return True
 
 
-def create_user(stuy_username, password, firstname, lastname, github, pfp, user_rank):
+def create_user(stuy_username, password, firstname, lastname, github, pfp, user_rank, year):
     ''' Adds user to database if right username and password are given when a
         person registers '''
 
@@ -62,8 +62,6 @@ def create_user(stuy_username, password, firstname, lastname, github, pfp, user_
         devo_status = "Sensei"
     else:
         devo_status = "Big Brother"
-
-    year = datetime.date.today().year if datetime.date.today().month < 7 else datetime.date.today().year + 1
 
     rowid = db.insert("users", pfp=pfp, stuy_username=stuy_username, password=hashsalt(password), firstname=firstname, lastname=lastname, github=github, devostatus=devo_status, year=year, rank=user_rank.lower())
     db.insert('user_details', rowid)
