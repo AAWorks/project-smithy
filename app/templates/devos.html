@@ -88,6 +88,31 @@ P04 -- Smithy -->
       </div>
       <!-- End -->
 
+      <form class="border-bottom pb-3 mb-4" action="/devos" method="POST" name="class_search">
+        {% if searched_class %}
+        <a data-bs-toggle="collapse" href="#collapseClassSearch" role="button" aria-expanded="false" aria-controls="collapseClassSearch"><h6 class="section-title text-primary">Search by Class{{ ": " + searched_class }}</h6><i style="padding-left: 2px; color:rgb(119, 204, 204)" class="fa fa-caret-down"></i></a>
+        {% else %}
+        <a data-bs-toggle="collapse" href="#collapseClassSearch" role="button" aria-expanded="false" aria-controls="collapseClassSearch"><h6 class="section-title text-primary">Search by Class: All</h6><i style="padding-left: 2px; color:rgb(119, 204, 204)" class="fa fa-caret-down"></i></a>
+        {% endif %}
+        <div class="collapse" id="collapseClassSearch">
+          <div class="card card-body">
+            <div class="row justify-content-center">
+              <div class="col-lg-10 text-center">
+                {% for class_tag in class_tags %}
+                {% if users[class_tag] %}
+                {% if class_tag == '2022' %}
+                <button type="submit" name="selection" class="badge rounded-pill bg-warning" style="margin-bottom: 9px;" value="{{ class_tag }}">{{ class_tag }}</button>
+                {% else %}
+                <button type="submit" name="selection" class="badge rounded-pill bg-info" style="margin-bottom: 9px;" value="{{ class_tag }}">{{ class_tag }}</button>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                <button type="submit" formaction="/devos" name="selection" class="badge rounded-pill bg-success" style="margin-bottom: 9px;" value="all">All</button>
+              </div>
+            </div>
+        </div></div>
+      </form>
+
       <div class="row">
         <!-- Gallery item -->
         {% for year in devos.keys()|reverse %}
