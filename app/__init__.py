@@ -391,16 +391,25 @@ def devos():
     # try:
 
     # if devos() is receiving info, set users to users sorted by class
-    try:
+    #try:
         curr_grad_year = datetime.date.today().year if datetime.date.today(
         ).month < 9 else datetime.date.today().year + 1
         users = get_devos_by_class([str(year)
                                 for year in range(1995, curr_grad_year + 1)])
+        class_tags = users.keys()
 
-        for year in users.keys():
+        if request.method == 'POST' and request.form.get('selection'):
+            class_tag = request.form.get('selection')
+            selected_class = [class_tag] if class_tag != "all" else list(users.keys())
+        else:
+            selected_class = list(users.keys())
+
+        selected_users = {}
+        for year in selected_class:
+            selected_users[year] = []
             for i in range(len(users[year])):
                 u = users[year][i]
-                users[year][i] = {
+                selected_users[year].append({
                     "name": (u.firstname + " " + u.lastname).title(),
                     "user_id": u.user_id,
                     "stuyname": u.stuy_username,
@@ -408,16 +417,16 @@ def devos():
                     "bio": get_details(u.user_id)["about"],
                     "pfp": avatar(300, u.stuy_username + "@stuy.edu"),
                     "rank": u.rank
-                }
+                })
 
         # Display more recent devos first, so devos from previous years aren't at the top
         # devos.reverse()
         if session:
             curr_user = get_user(session['user_id'])
-            return render_template("devos.html", devos=users, name=curr_user.firstname.title(), full_username=get_full_username(session['user_id']))
-        return render_template("devos.html", devos=users)
-    except:
-        return render_template("error.html")
+            return render_template("devos.html", users=users, devos=selected_users, name=curr_user.firstname.title(), full_username=get_full_username(session['user_id']), class_tags=class_tags, searched_class=selected_class[0] if len(selected_class) == 1 else "")
+        return render_template("devos.html", users=users, devos=selected_users, class_tags=class_tags, searched_class=selected_class[0] if len(selected_class) == 1 else "")
+    #except:
+    #    return render_template("error.html")
 
 
 @app.route("/gallery", methods=['GET', 'POST'])
