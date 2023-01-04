@@ -93,6 +93,8 @@ def authenticate():
         stuy_username = request.form.get('stuy_username').lower()
         user_id = request.form.get('user_id')
         password = request.form.get('password')
+        session['user_id'] = user_id
+        return redirect(url_for('user_account', user_id=user_id))
 
         try:
             stuy_username = request.form.get('stuy_username').lower()
@@ -116,7 +118,7 @@ def authenticate():
 
         if auth_state == "bad_pass":
             return render_template('login.html', input="bad_pass")
-        elif auth_state == "bad_user":
+        if auth_state == "bad_user":
             return render_template('login.html', input="bad_user")
         elif auth_state == True:
             session['user_id'] = user_id
@@ -555,7 +557,115 @@ def view_project(project_id, comment_empty):
                             comment_empty=comment_empty
                             )
     except:
-        return render_template("error.html")
+        return render_template("error.html")      
+
+@app.route("/updateproject/<project_id>/<comment_empty>", methods=['GET', 'POST'])
+def updateproject(project_id, comment_empty):
+    #try:
+        project = get_project_details(project_id)
+
+        if not session:
+            return (url_for('login'))
+        elif (session['user_id'] != '1' and session['user_id'] != project['pmID'].split("#")[1]):
+            return redirect(url_for('disp_home'))
+
+        form = dict(request.form)
+        for key in form.keys():
+            if form[key]:
+                print("working")
+                edit_project_info(project_id, key, form[key])
+                print(key + " = " + form[key])
+
+        return redirect(url_for('view_project', project_id = project_id, comment_empty = comment_empty))
+
+    #except:
+
+@app.route("/editproject/<project_id>/<comment_empty>", methods=['GET', 'POST'])
+def editproject(project_id, comment_empty):
+    #try:
+        project = get_project_details(project_id)
+        
+        if not session:
+            return (url_for('login'))
+        elif (session['user_id'] != '1' and session['user_id'] != project['pmID'].split("#")[1]):
+            return redirect(url_for('disp_home')) 
+
+        pm_id = project['pmID'].split("#")[-1]
+        pm = get_user(pm_id)
+        pm_name = (pm['firstname'] + " " + pm['lastname']).title()
+
+        devos = []
+        for full_devo_id in project['devoIDs']:
+            if full_devo_id != "":
+                devo_id = full_devo_id.split("#")[-1]
+                devo_info = get_user(devo_id)
+                devo = {'name': (
+                    devo_info['firstname'] + " " + devo_info['lastname']).title(), 'id': devo_id}
+                devos.append(devo)
+        
+        split_devos = "\n".join(devos)
+
+        if project['hosted_loc'].startswith("http://") or project['hosted_loc'].startswith("https://"):
+            hosted = True
+        else:
+            hosted = False
+
+        if session:
+            curr_user = get_user(session['user_id'])
+            if request.method == 'POST':
+                star5 = request.form.get('star5')
+                star4half = request.form.get('star4half')
+                star4 = request.form.get('star4')
+                star3half = request.form.get('star3half')
+                star3 = request.form.get('star3')
+                star2half = request.form.get('star2half')
+                star2 = request.form.get('star2')
+                star1half = request.form.get('star1half')
+                star1 = request.form.get('star1')
+                starhalf = request.form.get('starhalf')
+                if(star5):
+                    updateRating(project_id, star5, session['user_id'])
+                elif(star4half):
+                    updateRating(project_id, star4half, session['user_id'])
+                elif(star4):
+                    updateRating(project_id, star4, session['user_id'])
+                elif(star3half):
+                    updateRating(project_id, star3half, session['user_id'])
+                elif(star3):
+                    updateRating(project_id, star3, session['user_id'])
+                elif(star2half):
+                    updateRating(project_id, star2half, session['user_id'])
+                elif(star2):
+                    updateRating(project_id, star2, session['user_id'])
+                elif(star1half):
+                    updateRating(project_id, star1half, session['user_id'])
+                elif(star1):
+                    updateRating(project_id, star1, session['user_id'])
+                elif(starhalf):
+                    updateRating(project_id, starhalf, session['user_id'])
+            return render_template("editproject.html", split_devos=split_devos, full_username=get_full_username(session['user_id']), first=curr_user['firstname'].title(), starratings=getAvgRating(project_id), project_id=project_id, title=project['title'], project_image=project['image'], team_name=project['team_name'], tags=project['tags'], project_descrip_1=project['intro'], project_descrip_2=project['descrip'], pm_id=pm_id, pm_name=pm_name, devos=devos, repo_link=project['repo'], hosted=hosted, hosted_loc=project['hosted_loc'], team_flag=project['team_flag'], comment_empty=comment_empty)
+
+        return render_template("editproject.html",
+                            split_devos=split_devos,
+                            starratings=getAvgRating(project_id),
+                            project_id=project_id,
+                            title=project['title'],
+                            project_image=project['image'],
+                            team_name=project['team_name'],
+                            tags=project['tags'],
+                            project_descrip_1=project['intro'],
+                            project_descrip_2=project['descrip'],
+                            pm_id=pm_id,
+                            pm_name=pm_name,
+                            devos=devos,
+                            repo_link=project['repo'],
+                            hosted=hosted,
+                            hosted_loc=project['hosted_loc'],
+                            team_flag=project['team_flag'],
+                            comment_empty=comment_empty
+                            )
+    #except:
+     #   return render_template("error.html")
 
 @app.route("/dash", methods=['GET', 'POST'])
 def dash():
