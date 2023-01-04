@@ -1,13 +1,14 @@
-# Smithy: Project Reviewal System by Team Jimin
-### Team Jimin: 
-Alejandro Alonso(PM + Backend Developer)
+# Smithy: Project Reviewal System
 
-Noakai Aronesty(Frontend Developer)
+### Current Devs
+Alejandro Alonso<br>
+Noakai Aronesty<br>
 
-Justin Zou(Frontend Developer)
-
-Ivan Lam(Backend Developer)
-
+### Founding Team (Team Jimin)
+Alejandro Alonso (PM)<br>
+Noakai Aronesty<br>
+Justin Zou<br>
+Ivan Lam<br>
 
 ## Summary
 This is going to be a Software Development Review Site, designed with Mr.Mykolyk's Softdev class in mind. The site will allow teams to upload their projects to the server, rate and comment on these projects. We will have upvoting and downvoting comments and a star system to review the overall project. We hope to add features such as awards, badges and leaderboards to help incentive certain actions and is being built with longevity in mind.
