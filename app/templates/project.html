@@ -272,8 +272,7 @@
             </form>
             <br>
             {% if starratings %}
-            <p><em>Overall Project Rating: </em>{{starratings}}<i class="fa fa-star stroke-transparent"
-                aria-hidden="true"></i></p>
+            <p><em>Overall Project Rating: </em>{{starratings}}<i class="fa fa-star stroke-transparent" aria-hidden="true"></i></p>
             {% else %}
             <p><em>Overall Project Rating: </em>N/A</p>
             {% endif %}
@@ -298,7 +297,7 @@
             <a href="{{ hosted_loc }}" class="btn btn-outline-dark" target="_blank">Hosted Site</a>
             {% endif %}
           </section>
-          <section class="text-center">
+          <section class="text-center border-bottom pb-3 mb-4">
             <h5 style="color:#237677;"><img src="{{ url_for('static', filename='images/thluffy.png') }}" class="rounded-5 shadow-1-strong me-2" height="35" alt="" loading="lazy" />Thluffy's Commentary</h5>
             {% if admin_comment %}
             <h6>{{ admin_comment[0] }}</h6>
@@ -306,6 +305,19 @@
             <h6>No Commentary Yet.</h6>
             {% endif %}
           </section>
+          {% if session['user_id'] and (session['user_id']|int == pm_id|int) %}
+          <section class="text-center">
+            <form method="post" action="/editproject/{{ project_id }}/{{ comment_empty }}">
+              <button class="btn btn-outline-warning btn-block px-5 py-3 text-uppercase"
+                style="width:100%;">Edit Project</button>
+            </form>
+            <form method="post" action="/delete_project" onsubmit="return confirm('Delete project {{title}}?');">
+              <input type="hidden" name="project_id" value="{{project_id}}">
+              <button class="btn btn-outline-danger btn-block px-5 py-3 text-uppercase"
+                style="width:100%;">Delete Project</button>
+            </form>
+          </section>
+          {% endif %}
         </section>
         <!--Section: Sidebar-->
       </div>
@@ -313,16 +325,9 @@
     </div>
     <!--Grid row-->
     <div class="py-5 text-right">
-      {% if session['user_id'] and (session['user_id']|int == pm_id|int) %}
-      <form method="post" action="/delete_project" onsubmit="return confirm('Delete project {{title}}?');">
-        <input type="hidden" name="project_id" value="{{project_id}}">
-        <button class="btn btn-outline-danger btn-block px-5 py-3 text-uppercase"
-          style="width:100%;">Delete Project</button>
-      </form>
-      {% endif %}
+      
     </div>
   </div>
-
 
   <script src="{{ url_for('static', filename='js/updownvote.js') }}"></script>
 </body>
