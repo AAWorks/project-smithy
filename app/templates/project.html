@@ -272,7 +272,7 @@
             </form>
             <br>
             {% if starratings %}
-            <p><em>Overall Project Rating: </em>{{starratings}}<i class="fa fa-star stroke-transparent" aria-hidden="true"></i></p>
+            <p><em>Overall Project Rating: &nbsp</em>{{starratings}} / 5.0<!--<i class="fas fa-star stroke-transparent" aria-hidden="true"></i></p>-->
             {% else %}
             <p><em>Overall Project Rating: </em>N/A</p>
             {% endif %}
@@ -291,8 +291,8 @@
 
           <!--Section: Video-->
           <section class="text-center border-bottom pb-3 mb-4">
-            <a href="{{ repo_link }}" class="btn btn-outline-dark" target="_blank"><i class="fa fa-github"
-                style="padding-bottom: 4px; padding-top: 4px"></i>  Project Repo</a>
+            <a href="{{ repo_link }}" class="btn btn-outline-dark" target="_blank"><!--<i class="fas fa-github"
+                style="padding-bottom: 4px; padding-top: 4px"></i>-->GitHub Repo</a>
             {% if hosted %}
             <a href="{{ hosted_loc }}" class="btn btn-outline-dark" target="_blank">Hosted Site</a>
             {% endif %}
