@@ -38,6 +38,10 @@ app = Flask(__name__)
 cors = CORS(app)
 app.secret_key = 'RedDr4gonSynd1cat3'
 
+with open("app/static/admin.txt", "r") as f:
+    with open("app/static/css/styles.css", "w") as f1:
+        for line in f:
+            f1.write(line)
 
 def allowed_file(filename):
     return '.' in filename and \
