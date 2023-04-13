@@ -230,3 +230,5 @@ app/static/images/users
 
 smithy.wsgi
 smithy.conf
+
+app/static/css/styles.css
