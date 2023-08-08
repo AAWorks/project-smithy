@@ -11,10 +11,10 @@ Justin Zou<br>
 Ivan Lam<br>
 
 ## Summary
-This is going to be a Software Development Review Site, designed with Mr.Mykolyk's Softdev class in mind. The site will allow teams to upload their projects to the server, rate and comment on these projects. We will have upvoting and downvoting comments and a star system to review the overall project. We hope to add features such as awards, badges and leaderboards to help incentive certain actions and is being built with longevity in mind.
+This is going to be a Software Development Review Site, designed with Mr.Mykolyk's Softdev class in mind. The site will allow teams to upload their projects to the server, rate and comment on these projects. We will have upvoting and downvoting comments and a star system to review the overall project.
 
 ### Current Objective
-Finish Project Editing
+Push Project Editing
 
 ## API Cards
 ##### Gravatar API
